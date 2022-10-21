@@ -6,3 +6,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+@font-face {
+  font-family: "DesignerGenes";
+  /*Can be any text*/
+  src: url(".././public/fonts/DesignerGenes.ttf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "MatissePro";
+  /*Can be any text*/
+  src: url(".././public/fonts/MatissePro.otf") format("otf");
+}
