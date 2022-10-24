@@ -41,9 +41,9 @@ export function BuildThemeProvider({children}){
 export const BuildStyles = {
     [0] : {
         main: '#1B41A8',
-        accent: '#F97B39',
+        accent: '#CC5938',
          btn: '#FCFDFA',
-         btnText: '#F97B39'
+         btnText: '#CC5938'
     },
     [1] : {
         main: '#381C6E',
@@ -58,5 +58,17 @@ export const BuildStyles = {
          btnText: '#FCFDFA'
     },
 
+    maxWidth : '1400px',
+    transitionStyleTop: '.25s ease-in',
+    transitionStyleMid: '.55s ease-in',
+    transitionStyleBottom: '.8s cubic-bezier(1,.02,.25,.5)',
+    letterSpacingDG: '.1rem',
+    breakpoint: {
+        xs: '400px',
+        sm: '576px',
+        md: '767px',
+        lg: '1000px',
+        xl: '1400px',
+    }
 
 }
