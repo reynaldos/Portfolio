@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 
 `
 const Text = styled.h3`
-    font-size: 20px;
+    font-size: 1.2rem;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;

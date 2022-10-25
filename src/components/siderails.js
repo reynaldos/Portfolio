@@ -87,6 +87,14 @@ const IconWrap = styled.div`
     display: grid;
     place-items: center;
 
+     transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    &:hover{
+        transform-origin:  center;
+        transform: translateY(-.5rem) scale(1.2);
+        
+    }
+
 
 `
 
@@ -95,18 +103,31 @@ const Line = styled.div`
     width: 4px;
     border-radius: 4px;
     background-color:  ${props => props.theme[props.currentBuild].accent};
-    transition: background-color ${props => props.theme.transitionStyleBottom};
+    transition: 
+        background-color ${props => props.theme.transitionStyleBottom};
 `
 
 const EmailWrap = styled.div`
     width: 100%;
+    height: 100%;
+    transition: transform .3s ease;
+
+    &:hover{
+        transform-origin:  center;
+        transform: translateY(-.5rem) scale(1.05);
+        
+    }
+
    
 `
 
 const Email = styled.h6`
+    /* font-size: .8rem; */
     color:  ${props => props.theme[props.currentBuild].accent};
     transition: color ${props => props.theme.transitionStyleBottom};
     /* transform-origin: 0 100%; */
-    text-align: right;
-    transform: translateY(50%) rotate(90deg);
+    /* text-align: left; */
+    transform: translateY(-50%) rotate(90deg);
+        letter-spacing: .1rem;
+
 `

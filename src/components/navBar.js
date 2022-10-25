@@ -7,28 +7,48 @@ import { SocialIcons } from './socials';
 
 const navTransitonTime = .8;
 
-export const NavBar = ({currentBuild,onClick}) => {
+export const NavBar = ({currentBuild,onClick,props}) => {
 
     const [navStatus, setNavStatus] = useState('default');
 
+     const checkResize = () => {
+        console.log('check')
+        console.log(navStatus)
+        if(navStatus === 'open' && window.innerWidth > 576){
+            toggleNav(true);
+        }
 
-    // useEffect(() => {
+    }
 
-    // window.addEventListener("", mouseMove);
+    useEffect(() => {
 
-    // return () => {
-    //     window.removeEventListener("mousemove", mouseMove);
-    // }
-    // }, []);
+        window.addEventListener('resize', checkResize);
 
-    const toggleNav = () =>{
-        if (navStatus === 'default'){
-            setNavStatus('open');
-        }else if(navStatus === 'open'){
+         return () => {
+            window.removeEventListener('resize', checkResize);
+        }
+    });
+
+
+   
+   
+
+    const toggleNav = (windowChange) =>{
+
+        if (!windowChange){
+            if (navStatus === 'default'){
+                setNavStatus('open');
+            }else if(navStatus === 'open'){
+                setNavStatus('close');
+                setTimeout(() => {
+                    setNavStatus('default');
+                }, 700);   
+            }
+        }else{
             setNavStatus('close');
-            setTimeout(() => {
+                setTimeout(() => {
                 setNavStatus('default');
-            }, 700);   
+            }, 700); 
         }
     }
 
@@ -105,7 +125,7 @@ export const NavBar = ({currentBuild,onClick}) => {
                 
                     
                     {/* mobile view */}
-                    <HamburgerWrap onClick={toggleNav}>
+                    <HamburgerWrap onClick={(e)=>toggleNav(false)}>
                         <HamburgerLine 
                             status={navStatus}
                             currentBuild={currentBuild}/>
@@ -144,20 +164,28 @@ export const NavBar = ({currentBuild,onClick}) => {
             <Metal/>
 
             <TopWrap>
-                <NavBtn currentBuild={currentBuild}>
-                    <BtnText currentBuild={currentBuild}>
+                <NavBtn mobileNav={true} currentBuild={currentBuild}>
+                    <BtnText mobileNav={true} currentBuild={currentBuild}>
                         Home
                     </BtnText>
                 </NavBtn>
                 {Data.nav.map((navItem,i)=>{
-                        return <NavBtn key={i} currentBuild={currentBuild}>
-                                    <BtnText currentBuild={currentBuild}>
+                        return <NavBtn key={i} mobileNav={true} currentBuild={currentBuild}>
+                                    <BtnText mobileNav={true} currentBuild={currentBuild}>
                                         {navItem.title}
                                     </BtnText>
                                 </NavBtn>
                         
                     })}
 
+                
+                <AccentBtnWrap nav={true} status={navStatus}>
+                    <AccentButton
+                        text={`Build-0${currentBuild}`}
+                        currentBuild={currentBuild} 
+                        onClick={onClick}
+                    />
+                </AccentBtnWrap>
             </TopWrap>
         </TopContainer>
 
@@ -257,10 +285,8 @@ const NavBtnWrap = styled.div`
     height: 100%;
     width: 80%;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin: auto;
-
-
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
         transform: all .5 ease;
@@ -272,16 +298,40 @@ const NavBtnWrap = styled.div`
 
 const NavBtn = styled.div`
     height: min-content;
-    padding: .5rem .8rem;
+    padding: .3rem .8rem;
     background-color: ${props => props.theme[props.currentBuild].btn};
-    transition: background-color ${props => props.theme.transitionStyleTop};
+    transition: 
+        transform .25s ease,
+        background-color ${props => props.theme.transitionStyleTop};
     border-radius: 1.5px;
     border: 1px black solid;
     width: 25%;
 
+
+     ${props => props.mobileNav ? `
+
+        &:nth-child(1){
+            margin-top:calc(48px + 1rem);
+        }
+
+        width: 75%;
+        margin: .5rem auto;
+        padding: 1rem .8rem;
+
+        &:hover{
+            transform-origin:center;
+            transform: skew(-15deg) scale(1.05);
+        }
+       
+    `:`
+        
+    `}
+
 `
 
 const BtnText = styled.h2`
+    width: min-content;
+    margin: auto;
     text-transform: uppercase;
     font-size: 1rem;
     text-align: center;
@@ -289,19 +339,35 @@ const BtnText = styled.h2`
     -webkit-text-stroke-width: ${props => (props.currentBuild !== 1 ? '.5px' : '0')};
     -webkit-text-stroke-color:  ${props => (props.currentBuild !== 1 ? 'black' : '')};
     transition: all ${props => props.theme.transitionStyleTop};
+
+    ${props => props.mobileNav? `
+        font-size: 1.2rem;
+        text-align: left;
+        margin: auto .5rem;
+    `:`
+        
+    `}
 `
 
 
 const AccentBtnWrap = styled.div`
-    position:fixed;
-    top:  ${props=> props.status === 'open'? 'auto' : 'calc(1rem + 64px)'}  ;
-    bottom:  ${props=> props.status === 'open'? '30%' : 'auto'}  ;
-
     right: 0%;
     margin: 1rem;
-    transition: all 1s ease-in;
+    transition: right .6s ease;
 
+     ${props => props.status === 'open'? `
+        right:-100%;
+     `:``}
 
+    ${props => props.nav? `
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        right: 0%;
+    `:`
+        position:fixed;
+        top: calc(1rem + 64px);
+    `}
 `
 
 
@@ -336,7 +402,7 @@ const HamburgerLine = styled.span`
     background-color: ${props => props.theme[props.currentBuild].btn};
     border-radius: 4px;
      /* border: .5px black solid; */
-    transition: all .5s ease,background-color ${props => props.theme.transitionStyleTop};
+    transition: opacity .2s ease,transform .5s ease, background-color ${props => props.theme.transitionStyleTop};
 
     &:nth-child(2){
         width: 75%;
@@ -353,6 +419,8 @@ const HamburgerLine = styled.span`
 
         &:nth-child(2){
             opacity:0;
+            width: 0%
+
         }
 
         &:nth-child(3){
@@ -393,13 +461,14 @@ const TopContainer = styled(motion.div)`
 `
 
 const TopWrap= styled.div`
+    position: relative;
     width: 100vw;
     margin: 0 auto;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 `
 
 // ////////// bottom nav styling // /////////////        
@@ -430,13 +499,22 @@ const BottomWrap = styled.div`
 `
 
 const EmailWrap = styled.div`
-    width: 100%;
+    margin: 1rem auto;
     height: 2rem;
+    width: min-content;
     /* background-color: green; */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: .5rem 0;
+    padding: .5rem 3rem;
+
+     transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    &:hover{
+        /* transform-origin:  center; */
+        transform: translateY(-.3rem) scale(1.05, 1.05);
+        
+    }
 `
 
 
@@ -462,16 +540,20 @@ const SocialWrap = styled.div`
 const IconWrap = styled.div`
     height: 100%;
     width: calc(100vw/ 5);
+    z-index: 10;
     /* outline: 1px black solid; */
     display: grid;
     place-items: center;
+   transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    &:hover{
+        transform-origin:  center;
+        transform: translateY(-.4rem) scale(1.2);
+        
+    }
 
 `
 
-const Icon = styled.img`
-    color: ${props => props.theme[props.currentBuild].accent};
-
-`
 
 
 
