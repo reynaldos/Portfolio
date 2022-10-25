@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Data } from './data';
-import { SocialIcons } from './socials';
+import { SVGicons } from './icons';
 
 
 export const SideRails = ({currentBuild}) => {
@@ -12,7 +12,7 @@ export const SideRails = ({currentBuild}) => {
             <Holder>
                 {Data.socials.map((item, index)=>{
                     return <IconWrap key={index}>
-                            <SocialIcons 
+                            <SVGicons 
                                 currentBuild={currentBuild}
                                 index={index}/>
                 </IconWrap>
@@ -104,8 +104,8 @@ const IconWrap = styled.div`
 
 const Line = styled.div`
     height: 10%;
-    width: 4px;
-    border-radius: 4px;
+    width: 2px;
+    border-radius: 2px;
     background-color:  ${props => props.theme[props.currentBuild].accent};
     transition: 
         background-color ${props => props.theme.transitionStyleBottom};
