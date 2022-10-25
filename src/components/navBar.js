@@ -310,12 +310,19 @@ const NavBtn = styled.div`
      ${props => props.mobileNav ? `
 
         &:nth-child(1){
-            margin-top:calc(48px + 1rem);
+            margin-top:calc(48px + 3rem);
         }
 
         width: 75%;
         margin: .5rem auto;
         padding: 1rem .8rem;
+
+        @media screen and (max-height: 600px){
+            padding: .5rem .8rem;
+              width: 65%;
+              max-width: 250px;
+
+        } 
 
         &:hover{
             transform-origin:center;
@@ -343,6 +350,11 @@ const BtnText = styled.h2`
         font-size: 1.2rem;
         text-align: left;
         margin: auto .5rem;
+
+         @media screen and (max-height: 600px){
+            font-size: 1em;
+
+        } 
     `:`
         
     `}
@@ -467,7 +479,8 @@ const TopWrap= styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; 
+    justify-content: flex-start; 
+   
 `
 
 // ////////// bottom nav styling // /////////////        

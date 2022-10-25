@@ -40,18 +40,22 @@ const Wrapper = styled.div`
 
 `
 const Text = styled.h3`
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
+    padding-top: 0.05rem;
+
     color:  ${props => props.theme[props.currentbuild].accent};
-    transition: color ${props => props.theme.transitionStyleMid}, letter-spacing .3s ease-in;
+    transition: 
+        font-size .1s ease,
+        color ${props => props.theme.transitionStyleMid}, letter-spacing .3s ease-in;
     letter-spacing: .1rem;
 
-    @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
+    /* @media screen and (max-width: ${props => props.theme.breakpoint.xl}){
         font-size: .8rem;
 
-    } 
+    }  */
 
 
 `

@@ -54,6 +54,10 @@ const Container = styled.section`
        bottom: calc(64px * -8);
     } 
 
+    @media screen and (max-height: 550px){
+        bottom: calc(64px * -8);
+    } 
+
      @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
        left: ${props => props.side === 'left' ? 'calc(50% - 675px)' : ''};
        right: ${props => props.side === 'right' ? 'calc(50% - 675px )' : ''};
