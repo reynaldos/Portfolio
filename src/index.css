@@ -8,7 +8,7 @@
   padding: 0;
   cursor: none;
   font-weight: normal;
-  
+    /* outline: 1px black solid; */
   /* box-sizing: ; */
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;

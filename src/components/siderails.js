@@ -51,7 +51,7 @@ const Container = styled.section`
     transition:  bottom  .5s ease;
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
-       bottom: -100%;
+       bottom: calc(64px * -8);
     } 
 
      @media screen and (min-width: ${props => props.theme.breakpoint.xl}){

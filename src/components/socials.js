@@ -6,12 +6,15 @@ export const SocialIcons = ({index,currentBuild}) => {
 
 
   return (
+    <Wrapper>
+
+   
   <CustomSVG 
     currentBuild={currentBuild}
-    width="34" 
-    height="34" 
-    viewBox="0 0 34 34" 
-    fill="none" xmlns="http://www.w3.org/2000/svg">
+    x="" y="" width="34" height="34" 
+    viewBox='0 0 34 34'
+  
+    fill="none" >
     
     {/* github */}
     {index === 0 && <>
@@ -53,13 +56,26 @@ export const SocialIcons = ({index,currentBuild}) => {
     </>}
 
   </CustomSVG>
+   </Wrapper>
   )
 }
 
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+   
+`
+
 const CustomSVG = styled.svg`
+ height:100%;
+
   transition: stroke ${props => props.theme.transitionStyleBottom};
   stroke: ${props => props.theme[props.currentBuild].accent};
+  
 `
 
 const CustomPath = styled.path`

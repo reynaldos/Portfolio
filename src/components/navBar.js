@@ -12,8 +12,8 @@ export const NavBar = ({currentBuild,onClick,props}) => {
     const [navStatus, setNavStatus] = useState('default');
 
      const checkResize = () => {
-        console.log('check')
-        console.log(navStatus)
+        // console.log('check')
+        // console.log(navStatus)
         if(navStatus === 'open' && window.innerWidth > 576){
             toggleNav(true);
         }
@@ -110,7 +110,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
 
                 <NavDesktop 
                     currentBuild={currentBuild}>
-            <Metal/>
+            {/* <Metal/> */}
 
                     <NavBtnWrap>
                         {Data.nav.map((navItem,i)=>{
@@ -161,7 +161,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                 variants={topVariants}
                 transition={{ duration: navTransitonTime }}
                 >
-            <Metal/>
+            {/* <Metal/> */}
 
             <TopWrap>
                 <NavBtn mobileNav={true} currentBuild={currentBuild}>
@@ -196,7 +196,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
             transition={{ duration: navTransitonTime }}
             >
             
-            <Metal/>
+            {/* <Metal/> */}
 
             <BottomWrap>
                 <EmailWrap>
@@ -231,7 +231,6 @@ const Container = styled.nav`
     margin-top: 1rem;
     z-index: 50;
 
-   
 `
 
 const Wrapper = styled.div`
@@ -444,7 +443,7 @@ const HamburgerLine = styled.span`
 
 // ////////// top nav styling // /////////////        
 
-const TopContainer = styled(motion.div)`
+const TopContainer = styled(motion.nav)`
     position: fixed;
     width: 120vw;
     height: 70%;
@@ -479,12 +478,12 @@ const BottomContainer = styled(motion.nav)`
     top: 70%;
     width: 120vw;
     height: 30%;
-    clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
-    -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
+    /* clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
+    -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%); */
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
-
+    background-color: ${props => props.theme[props.currentbuild].main};
 
 `
 
@@ -541,7 +540,7 @@ const IconWrap = styled.div`
     height: 100%;
     width: calc(100vw/ 5);
     z-index: 10;
-    /* outline: 1px black solid; */
+    outline: 1px black solid;
     display: grid;
     place-items: center;
    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);

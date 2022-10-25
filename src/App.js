@@ -36,17 +36,13 @@ export const App = () => {
         placeItems:'center',
         position:'absolute',
         zIndex: '10'}}>
-          <NavBar 
-          currentBuild={currentBuild}
-          onClick={colorChangeLogic} 
-          />
+
+          <NavBar currentBuild={currentBuild}
+            onClick={colorChangeLogic} />
 
           <SideRails currentBuild={currentBuild}/>
 
-
           <Title currentBuild={currentBuild}>Rey Sanchez</Title>
-
-
         </div>
 
       <Metal/>
@@ -96,7 +92,7 @@ const Box = styled.div`
     position: relative;
     overflow: hidden;
     width: 100%;
-  height:100vh;
+    height:100vh;
 `
 
 const Changer = styled.span`
@@ -125,7 +121,7 @@ const Rest = styled.span`
   width: 100%;
   height: 100%;
   background-color: ${props => props.theme[props.currentBuild].main};
-  transition: background-color 2 ease-in;
+  transition: background-color 2s ease-in;
   z-index: 1;
   animation: change 1s 1;
 
