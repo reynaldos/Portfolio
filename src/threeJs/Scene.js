@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import * as THREE from "three";
-import  FBXLoader  from "three-fbx-loader"
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as shader from "./Shaders/Shader";
+
+import { GUI } from 'dat.gui';
+
 
 class Scene extends Component {
   constructor(props) {
@@ -17,7 +20,7 @@ class Scene extends Component {
     this.setupScene = this.setupScene.bind(this);
     this.destroyContext = this.destroyContext.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.LoadAnimatedModelAndPlay = this.LoadAnimatedModelAndPlay.bind(this)
+
   }
 
   componentWillMount() {
@@ -39,7 +42,7 @@ class Scene extends Component {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.scene = new THREE.Scene();
-
+    this.scene.background = new THREE.Color( 0xffffff );  
     this.camera = new THREE.PerspectiveCamera(
       70,
       window.innerWidth / window.innerHeight,
@@ -56,6 +59,14 @@ class Scene extends Component {
   }
 
     addObjects() {
+
+      // initialize gui
+    const gui = new GUI();
+
+    // main group
+    const mainGroup = new THREE.Group();
+    mainGroup.position.y = 0.5;
+    this.scene.add(mainGroup);
 
     this.material = new THREE.ShaderMaterial({
       extensions: {
@@ -77,60 +88,39 @@ class Scene extends Component {
 
 
 
-    this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+    // this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+    // this.plane = new THREE.Mesh(this.geometry, this.material);
+    // this.scene.add(this.plane);
 
-    this.plane = new THREE.Mesh(this.geometry, this.material);
-    this.scene.add(this.plane);
 
-    let light = new THREE.DirectionalLight(0xFFFFFF);
-    light.position.set(20, 100, 10);
-    light.target.position.set(0, 0, 0);
-    light.castShadow = true;
-    light.shadow.bias = -0.001;
-    light.shadow.mapSize.width = 2048;
-    light.shadow.mapSize.height = 2048;
-    light.shadow.camera.near = 0.1;
-    light.shadow.camera.far = 500.0;
-    light.shadow.camera.near = 0.5;
-    light.shadow.camera.far = 500.0;
-    light.shadow.camera.left = 100;
-    light.shadow.camera.right = -100;
-    light.shadow.camera.top = 100;
-    light.shadow.camera.bottom = -100;
-    this.scene.add(light);
+    let loadedModel;
+    const glftLoader = new GLTFLoader();
+    glftLoader.load('./assets/corridor1/scene.gltf', (gltfScene) => {
+      loadedModel = gltfScene;
+      // console.log(loadedModel);
 
-    light = new THREE.AmbientLight(0xFFFFFF);
-    this.scene.add(light);
-
-        this.LoadAnimatedModelAndPlay(
-      './Assets/panels/',
-      'Paneles_Low_Animation.fbx',
-      // 'Paneles_Low_Animation.fbx',
-      new THREE.Vector3(0, 0, 0))
-  }
-
-  LoadAnimatedModelAndPlay(path, modelFile, animFile, offset) {
-    const loader = new FBXLoader();
-    // loader.setPath(path);
-    console.log(path+modelFile)
-    loader.load(path+modelFile, (fbx) => {
-      fbx.scale.setScalar(1);
-      fbx.traverse(c => {
-        c.castShadow = true;
-      });
-      fbx.position.copy(offset);
-
-      const anim = new FBXLoader();
-      anim.setPath(path);
-      anim.load(animFile, (anim) => {
-        const m = new THREE.AnimationMixer(fbx);
-        this._mixers.push(m);
-        const idle = m.clipAction(anim.animations[0]);
-        idle.play();
-      });
-      this.scene.add(fbx);
+      gltfScene.scene.rotation.y = Math.PI / 8;
+      gltfScene.scene.position.y = 3;
+      // gltfScene.scene.scale.set(.5, .5, .5);
+      this.scene.add(gltfScene.scene);
     });
+
+
+      // ambient light which is for the whole scene
+    this.ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    // this.ambientLight.castShadow = true;
+    this.scene.add(this.ambientLight);
+
+    // directional light - parallel sun rays
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 6);
+    // this.directionalLight.castShadow = true;
+    this.directionalLight.position.set(0, 32, 0);
+    this.scene.add(this.directionalLight);
+
+
   }
+
+
 
   computeBoundingBox() {
     // let offset = 1.6;
