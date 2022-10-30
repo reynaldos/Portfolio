@@ -40,22 +40,22 @@ export function BuildThemeProvider({children}){
 
 export const BuildStyles = {
     [0] : {
-        main: '#1B41A8',
+        main: '#1B41A8DA',
         accent: '#CC5938',
          btn: '#FCFDFA',
          btnText: '#CC5938'
     },
     [1] : {
-        main: '#381C6E',
+        main: '#371C6EDA',
         accent: '#FEAC4A',
         btn: '#BCD167',
          btnText: '#221A2B'
     },
     [2] : {
-        main: '#99221B',
+        main: '#99221BDA',
         accent: '#96BA35',
-         btn: '#FEAC4A',
-         btnText: '#FCFDFA'
+        btn: '#FEAC4A',
+        btnText: '#FCFDFA'
     },
 
     maxWidth : '1400px',
