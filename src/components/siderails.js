@@ -40,7 +40,6 @@ export const SideRails = ({currentBuild}) => {
 }
 
 const Container = styled.section`
-    /* background-color: aliceblue; */
     position: fixed;
     bottom: 0;
     margin: 0 1rem;
@@ -49,6 +48,7 @@ const Container = styled.section`
     right: ${props => props.side === 'right' ? '0' : ''};
     left: ${props => props.side === 'left' ? '0' : ''};
     transition:  bottom  .5s ease;
+    z-index: 20;
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
        bottom: calc(64px * -8);
@@ -58,13 +58,13 @@ const Container = styled.section`
         bottom: calc(64px * -8);
     } 
 
-     @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
+     /* @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
        left: ${props => props.side === 'left' ? 'calc(50% - 675px)' : ''};
        right: ${props => props.side === 'right' ? 'calc(50% - 675px )' : ''};
        transform:  ${props => props.side === 'left' ? 'translate(-50%)' : 'translate(50%)'};
 
 
-    } 
+    }  */
 `
 
 const Wrap = styled.div`

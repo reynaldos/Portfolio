@@ -1,8 +1,8 @@
 
 export const Data = {
     nav: [
-        { title: 'work' , link: './' },
         { title: 'about' , link: './' },
+        { title: 'work' , link: './' },
         { title: 'resume' , link: './' },
     ],
     socials:[

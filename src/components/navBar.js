@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Data } from './data';
 import { AccentButton } from './accentButton';
-import { SocialIcons } from './socials';
+import { SVGicons } from './icons';
 
 const navTransitonTime = .8;
 
@@ -42,13 +42,13 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                 setNavStatus('close');
                 setTimeout(() => {
                     setNavStatus('default');
-                }, 700);   
+                }, 1000);   
             }
         }else{
             setNavStatus('close');
                 setTimeout(() => {
                 setNavStatus('default');
-            }, 700); 
+            }, 1000); 
         }
     }
 
@@ -155,6 +155,8 @@ export const NavBar = ({currentBuild,onClick,props}) => {
         </Container>
 
         {/* /////// nav menu mobile //////////*/}
+
+
           <TopContainer 
                 currentbuild={currentBuild}
                 animate={navStatus}
@@ -206,7 +208,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                 <SocialWrap>
                     {Data.socials.map((item,i)=>{
                         return <IconWrap key={i}>
-                                <SocialIcons 
+                                <SVGicons 
                                     index={i}
                                     currentBuild={currentBuild}
                                     />
@@ -237,11 +239,16 @@ const Wrapper = styled.div`
     position: relative;
     margin: auto auto;
     height: 100%;
-    max-width: ${props => props.theme.maxWidth};
-
+    /* margin: auto 1rem; */
+    /* max-width: ${props => props.theme.maxWidth}; */
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+
+      @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
+        margin: auto 1rem;
+    } 
 `
 
 const LogoWrap = styled.div`
@@ -465,8 +472,6 @@ const TopContainer = styled(motion.nav)`
     background-color:  ${props => (props.currentbuild === 0 ? '#A5B091' : props.theme[props.currentbuild].btnText)};
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
-    clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
-
     transition: background-color ${props => props.theme.transitionStyleTop};
 
 `
@@ -487,12 +492,11 @@ const TopWrap= styled.div`
 
 const BottomContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
+    -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     position: fixed;
     top: 70%;
     width: 120vw;
     height: 30%;
-    /* clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
-    -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%); */
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
@@ -553,7 +557,7 @@ const IconWrap = styled.div`
     height: 100%;
     width: calc(100vw/ 5);
     z-index: 10;
-    outline: 1px black solid;
+    /* outline: 1px black solid; */
     display: grid;
     place-items: center;
    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
@@ -569,17 +573,17 @@ const IconWrap = styled.div`
 
 
 
-const Metal = styled.div`
-    position: absolute;
-    width: 120vw;
-    height: 100vh;
-    /* left: 8%; */
-    background-image: url('./assets/metal.jpg');
-    background-repeat: repeat-x;
-    background-position: center; 
-    background-size: auto 100vh ;
-    /* z-index: 49; */
-    opacity: .1;
-    background-color: transparent;
-`
+// const Metal = styled.div`
+//     position: absolute;
+//     width: 120vw;
+//     height: 100vh;
+//     /* left: 8%; */
+//     background-image: url('./assets/metal.jpg');
+//     background-repeat: repeat-x;
+//     background-position: center; 
+//     background-size: auto 100vh ;
+//     /* z-index: 49; */
+//     opacity: .1;
+//     background-color: transparent;
+// `
 
