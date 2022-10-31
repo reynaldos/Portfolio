@@ -50,7 +50,7 @@ const Text = styled.h3`
     transition: 
         font-size .1s ease,
         color ${props => props.theme.transitionStyleMid}, letter-spacing .3s ease-in;
-    letter-spacing: .1rem;
+
 
     /* @media screen and (max-width: ${props => props.theme.breakpoint.xl}){
         font-size: .8rem;

@@ -85,6 +85,7 @@ const Changer = styled.span`
   background-color: black;
   /* transition: all .8s ease-in; */
   z-index: 1000;
+   top: -105%;
   animation: change 1s 1;
 
   @keyframes change {
@@ -119,9 +120,9 @@ const Rest = styled.span`
    top: 0%;
   }
 
-  10%{
+  /* 10%{
     top: 0%;
-  }
+  } */
 
   100% {
    top:100%;
