@@ -126,7 +126,7 @@ const Wrappper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin:  4rem;
+  margin:  4rem 4rem 2rem 4rem;
 
   @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
         height: min-content;
@@ -233,6 +233,11 @@ const BubbleBtn = styled.input`
     }
 
 
+     transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+&:hover{
+        transform-origin:center;
+       transform: translateY(-.2rem) scale(1.1);
+    }
 `
 
 
@@ -330,7 +335,7 @@ const PhotoWrap = styled.div`
   width: 78%;
   aspect-ratio: 1.25/1;
   overflow: hidden;
-  background-color: red;
+  /* background-color: red; */
 
 
   @media screen and (max-width: ${props => props.theme.breakpoint.xs}){

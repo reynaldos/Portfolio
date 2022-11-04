@@ -42,7 +42,7 @@ export const SideRails = ({currentBuild}) => {
 const Container = styled.section`
     position: fixed;
     bottom: 0;
-    margin: 0 1rem;
+    margin: 0 .5rem;
     width: 48px;
     height: calc(64px * 5);
     right: ${props => props.side === 'right' ? '0' : ''};
@@ -108,7 +108,7 @@ const Line = styled.div`
     border-radius: 2px;
     background-color:  ${props => props.theme[props.currentBuild].accent};
     transition: 
-        background-color ${props => props.theme.transitionStyleBottom};
+    background-color ${props => props.theme.transitionStyleBottom};
 `
 
 const EmailWrap = styled.div`

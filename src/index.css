@@ -8,7 +8,7 @@
   padding: 0;
   cursor: none;
   /* font-weight: normal; */
-  /* outline: 1px black solid; */
+  /* outline: .5px red solid; */
   /* box-sizing: ; */
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
@@ -32,6 +32,10 @@
 
 /* titles */
 h1 {
+  font-family: 'MatissePro';
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  font-weight: bold;
   -webkit-transform: scale(1, 1.8);
   -moz-transform:scale(1, 1.8);
   -o-transform: scale(1, 1.8);
