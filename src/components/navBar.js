@@ -313,6 +313,11 @@ const NavBtn = styled.div`
     border: 1px black solid;
     width: 25%;
 
+    &:hover{
+        transform-origin:center;
+        transform: scale(1.05);
+    }
+
 
      ${props => props.mobileNav ? `
 
@@ -500,7 +505,7 @@ const BottomContainer = styled(motion.nav)`
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
-    background-color: ${props => props.theme[props.currentbuild].main};
+    background-color: ${props => props.theme[props.currentbuild].mainNav};
 
 `
 
@@ -564,8 +569,7 @@ const IconWrap = styled.div`
 
     &:hover{
         transform-origin:  center;
-        transform: translateY(-.4rem) scale(1.2);
-        
+        transform: translateY(-.4rem) scale(1.2); 
     }
 
 `
