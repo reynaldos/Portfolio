@@ -109,13 +109,13 @@ export const About = ({currentBuild}) => {
 }
 
 const Container = styled.section`
-    min-height:700px;  
     width: 100%;
     display: grid;
     place-items: center;
     z-index: 15;
     overflow-x: hidden;
     position:relative;
+    margin-top: 3rem;
 `
 
 
@@ -126,7 +126,9 @@ const Wrappper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin:  4rem 4rem 2rem 4rem;
+  margin:  4rem 4rem 0rem 4rem;
+  /* background-color: red; */
+
 
   @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
         height: min-content;
@@ -138,7 +140,7 @@ const Wrappper = styled.div`
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
         width: 100%;
-        margin: 4rem auto;
+        margin: 4rem auto 1rem auto;
     } 
 
 `
@@ -249,8 +251,12 @@ const BioWrap = styled.div`
 
   @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
       width: 100%;
+     height: min-content;
+
   } 
 
+  @media screen and (max-width: calc(${props => props.theme.breakpoint.xs})){
+  } 
 
 `
 const BioText = styled.p`
@@ -297,7 +303,6 @@ const PortraitWrap = styled.div`
     @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
         width: 160%;
         max-width: none;
-
 
     } 
   

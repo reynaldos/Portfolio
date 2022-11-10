@@ -42,7 +42,6 @@ export const reducer = (state,action) => {
         }
 
         stack.push(newIndex);
-        console.log(newIndex)
       return {
         ...state,
         index: newIndex,

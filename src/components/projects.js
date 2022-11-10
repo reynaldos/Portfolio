@@ -168,6 +168,7 @@ const BuildWrapper = styled.section`
 
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
         background-color:  ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)};
+        transition: background-color ${props => props.theme.transitionStyleMid};
         
         
     } 
@@ -223,7 +224,8 @@ const Screw = styled.div`
     display: grid;
     place-content: center;
     transform: rotate(0deg);
-    transition: transform 1s ease;
+    transition: transform 1s ease,
+                background-color ${props => props.theme.transitionStyleMid};
     z-index: 15;
 
 
@@ -289,9 +291,10 @@ const TextWrap = styled.div`
     /* background-color: rgba(0,0,255,.5); */
     pointer-events: none;
 
+    
 
     ${props => props.side === 'right' ? `
-       transform: translateX(70%);
+       transform: translateX(90%);
 
     `:''};
 
@@ -350,6 +353,14 @@ const Title = styled.h1`
     order: 1;
 
 
+    ${props => props.side === 'right' ? `
+        width: 200px;
+
+    `:''};
+
+
+
+
     @media screen and (min-width: ${props => props.theme.breakpoint.lg}){
         font-size: 1.6rem;
         line-height: 1.4rem;
@@ -359,7 +370,7 @@ const Title = styled.h1`
 
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
         color: ${props => props.currentBuild === 2 ? 'black' : 'white'};
-
+        transition: color ${props => props.theme.transitionStyleMid};
         transform-origin: top left;
         font-size: 1.5rem;
         margin-top: 1rem;
@@ -419,6 +430,8 @@ const StackText = styled.p`
     margin-right: 1rem;
     font-weight: normal;
     color: white;
+     transition: color ${props => props.theme.transitionStyleMid};
+
 
 
     /* ${props => props.side === 'right' ? `
