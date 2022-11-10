@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import {useBuildTheme,useBuildUpdate} from './ThemeContext';
 import { MouseCursor } from './components/mouse';
@@ -7,12 +7,45 @@ import {SideRails} from './components/siderails';
 import { Landing } from './components/landing';
 import { About } from './components/about';
 import { Projects } from './components/projects';
+import { LoadingScreen } from './components/loading';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
+
+const loadTime = 6000;
 
 export const App = () => {
     const currentBuild = useBuildTheme();
     const toggleBuild = useBuildUpdate();
     const [change, setChange] = useState([false, currentBuild]);
+    const [isLoading, setIsLoading] = useState(process.env.REACT_APP_SHOW_LOADING);
+
+    var targetElement = null;
+
+    useEffect(()=>{
+
+      targetElement = document.querySelector('#root');
+      disableBodyScroll(targetElement);
+
+      setTimeout(() => {
+       
+        if (document.readyState === "complete") {
+            console.log('page already loaded');
+            finishLoading();
+              
+        } else {
+            console.log('page not loaded')
+            window.addEventListener("load", finishLoading);
+        }
+
+      }, 5750);
+    }, [])
+
+    const finishLoading = () => {
+        console.log('close loading')
+        enableBodyScroll(targetElement);
+        setIsLoading(false);
+    }
+
 
     const colorChangeLogic = ()=>{
       if (!change[0]){
@@ -26,11 +59,14 @@ export const App = () => {
     }
 
     return (
+      
       <> 
       {/* mouse shape */}
       <MouseCursor/>
 
-      <Content currentBuild={currentBuild}>
+     {isLoading && <LoadingScreen/>}
+     
+     <Content currentBuild={currentBuild}>
           <div style={{
                 backgroundColor:`${props => props.theme[props.currentBuild].main}`,
                 zIndex: '12'
@@ -135,20 +171,20 @@ const Rest = styled.span`
 `
 
 
-const Metal = styled.div`
-  position: absolute;
+// const Metal = styled.div`
+//   position: absolute;
 
-  width: 100vw;
-  height: 100%;
-  background-image: url('./assets/metal.jpg');
-  background-repeat: repeat;
-  background-position: center; 
-  background-size: auto 100vh ;
-  z-index: 2;
-  opacity: .15;
-  background-color: transparent;
+//   width: 100vw;
+//   height: 100%;
+//   background-image: url('./assets/metal.jpg');
+//   background-repeat: repeat;
+//   background-position: center; 
+//   background-size: auto 100vh ;
+//   z-index: 2;
+//   opacity: .15;
+//   background-color: transparent;
 
-`
+// `
 
 
 
