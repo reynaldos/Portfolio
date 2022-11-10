@@ -224,13 +224,25 @@ const Screw = styled.div`
     display: grid;
     place-content: center;
     transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+
     transition: transform 1s ease,
+                scale 1s ease,
                 background-color ${props => props.theme.transitionStyleMid};
     z-index: 15;
 
 
     &:hover{
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
         transform: rotate(360deg) scale(1.1);
+        -webkit-transform: rotate(360deg) scale(1.1);
+        scale: 1.1;
+         -ms-transform: rotate(360deg) ;
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 
 
