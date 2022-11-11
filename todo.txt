@@ -1,0 +1,33 @@
+TODO
+
+
+- site wide
+    - scroll links
+    - section headers?
+    - color change tweaks
+
+- nav bar
+    - On top of content weird look
+        -possible soltion: hide on scroll
+    - opening/closing on mobile glitch
+    - hamburger cross to rows bug
+    - logo animations
+
+- landing
+    - 3d model logic
+    - subtitle text change animation
+    - correcct subtitle list
+
+- about
+    - color change logic
+    - stroke around bio pic
+    - hover effect for bio
+    - correct bio paragraphs
+
+- projects
+    - item hover glitch
+    - message for broken links
+
+- footer
+    - UI design
+    - build

@@ -187,7 +187,3 @@ const Rest = styled.span`
 // `
 
 
-
-
-
-

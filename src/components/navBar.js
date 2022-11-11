@@ -105,7 +105,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
             <Wrapper>
                 {/* logo */}
                 <LogoWrap>
-                    <Logo src={'./assets/logo.png'}/>
+                    <Logo  alt={'logo'} src={'./assets/logo.png'}/>
                 </LogoWrap>
 
                 <NavDesktop 
@@ -114,13 +114,24 @@ export const NavBar = ({currentBuild,onClick,props}) => {
 
                     <NavBtnWrap>
                         {Data.nav.map((navItem,i)=>{
-                            return <NavBtn key={i} currentBuild={currentBuild}>
+                            return <NavBtn 
+                                key={i} 
+                                currentBuild={currentBuild} >
                                         <BtnText currentBuild={currentBuild}>
                                             {navItem.title}
                                         </BtnText>
                                     </NavBtn>
                             
                         })}
+
+                        {/* resume */}
+                        <NavBtnA
+                            href="./resume.pdf" target={'true'}
+                            currentBuild={currentBuild} >
+                                <BtnText currentBuild={currentBuild}>
+                                    resume
+                                </BtnText>
+                            </NavBtnA>
                     </NavBtnWrap>
                 
                     
@@ -172,13 +183,24 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                     </BtnText>
                 </NavBtn>
                 {Data.nav.map((navItem,i)=>{
-                        return <NavBtn key={i} mobileNav={true} currentBuild={currentBuild}>
-                                    <BtnText mobileNav={true} currentBuild={currentBuild}>
-                                        {navItem.title}
-                                    </BtnText>
-                                </NavBtn>
-                        
+                    return <NavBtn 
+                            key={i} 
+                            mobileNav={true} 
+                            currentBuild={currentBuild}>
+                                <BtnText mobileNav={true} currentBuild={currentBuild}>
+                                    {navItem.title}
+                                </BtnText>
+                            </NavBtn>
                     })}
+
+                <NavBtnA
+                    mobileNav={true} 
+                    href="./resume.pdf" target={'true'}
+                    currentBuild={currentBuild}>
+                        <BtnText mobileNav={true} currentBuild={currentBuild}>
+                            Resume
+                        </BtnText>
+                    </NavBtnA>
 
                 
                 <AccentBtnWrap nav={true} status={navStatus}>
@@ -201,14 +223,19 @@ export const NavBar = ({currentBuild,onClick,props}) => {
             {/* <Metal/> */}
 
             <BottomWrap>
-                <EmailWrap>
-                    <Email currentBuild={currentBuild}>rey.sanchez.dev@gmail.com</Email>
+                <EmailWrap
+                 href={`mailto:${Data.email}?subject=Possible Collab?`}>
+                <Email currentBuild={currentBuild}>{Data.email}</Email>
                 </EmailWrap>
 
                 <SocialWrap>
                     {Data.socials.map((item,i)=>{
-                        return <IconWrap key={i}>
+                        return <IconWrap 
+                                    href={item.link}
+                                    target="_blank"
+                                    key={i}>
                                 <SVGicons 
+                                    alt={item.name}
                                     index={i}
                                     currentBuild={currentBuild}
                                     />
@@ -303,6 +330,51 @@ const NavBtnWrap = styled.div`
 `
 
 const NavBtn = styled.div`
+    height: min-content;
+    padding: .3rem .8rem;
+    background-color: ${props => props.theme[props.currentBuild].btn};
+    transition: 
+        transform .25s ease,
+        background-color ${props => props.theme.transitionStyleTop};
+    border-radius: 1.5px;
+    border: 1px black solid;
+    width: 25%;
+
+    &:hover{
+        transform-origin:center;
+        transform: scale(1.05);
+    }
+
+
+     ${props => props.mobileNav ? `
+
+        &:nth-child(1){
+            margin-top:calc(48px + 3rem);
+        }
+
+        width: 75%;
+        margin: .5rem auto;
+        padding: 1rem .8rem;
+
+        @media screen and (max-height: 600px){
+            padding: .5rem .8rem;
+              width: 65%;
+              max-width: 250px;
+
+        } 
+
+        &:hover{
+            transform-origin:center;
+            transform: skew(-15deg) scale(1.05);
+        }
+       
+    `:`
+        
+    `}
+
+`
+
+const NavBtnA = styled.a`
     height: min-content;
     padding: .3rem .8rem;
     background-color: ${props => props.theme[props.currentBuild].btn};
@@ -519,7 +591,7 @@ const BottomWrap = styled.div`
 
 `
 
-const EmailWrap = styled.div`
+const EmailWrap = styled.a`
     margin: 1rem auto;
     height: 2rem;
     width: min-content;
@@ -528,6 +600,8 @@ const EmailWrap = styled.div`
     justify-content: center;
     align-items: center;
     padding: .5rem 3rem;
+    text-decoration: none;
+
 
      transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
 
@@ -558,7 +632,7 @@ const SocialWrap = styled.div`
 
 `
 
-const IconWrap = styled.div`
+const IconWrap = styled.a`
     height: 100%;
     width: calc(100vw/ 5);
     z-index: 10;
@@ -590,4 +664,3 @@ const IconWrap = styled.div`
 //     opacity: .1;
 //     background-color: transparent;
 // `
-

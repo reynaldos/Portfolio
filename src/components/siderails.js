@@ -11,8 +11,12 @@ export const SideRails = ({currentBuild}) => {
         <Wrap>
             <Holder>
                 {Data.socials.map((item, index)=>{
-                    return <IconWrap key={index}>
+                    return <IconWrap 
+                           href={item.link}
+                            target="_blank"
+                            key={index}>
                             <SVGicons 
+                                alt={item}
                                 currentBuild={currentBuild}
                                 index={index}/>
                 </IconWrap>
@@ -27,8 +31,9 @@ export const SideRails = ({currentBuild}) => {
     {/* ////////////////////////////////////  */}
       <Container side={'right'}  >
         <Wrap>
-            <EmailWrap>
-                <Email currentBuild={currentBuild}>rey.sanchez.dev@gmail.com</Email>
+            <EmailWrap
+                 href={`mailto:${Data.email}?subject=Possible Collab?`}>
+                <Email currentBuild={currentBuild}>{Data.email}</Email>
             </EmailWrap>
 
             <Line currentBuild={currentBuild}/>
@@ -83,7 +88,7 @@ const Holder = styled.div`
     justify-content:center;
     align-items: center;
 `
-const IconWrap = styled.div`
+const IconWrap = styled.a`
     /* outline: 1px solid black; */
     height: 48px;
     margin-bottom: .5rem;
@@ -111,10 +116,11 @@ const Line = styled.div`
     background-color ${props => props.theme.transitionStyleBottom};
 `
 
-const EmailWrap = styled.div`
+const EmailWrap = styled.a`
     width: 100%;
     height: 100%;
     transition: transform .3s ease;
+    text-decoration: none;
 
     &:hover{
         transform-origin:  center;

@@ -9,7 +9,7 @@ const projects = [
         title: 'GAT NFT - Immersive Web3 Dapp',
         image: './mockups/gat_mockup.png',
         codestack: ['react','node.js','three.js','firebase'],
-        link: './',
+        link: 'https://godsandtitans.io/',
         side: 'left'
 
     },{
@@ -25,7 +25,7 @@ const projects = [
         title: 'Mugen Manga - Cross Platform Manga Reader',
         image: './mockups/mugen_manga_mockup.png',
         codestack: ['flutter','firebase', 'UI design', 'webscrape'],
-        link: './',
+        link: 'https://reynaldos.github.io/manga_reader_web/',
         side: 'left'
 
     },
@@ -75,7 +75,10 @@ const ProjectBuild = ({currentBuild,project}) => {
                 {/* <Spacer top={true}/> */}
 
                 <Sitebtn 
-                   currentBuild={currentBuild}>
+                    onClick={()=>{
+                        openInNewTab(project.link);
+                    }}
+                    currentBuild={currentBuild}>
                     
                     <AccentButton  currentBuild={currentBuild} text={'Visit Site'}/>
                     </Sitebtn>
@@ -474,3 +477,8 @@ const Spacer =styled.div`
 
 `
 
+
+const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+  if (newWindow) newWindow.opener = null
+}
