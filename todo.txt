@@ -6,6 +6,10 @@ TODO
     - section headers?
     - color change tweaks
 
+- loading screen
+    - fade away
+    - gradient border
+
 - nav bar
     - On top of content weird look
         -possible soltion: hide on scroll

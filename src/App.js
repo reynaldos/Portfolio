@@ -19,11 +19,10 @@ export const App = () => {
     const [change, setChange] = useState([false, currentBuild]);
     const [isLoading, setIsLoading] = useState(process.env.REACT_APP_SHOW_LOADING);
 
-    var targetElement = null;
+    
 
     useEffect(()=>{
-
-      targetElement = document.querySelector('#root');
+      var targetElement = document.querySelector('#root');
       disableBodyScroll(targetElement);
 
       setTimeout(() => {
@@ -37,11 +36,13 @@ export const App = () => {
             window.addEventListener("load", finishLoading);
         }
 
-      }, 5750);
+      }, loadTime);
     }, [])
 
     const finishLoading = () => {
         console.log('close loading')
+        
+        var targetElement = document.querySelector('#root');
         enableBodyScroll(targetElement);
         setIsLoading(false);
     }

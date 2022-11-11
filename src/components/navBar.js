@@ -5,9 +5,13 @@ import { Data } from './data';
 import { AccentButton } from './accentButton';
 import { SVGicons } from './icons';
 
+import { Link as LinkS } from 'react-scroll';
+import { animateScroll as scroll } from 'react-scroll/modules';
+
+
 const navTransitonTime = .8;
 
-export const NavBar = ({currentBuild,onClick,props}) => {
+export const NavBar = ({currentBuild,onClick}) => {
 
     const [navStatus, setNavStatus] = useState('default');
 
@@ -30,7 +34,20 @@ export const NavBar = ({currentBuild,onClick,props}) => {
     });
 
 
-   
+    const toggleHome = () =>{
+
+        if (navStatus === 'open'){
+            toggleNav();
+            setTimeout(() => {
+             scroll.scrollToTop();
+        }, 500);
+        }else{
+            scroll.scrollToTop();
+        }
+       
+       
+
+    }
    
 
     const toggleNav = (windowChange) =>{
@@ -104,7 +121,7 @@ export const NavBar = ({currentBuild,onClick,props}) => {
         <Container>
             <Wrapper>
                 {/* logo */}
-                <LogoWrap>
+                <LogoWrap onClick={toggleHome}>
                     <Logo  alt={'logo'} src={'./assets/logo.png'}/>
                 </LogoWrap>
 
@@ -115,19 +132,27 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                     <NavBtnWrap>
                         {Data.nav.map((navItem,i)=>{
                             return <NavBtn 
+                                to={navItem.title} 
+                                smooth={true} 
+                                duration={500} 
+                                spy={true} 
+                                exact={'true'} 
+                                activeClass='active'
+                                offset={-74}
                                 key={i} 
-                                currentBuild={currentBuild} >
+                                currentbuild={currentBuild} >
                                         <BtnText currentBuild={currentBuild}>
                                             {navItem.title}
                                         </BtnText>
-                                    </NavBtn>
+                                </NavBtn>
                             
                         })}
 
                         {/* resume */}
                         <NavBtnA
-                            href="./resume.pdf" target={'true'}
-                            currentBuild={currentBuild} >
+                            href="./resume.pdf" 
+                            target={'true'}
+                            currentbuild={currentBuild} >
                                 <BtnText currentBuild={currentBuild}>
                                     resume
                                 </BtnText>
@@ -177,16 +202,31 @@ export const NavBar = ({currentBuild,onClick,props}) => {
             {/* <Metal/> */}
 
             <TopWrap>
-                <NavBtn mobileNav={true} currentBuild={currentBuild}>
+                <NavBtn 
+                    to='/'
+                    onClick={toggleHome}
+                    mobilenav={'true'} 
+                    currentbuild={currentBuild}>
                     <BtnText mobileNav={true} currentBuild={currentBuild}>
                         Home
                     </BtnText>
                 </NavBtn>
+
                 {Data.nav.map((navItem,i)=>{
                     return <NavBtn 
+                            to={navItem.title} 
+                            smooth={true} 
+                            duration={500} 
+                            delay={500}
+                            spy={true} 
+                            exact={'true'} 
+                            activeClass='active'
+                            offset={-74}
+                            onClick={(e)=>toggleNav(false)}
+                          
                             key={i} 
-                            mobileNav={true} 
-                            currentBuild={currentBuild}>
+                            mobilenav={'true'} 
+                            currentbuild={currentBuild}>
                                 <BtnText mobileNav={true} currentBuild={currentBuild}>
                                     {navItem.title}
                                 </BtnText>
@@ -194,10 +234,10 @@ export const NavBar = ({currentBuild,onClick,props}) => {
                     })}
 
                 <NavBtnA
-                    mobileNav={true} 
+                    mobilenav={'true'} 
                     href="./resume.pdf" target={'true'}
-                    currentBuild={currentBuild}>
-                        <BtnText mobileNav={true} currentBuild={currentBuild}>
+                    currentbuild={currentBuild}>
+                        <BtnText mobileNav={'true'} currentBuild={currentBuild}>
                             Resume
                         </BtnText>
                     </NavBtnA>
@@ -329,10 +369,10 @@ const NavBtnWrap = styled.div`
 
 `
 
-const NavBtn = styled.div`
+const NavBtn = styled(LinkS)`
     height: min-content;
     padding: .3rem .8rem;
-    background-color: ${props => props.theme[props.currentBuild].btn};
+    background-color: ${props => props.theme[props.currentbuild].btn};
     transition: 
         transform .25s ease,
         background-color ${props => props.theme.transitionStyleTop};
@@ -346,7 +386,7 @@ const NavBtn = styled.div`
     }
 
 
-     ${props => props.mobileNav ? `
+     ${props => props.mobilenav === 'true'? `
 
         &:nth-child(1){
             margin-top:calc(48px + 3rem);
@@ -377,7 +417,7 @@ const NavBtn = styled.div`
 const NavBtnA = styled.a`
     height: min-content;
     padding: .3rem .8rem;
-    background-color: ${props => props.theme[props.currentBuild].btn};
+    background-color: ${props => props.theme[props.currentbuild].btn};
     transition: 
         transform .25s ease,
         background-color ${props => props.theme.transitionStyleTop};
@@ -391,7 +431,7 @@ const NavBtnA = styled.a`
     }
 
 
-     ${props => props.mobileNav ? `
+     ${props => props.mobilenav === 'true'? `
 
         &:nth-child(1){
             margin-top:calc(48px + 3rem);
@@ -416,6 +456,7 @@ const NavBtnA = styled.a`
     `:`
         
     `}
+
 
 `
 

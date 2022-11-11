@@ -17,7 +17,9 @@ export const About = ({currentBuild}) => {
   const [bioLength, setBioLength] = useState(3);
 
   return (
-    <Container currentBuild={currentBuild}>
+    <Container 
+        id={'about'}
+        currentBuild={currentBuild}>
         <Wrappper>
 
           {/* left bio text section */}

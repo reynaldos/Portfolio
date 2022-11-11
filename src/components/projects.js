@@ -33,7 +33,7 @@ const projects = [
 
 export const Projects = ({currentBuild}) => {
   return (
-    <Container>
+    <Container id='work'>
         <Wrapper>
            {projects.map((project, index)=>{
                 return <ProjectBuild 
@@ -53,7 +53,7 @@ const ProjectBuild = ({currentBuild,project}) => {
 
 
   return (
-    <BuildContainer >
+    <BuildContainer>
         <BuildWrapper currentBuild={currentBuild}>
 
             {/* bg image */}

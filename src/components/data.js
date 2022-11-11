@@ -1,8 +1,8 @@
 
 export const Data = {
     nav: [
-        { title: 'about' , link: './' },
-        { title: 'work' , link: './' },
+        { title: 'about' },
+        { title: 'work' },
     ],
     socials:[
         {name: 'github', link: 'https://github.com/reynaldos'},
