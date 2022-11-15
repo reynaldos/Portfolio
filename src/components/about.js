@@ -327,6 +327,8 @@ const CustomPath = styled.path`
     fill: ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)};
     stroke: black;
     stroke-width: 1px;
+
+    transition: fill ${props => props.theme.transitionStyleMid};
 `
 
 
@@ -389,6 +391,7 @@ const PortraitLabelWrap = styled.div`
   left: 50%;
   transform: translate(); */
   background-color:  ${props=> props.theme[props.currentBuild].btn};
+   transition:  background-color ${props => props.theme.transitionStyleMid};
   
   ${props => !props.bottom ? `
     clip-path: polygon(28.5% 0%, 71.5% 0%, 100% 100%, 0% 100%);
@@ -410,12 +413,20 @@ const PortraitLabelWrap = styled.div`
 const Label = styled.h6`
   color:  ${props=> props.theme[props.currentBuild].btnText};
   text-transform: uppercase;
-  font-size: .5rem;
+  font-size: .6rem;
   margin-bottom: .1rem;
 
+   -webkit-text-stroke-width: ${props => (props.currentBuild !== 1 ? '.2px' : '0')};
+  -webkit-text-stroke-color:  ${props => (props.currentBuild !== 1 ? 'black' : '')};
+
+  transition:  color ${props => props.theme.transitionStyleMid};
+  
+
    @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        font-size: .4rem;
+        font-size: .5rem;
 
     } 
+
+    
 
 `
