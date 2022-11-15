@@ -2,36 +2,39 @@ TODO
 
 
 - site wide
-    - scroll links
-    - section headers?
-    - color change tweaks
+    - scroll links✅
+    1- section headers?
+    2- color change tweaks
 
 - loading screen
-    - fade away
-    - gradient border
+    2- fade away
+    2- gradient border
 
 - nav bar
-    - On top of content weird look
+    2- On top of content weird look
         -possible soltion: hide on scroll
-    - opening/closing on mobile glitch
-    - hamburger cross to rows bug
-    - logo animations
+        -possible soltion: drop shadow✅
+    3- opening/closing on mobile glitch✅
+    3- hamburger cross to rows bug✅
+    2- hamburger hover animaiton✅
+    2- logo animations
+    3- some svg transitions not working
 
 - landing
-    - 3d model logic
-    - subtitle text change animation
-    - correcct subtitle list
+    2- 3d model logic
+    2- subtitle text change animation
+    1- correcct subtitle list
 
 - about
-    - color change logic
-    - stroke around bio pic
-    - hover effect for bio
-    - correct bio paragraphs
+    - color change logic✅
+    1- stroke around bio pic
+    2- hover effect for bio
+    1- correct bio paragraphs
 
 - projects
-    - item hover glitch
-    - message for broken links
+    1- item hover glitch
+    2- message for broken links
 
 - footer
-    - UI design
-    - build
+    3- UI design
+    3- build
