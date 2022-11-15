@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const SVGicons = ({currentBuild,index}) => {
+export const SVGicons = ({currentBuild,index,type}) => {
 
   var dimension = index === 'refresh' ? '0 0 55 58' : '0 0 34 34';
   var size = index === 'refresh' ? [55,58] : [34,34];
 
+  dimension = type === 'footer' ? '2 2 30 30' : dimension;
+  size = type === 'footer' ? [20,20] : size;
 
   // ${props.theme[currentBuild].accent};
 

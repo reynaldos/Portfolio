@@ -677,7 +677,7 @@ const TopContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     transition: background-color ${props => props.theme.transitionStyleTop};
-filter: drop-shadow(0px 0px 4px #000);
+    filter: drop-shadow(0px 0px 4px #000);
 `
 
 const TopWrap= styled.div`
