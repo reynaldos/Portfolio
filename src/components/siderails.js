@@ -79,6 +79,8 @@ const Wrap = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    filter: drop-shadow(0px 4px 4px #00000080);
+
 `
 
 
@@ -113,7 +115,7 @@ const Line = styled.div`
     border-radius: 2px;
     background-color:  ${props => props.theme[props.currentBuild].accent};
     transition: 
-    background-color ${props => props.theme.transitionStyleBottom};
+        background-color ${props => props.theme.transitionStyleBottom};
 `
 
 const EmailWrap = styled.a`

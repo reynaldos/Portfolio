@@ -5,6 +5,7 @@ TODO
     - scroll links✅
     1- section headers?
     2- color change tweaks
+    2- load in animation
 
 - loading screen
     2- fade away
@@ -38,3 +39,8 @@ TODO
 - footer
     3- UI design
     3- build
+
+- 404 page
+    1- UI design
+    1- build
+
