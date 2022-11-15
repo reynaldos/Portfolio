@@ -85,10 +85,11 @@ const CustomSVG = styled.svg`
   height:100%;
   /* fill: white; */
   fill: ${props => props.index === 'refresh'? props.theme[props.currentBuild].accent : 'none'};
+    stroke: ${props => props.theme[props.currentBuild].accent};
   transition: 
     stroke ${props => props.theme.transitionStyleBottom},
     fill ${props => props.theme.transitionStyleBottom};
-  stroke: ${props => props.theme[props.currentBuild].accent};
+
   
 `
 

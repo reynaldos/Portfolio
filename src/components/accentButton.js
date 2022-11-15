@@ -37,7 +37,7 @@ const Container = styled(motion.div)`
         width: calc( 180px / 2);
         height: calc( 50px / 2);
         background: transparent;
-        transition: .55s ease;
+        transition: .5s ease;
     }
 
     &::before {
@@ -76,7 +76,7 @@ const CustomSpan = styled.span`
         width: calc( 180px / 2);
         height: calc( 50px / 2);
         background: transparent;
-        transition: .55s ease;
+        transition: .5s ease;
 
   }
 

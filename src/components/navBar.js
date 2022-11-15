@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Data } from './data';
@@ -11,9 +11,11 @@ import { animateScroll as scroll } from 'react-scroll/modules';
 
 const navTransitonTime = .8;
 
+
 export const NavBar = ({currentBuild,onClick}) => {
 
     const [navStatus, setNavStatus] = useState('default');
+    const buttonRef = useRef(null);
 
      const checkResize = () => {
         // console.log('check')
@@ -44,22 +46,35 @@ export const NavBar = ({currentBuild,onClick}) => {
         }else{
             scroll.scrollToTop();
         }
-       
-       
-
+    
     }
-   
+
+
 
     const toggleNav = (windowChange) =>{
 
+        const resetBtn = (time) => {
+            setTimeout(() => {
+                 buttonRef.current.disabled = false;
+            }, time);
+        }
+       
+
         if (!windowChange){
-            if (navStatus === 'default'){
-                setNavStatus('open');
-            }else if(navStatus === 'open'){
-                setNavStatus('close');
-                setTimeout(() => {
-                    setNavStatus('default');
-                }, 1000);   
+          
+            if(!buttonRef.current.disabled){
+                buttonRef.current.disabled = true;
+
+                 if (navStatus === 'default'){
+                    setNavStatus('open');
+                    resetBtn(600);
+                }else if(navStatus === 'open'){
+                    setNavStatus('close');
+                    setTimeout(() => {
+                        setNavStatus('default');
+                        resetBtn(550);
+                    }, 900);   
+                }
             }
         }else{
             setNavStatus('close');
@@ -161,7 +176,10 @@ export const NavBar = ({currentBuild,onClick}) => {
                 
                     
                     {/* mobile view */}
-                    <HamburgerWrap onClick={(e)=>toggleNav(false)}>
+                    <HamburgerWrap
+                        ref={buttonRef}
+                        currentBuild={currentBuild}
+                        onClick={(e)=>toggleNav(false)}>
                         <HamburgerLine 
                             status={navStatus}
                             currentBuild={currentBuild}/>
@@ -176,18 +194,20 @@ export const NavBar = ({currentBuild,onClick}) => {
 
                 </NavDesktop>
 
-                {/* colorway btn */}
-                    <AccentBtnWrap status={navStatus}>
-                        <AccentButton
-                            text={`Build-0${currentBuild}`}
-                            currentBuild={currentBuild} 
-                            onClick={onClick}
-                        />
-                    </AccentBtnWrap>
-
-
 
             </Wrapper>
+
+
+            {/* colorway btn */}
+                <AccentBtnWrap status={navStatus}>
+                    <AccentButton
+                        text={`Build-0${currentBuild}`}
+                        currentBuild={currentBuild} 
+                        onClick={onClick}
+                    />
+                </AccentBtnWrap>
+
+
         </Container>
 
         {/* /////// nav menu mobile //////////*/}
@@ -312,6 +332,8 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    filter: drop-shadow(0px 0px 4px #000);
+
 
       @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
         margin: auto 1rem;
@@ -343,7 +365,8 @@ const NavDesktop = styled.div`
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     margin-right: calc(-600px * .08);
 
-    
+   
+
     @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
          margin-right: 0;
     } 
@@ -487,6 +510,7 @@ const BtnText = styled.h2`
 
 
 const AccentBtnWrap = styled.div`
+    filter: drop-shadow();
     right: 0%;
     margin: 1rem;
     transition: right .6s ease;
@@ -496,6 +520,7 @@ const AccentBtnWrap = styled.div`
      `:``}
 
     ${props => props.nav? `
+        
         position: absolute;
         top: auto;
         bottom: 0;
@@ -507,7 +532,7 @@ const AccentBtnWrap = styled.div`
 `
 
 
-const HamburgerWrap = styled.div`
+const HamburgerWrap = styled.button`
     position: absolute;
     height: 48px;
     width: 60px;
@@ -519,6 +544,14 @@ const HamburgerWrap = styled.div`
     z-index: 55;
     display: none;
 
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
        display: flex;
         align-items: flex-start;
@@ -527,6 +560,58 @@ const HamburgerWrap = styled.div`
 
     } 
 
+
+    &:hover{
+        span{
+            &:nth-child(2){
+                background-color:  ${props => props.theme[props.currentBuild].btn};
+                animation: back_forth 1s ease-in-out infinite;
+                  transition: width 1s ease-in-out;
+
+                @keyframes back_forth {
+                    0% {
+                        width: 75%;
+                    }   
+                    50%{   
+                        width: 10%;
+                    
+                    }
+                    100% {
+                        width: 75%;
+                    }
+                }
+
+
+            &::after{   
+                content: '';
+                position: absolute;
+                right: 0;
+                height: 4px;
+                border-radius: 4px;
+                width: 5%;
+                background-color:  ${props => props.theme[props.currentBuild].btn};
+                animation: back_forth_right 1s ease-in-out infinite;
+               
+
+
+                @keyframes back_forth_right {
+                0% {
+                    width: 10%;
+                }   
+                50%{   
+                    width: 75%;
+                
+                }
+                100% {
+                    width: 10%;
+                }
+            }
+
+            }
+        }
+    }
+}
+
 `
 
 
@@ -534,21 +619,23 @@ const HamburgerLine = styled.span`
 
     width: 100%;
     height: 4px;
-    transform: all .5 ease;
     background-color: ${props => props.theme[props.currentBuild].btn};
     border-radius: 4px;
      /* border: .5px black solid; */
-    transition: opacity .2s ease,transform .5s ease, background-color ${props => props.theme.transitionStyleTop};
+    transition: opacity .1s ease,transform .5s ease, 
+                background-color ${props => props.theme.transitionStyleTop};
 
     &:nth-child(2){
         width: 75%;
+       
 
     }
+
+    transform-origin: center left;
 
     ${props=> props.status === 'open' ? `
         
         &:nth-child(1){
-            transform-origin: center left;
             transform: rotate(30deg);
             width: 110%
         }
@@ -560,7 +647,6 @@ const HamburgerLine = styled.span`
         }
 
         &:nth-child(3){
-            transform-origin: center left;
             transform: rotate(-30deg);
             width: 110%
         }
@@ -591,7 +677,7 @@ const TopContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     transition: background-color ${props => props.theme.transitionStyleTop};
-
+filter: drop-shadow(0px 0px 4px #000);
 `
 
 const TopWrap= styled.div`
@@ -603,6 +689,7 @@ const TopWrap= styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; 
+    
    
 `
 
@@ -619,7 +706,7 @@ const BottomContainer = styled(motion.nav)`
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
     background-color: ${props => props.theme[props.currentbuild].mainNav};
-
+    filter: drop-shadow(0px 0px 4px #000);
 `
 
 const BottomWrap = styled.div`
