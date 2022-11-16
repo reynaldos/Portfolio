@@ -13,7 +13,7 @@ export const Footer = ({currentBuild}) => {
         <Wrapper currentBuild={currentBuild}>
             {/* call to action */}
             <MessageWrap currentBuild={currentBuild}>
-                <p>Available for freelance opportunities</p>
+                <p>Available for full-time and freelance opportunities</p>
                 <p>Thanks for stopping by, I'm currently looking to join a team of creative designers and developers. If you think we might be a good fit for one another, give me a call or send me an email!</p>
             </MessageWrap>
 
@@ -84,7 +84,7 @@ const Wrapper = styled.div`
 
 const MessageWrap = styled.div`
     min-width: 300px;
-    max-width: 400px;
+    max-width: 450px;
     width: 100%;
     /* border: 2px solid black; */
     margin: 2rem;
@@ -111,6 +111,25 @@ const MessageWrap = styled.div`
             letter-spacing: .05rem;
         }
     }
+
+
+     @media screen and (min-width: ${props => props.theme.breakpoint.lg}){
+      max-width: 550px;
+
+        p{ 
+        font-size: 1rem;
+        line-height: 1.5rem;
+        word-spacing: .05rem;
+        letter-spacing: .05rem;
+
+        &:nth-child(1){
+         
+            font-size: 32px;
+            line-height: 30px;
+            letter-spacing: .05rem;
+        }
+    }
+    } 
 
      
 
