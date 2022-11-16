@@ -63,13 +63,12 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export const LoadingScreen = () => {
+export const LoadingScreen = ({fade}) => {
 
     const [percent, setPercent] = useState(.05);
     const [loadingText, setLoadingText] = useState('Loading.');
     const [elapsedTime, setElapsedTime] = useState(0);
     const [styleDetails, setStyleDetails] = useState(window.innerWidth > 767 ? desktop : mobile);
-
 
     // sense screen size changes
     useEffect(() => {
@@ -88,6 +87,7 @@ export const LoadingScreen = () => {
                 setStyleDetails(mobile)
             }
         });
+
     },[]);
 
     // update percent and loading bar 
@@ -109,7 +109,7 @@ export const LoadingScreen = () => {
         // loading text
         setTimeout(() => {
             if(loadingText.length < 10){
-                    setLoadingText(oldVal=> oldVal += '.');
+                setLoadingText(oldVal=> oldVal += '.');
             }else{
                 setLoadingText('Loading');
             }
@@ -129,7 +129,8 @@ export const LoadingScreen = () => {
     },[elapsedTime]);
 
   return (
-    <Container>
+    <Container
+        fade={fade} >
         <Wrapper>
                  <Shader/>
 
@@ -283,6 +284,8 @@ const Container = styled.div`
     z-index: 150;
     background: black;
     overflow: hidden;
+    opacity: ${props=>props.fade ? '0': '1'};
+    transition: opacity .55s ease-in-out;
 
 `
 

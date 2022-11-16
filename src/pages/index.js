@@ -18,6 +18,8 @@ export const Home = () => {
     const toggleBuild = useBuildUpdate();
     const [change, setChange] = useState([false, currentBuild]);
     const [isLoading, setIsLoading] = useState(process.env.REACT_APP_SHOW_LOADING);
+    const [fade, setFade] = useState(false);
+
 
     
 
@@ -28,11 +30,11 @@ export const Home = () => {
       setTimeout(() => {
        
         if (document.readyState === "complete") {
-            console.log('page already loaded');
+            // console.log('page already loaded');
             finishLoading();
               
         } else {
-            console.log('page not loaded')
+            // console.log('page not loaded')
             window.addEventListener("load", finishLoading);
         }
 
@@ -40,11 +42,15 @@ export const Home = () => {
     }, [])
 
     const finishLoading = () => {
-        console.log('close loading')
+        // console.log('close loading')
         
+        window.removeEventListener("load", finishLoading);
         var targetElement = document.querySelector('#root');
         enableBodyScroll(targetElement);
-        setIsLoading(false);
+        setFade(true);
+        setTimeout(() => {
+           setIsLoading(false);
+        }, 550);
     }
 
 
@@ -64,7 +70,7 @@ export const Home = () => {
       <> 
   
 
-     {isLoading && <LoadingScreen/>}
+     {isLoading && <LoadingScreen fade={fade}/>}
      
      <Content currentBuild={currentBuild}>
           <div style={{
