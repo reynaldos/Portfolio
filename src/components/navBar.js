@@ -137,7 +137,7 @@ export const NavBar = ({currentBuild,onClick}) => {
             <Wrapper>
                 {/* logo */}
                 <LogoWrap onClick={toggleHome}>
-                    <Logo  alt={'logo'} src={'./assets/logo.png'}/>
+                    <Logo  alt={'logo'} src={'./logo/logo.png'}/>
                 </LogoWrap>
 
                 <NavDesktop 
