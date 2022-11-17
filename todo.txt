@@ -2,23 +2,18 @@ TODO
 
 
 - site wide
-    - scroll links✅
     1- section headers?
     2- color change tweaks
-    2- load in animation
+    3- scroll animations
 
 - loading screen
-    2- fade away
     2- gradient border
 
 - nav bar
     2- On top of content weird look
         -possible soltion: hide on scroll
         -possible soltion: drop shadow✅
-    3- opening/closing on mobile glitch✅
-    3- hamburger cross to rows bug✅
-    2- hamburger hover animaiton✅
-    2- logo animations
+   
     3- some svg transitions not working
 
 - landing
@@ -27,7 +22,6 @@ TODO
     1- correcct subtitle list
 
 - about
-    - color change logic✅
     1- stroke around bio pic
     2- hover effect for bio
     1- correct bio paragraphs
@@ -37,10 +31,21 @@ TODO
     2- message for broken links
 
 - footer
-    3- UI design
-    3- build
-
+    1-revamp design
+    
 - 404 page
     1- UI design
     1- build
 
+
+DONE:
+3- scroll links✅
+3- Footer UI design✅
+3- Foorer build✅
+3- opening/closing on mobile glitch✅
+3- hamburger cross to rows bug✅
+2- hamburger hover animaiton✅
+3- set up icons and site metadata✅
+3- Bio Pic color change logic✅
+2-Loading screen fade away✅
+2- logo animations✅

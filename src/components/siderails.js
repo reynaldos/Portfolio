@@ -2,12 +2,36 @@ import React from 'react';
 import styled from 'styled-components';
 import { Data } from './data';
 import { SVGicons } from './icons';
+import { animateScroll as scroll } from 'react-scroll/modules';
+import { motion } from 'framer-motion';
 
 
-export const SideRails = ({currentBuild}) => {
+const railVarients = {
+    offscreen: {
+        y: 700
+    },
+    onscreen: {
+        y: 0,
+        transition: {
+            delay: 1.7,
+            type: "spring",
+            bounce: 0.25,
+            duration: .8
+        }
+    }
+} 
+
+export const SideRails = ({currentBuild, showElements}) => {
   return (
     <>
-      <Container side={'left'} >
+    
+
+      <Container 
+        initial={'offscreen'}
+        animate = {showElements ? 'onscreen' : "offscreen"}
+        variants={railVarients}
+        side={'left'} >
+        
         <Wrap>
             <Holder>
                 {Data.socials.map((item, index)=>{
@@ -28,8 +52,14 @@ export const SideRails = ({currentBuild}) => {
     </Container>
 
 
+
     {/* ////////////////////////////////////  */}
-      <Container side={'right'}  >
+      <Container 
+        initial={'offscreen'}
+        animate = {showElements ? 'onscreen' : "offscreen"}
+        variants={railVarients}
+        side={'right'}  >
+
         <Wrap>
             <EmailWrap
                  href={`mailto:${Data.email}?subject=Possible Collab?`}>
@@ -44,7 +74,7 @@ export const SideRails = ({currentBuild}) => {
   )
 }
 
-const Container = styled.section`
+const Container = styled(motion.section)`
     position: fixed;
     bottom: 0;
     margin: 0 .5rem;

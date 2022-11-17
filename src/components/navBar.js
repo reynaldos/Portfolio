@@ -11,8 +11,9 @@ import { animateScroll as scroll } from 'react-scroll/modules';
 
 const navTransitonTime = .8;
 
+const loadingScreenDelay = process.env.REACT_APP_LOADING_TIME / 1000;
 
-export const NavBar = ({currentBuild,onClick}) => {
+export const NavBar = ({currentBuild,onClick,showElements}) => {
 
     const [navStatus, setNavStatus] = useState('default');
     const buttonRef = useRef(null);
@@ -129,6 +130,43 @@ export const NavBar = ({currentBuild,onClick}) => {
         }
     }
 
+
+    const barVariants = {
+        offscreen: {
+            x: 700
+        },
+        onscreen: {
+            x: 0,
+            transition: {
+                delay: 1.2,
+                type: "spring",
+                bounce: 0.25,
+                duration: .8
+            }
+        }
+    };
+
+    const logoVariants = {
+        default: {transform:{ duration: .3}},
+        offscreen: {
+            opactiy:0,
+            scale:0,
+            rotate: 360,
+            transformOrigin: 'center'
+        },
+        onscreen: {
+            opactiy:1,
+            scale:1,
+            rotate: 0,
+            transition: {
+                delay: 0,
+                type: "ease",
+                bounce: 0.4,
+                duration: .8
+            }
+        }
+    };
+
   return (
     <>  
 
@@ -136,70 +174,89 @@ export const NavBar = ({currentBuild,onClick}) => {
         <Container>
             <Wrapper>
                 {/* logo */}
-                <LogoWrap onClick={toggleHome}>
-                    <Logo  alt={'logo'} src={'./logo/logo.png'}/>
-                </LogoWrap>
+                    <LogoWrap 
+                        whileHover={{
+                            scale: 1.1,
+                            transition: { duration: .3 },
+                        }}
+                        whileTap={{ 
+                            scale: 0.9,
+                            rotate:360,
+                            transition: { duration: .5 },
+                        }}
+                        initial={'offscreen'}
+                        animate = {showElements ? 'onscreen' : "offscreen"}
+                        variants={logoVariants}
 
-                <NavDesktop 
-                    currentBuild={currentBuild}>
-            {/* <Metal/> */}
+                        onClick={toggleHome}>               
+                        <Logo  alt={'logo'} src={'./logo/logo.png'}/>
+                    </LogoWrap>                    
+                    <NavDesktop 
+                        initial={'offscreen'}
+                        animate = {showElements ? 'onscreen' : "offscreen"}
+                        variants={barVariants}
+                        currentbuild={currentBuild}>
 
-                    <NavBtnWrap>
-                        {Data.nav.map((navItem,i)=>{
-                            return <NavBtn 
-                                to={navItem.title} 
-                                smooth={true} 
-                                duration={500} 
-                                spy={true} 
-                                exact={'true'} 
-                                activeClass='active'
-                                offset={-74}
-                                key={i} 
+                        <NavBtnWrap>
+                            {Data.nav.map((navItem,i)=>{
+                                return <NavBtn 
+                                    to={navItem.title} 
+                                    smooth={true} 
+                                    duration={500} 
+                                    spy={true} 
+                                    exact={'true'} 
+                                    activeClass='active'
+                                    offset={-74}
+                                    key={i} 
+                                    currentbuild={currentBuild} >
+                                            <BtnText currentBuild={currentBuild}>
+                                                {navItem.title}
+                                            </BtnText>
+                                    </NavBtn>
+                                
+                            })}
+
+                            {/* resume */}
+                            <NavBtnA
+                                href="./resume.pdf" 
+                                target={'true'}
                                 currentbuild={currentBuild} >
-                                        <BtnText currentBuild={currentBuild}>
-                                            {navItem.title}
-                                        </BtnText>
-                                </NavBtn>
-                            
-                        })}
-
-                        {/* resume */}
-                        <NavBtnA
-                            href="./resume.pdf" 
-                            target={'true'}
-                            currentbuild={currentBuild} >
-                                <BtnText currentBuild={currentBuild}>
-                                    resume
-                                </BtnText>
-                            </NavBtnA>
-                    </NavBtnWrap>
-                
+                                    <BtnText currentBuild={currentBuild}>
+                                        resume
+                                    </BtnText>
+                                </NavBtnA>
+                        </NavBtnWrap>
                     
-                    {/* mobile view */}
-                    <HamburgerWrap
-                        ref={buttonRef}
-                        currentBuild={currentBuild}
-                        onClick={(e)=>toggleNav(false)}>
-                        <HamburgerLine 
-                            status={navStatus}
-                            currentBuild={currentBuild}/>
-                        <HamburgerLine 
-                            status={navStatus}
-                            currentBuild={currentBuild}/>
-                        <HamburgerLine 
-                            status={navStatus}
-                            currentBuild={currentBuild}/>       
-                    </HamburgerWrap>
-
-
-                </NavDesktop>
+                        
+                        {/* mobile view */}
+                        <HamburgerWrap
+                            ref={buttonRef}
+                            currentBuild={currentBuild}
+                            onClick={(e)=>toggleNav(false)}>
+                            <HamburgerLine 
+                                status={navStatus}
+                                currentBuild={currentBuild}/>
+                            <HamburgerLine 
+                                status={navStatus}
+                                currentBuild={currentBuild}/>
+                            <HamburgerLine 
+                                status={navStatus}
+                                currentBuild={currentBuild}/>       
+                        </HamburgerWrap>
+                    </NavDesktop>
+    
+             
 
 
             </Wrapper>
 
 
             {/* colorway btn */}
-                <AccentBtnWrap status={navStatus}>
+                <AccentBtnWrap 
+                     initial={'offscreen'}
+                    animate = {showElements ? 'onscreen' : "offscreen"}
+                    variants={barVariants}
+                    status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
                         currentBuild={currentBuild} 
@@ -263,7 +320,7 @@ export const NavBar = ({currentBuild,onClick}) => {
                     </NavBtnA>
 
                 
-                <AccentBtnWrap nav={true} status={navStatus}>
+                <AccentBtnWrap nav={'true'} status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
                         currentBuild={currentBuild} 
@@ -333,6 +390,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
 
     filter: drop-shadow(0px 0px 4px #000);
+    -webkit-filter: drop-shadow(0px 0px 4px #000);
 
 
       @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
@@ -340,7 +398,7 @@ const Wrapper = styled.div`
     } 
 `
 
-const LogoWrap = styled.div`
+const LogoWrap = styled(motion.div)`
     height: 110%;
     margin: auto .5rem;
 `
@@ -351,13 +409,13 @@ const Logo = styled.img`
     object-fit: contain;
 `
 
-const NavDesktop = styled.div`
+const NavDesktop = styled(motion.div)`
     position: relative;
     width: 600px;
     height: 100%;
 
     /* border: ${props => (props.currentBuild !== 1 ? '1px solid #1E1E1E;' : '')}; */
-    background-color:  ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)};
+    background-color:  ${props => (props.currentbuild === 0 ? '#A5B091' : props.theme[props.currentbuild].btnText)};
     transition: background-color ${props => props.theme.transitionStyleTop} , 
                 margin .5s ease;
 
@@ -509,7 +567,7 @@ const BtnText = styled.h2`
 `
 
 
-const AccentBtnWrap = styled.div`
+const AccentBtnWrap = styled(motion.div)`
     filter: drop-shadow();
     right: 0%;
     margin: 1rem;
@@ -519,7 +577,7 @@ const AccentBtnWrap = styled.div`
         right:-100%;
      `:``}
 
-    ${props => props.nav? `
+    ${props => props.nav === 'true'? `
         
         position: absolute;
         top: auto;

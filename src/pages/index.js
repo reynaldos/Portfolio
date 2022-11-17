@@ -12,12 +12,13 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 
 const loadTime = process.env.REACT_APP_LOADING_TIME;
+const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true' ? true: false;
 
 export const Home = () => {
     const currentBuild = useBuildTheme();
     const toggleBuild = useBuildUpdate();
     const [change, setChange] = useState([false, currentBuild]);
-    const [isLoading, setIsLoading] = useState(process.env.REACT_APP_SHOW_LOADING);
+    const [isLoading, setIsLoading] = useState(showLoading);
     const [fade, setFade] = useState(false);
 
 
@@ -48,6 +49,7 @@ export const Home = () => {
         var targetElement = document.querySelector('#root');
         enableBodyScroll(targetElement);
         setFade(true);
+      
         setTimeout(() => {
            setIsLoading(false);
         }, 550);
@@ -77,13 +79,20 @@ export const Home = () => {
                 backgroundColor:`${props => props.theme[props.currentBuild].main}`,
                 zIndex: '12'
               }}>
-              <NavBar currentBuild={currentBuild}
+              <NavBar 
+                showElements={fade}
+                currentBuild={currentBuild}
                 onClick={colorChangeLogic} />
 
-              <SideRails currentBuild={currentBuild}/>
+              <SideRails 
+                showElements={fade}
+                currentBuild={currentBuild}/>
               
               {/* content */}
-              <Landing currentBuild={currentBuild}/>
+              <Landing 
+                  showElements={fade}
+                  isLoading={isLoading} 
+                  currentBuild={currentBuild}/>
               <About currentBuild={currentBuild}/>
               <Projects currentBuild={currentBuild}/>
               <Footer currentBuild={currentBuild}/>

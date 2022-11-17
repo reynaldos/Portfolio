@@ -1,8 +1,8 @@
 import React, {useReducer} from 'react';
 import styled from 'styled-components';
 import { SVGicons } from './icons';
-import { motion } from 'framer-motion';
 // import Scene from '../threeJs/Scene';
+import { motion } from "framer-motion";
 
 
 const messages = [
@@ -19,6 +19,41 @@ const messages = [
 
 let stack = [0];
 
+
+const titleVarients = {
+    offscreen: {
+        scale: 0,
+        opacity:0,
+        transformOrigin: 'center',
+        y: 5
+    },
+    onscreen: {
+        scale: [0,0,1],
+        opacity: [0,0,1],
+        y: 0,
+        transition: {
+            delay: 1.4,
+            type: "ease",
+            bounce: 0.25,
+            duration: .8
+        }
+    }
+} 
+
+const btnVarients = {
+    offscreen: {
+        y: 200
+    },
+    onscreen: {
+        y: 0,
+        transition: {
+            delay: 1.7,
+            type: "spring",
+            bounce: 0.25,
+            duration: .1
+        }
+    }
+} 
 
 const defaultState = {
     index: 0,
@@ -58,10 +93,9 @@ export const reducer = (state,action) => {
 }
 
 
-export const Landing = ({currentBuild}) => {
+export const Landing = ({currentBuild,showElements}) => {
 
     const [state, dispatch] = useReducer(reducer,defaultState);
-
 
     const shuffle = () => {
 
@@ -72,23 +106,30 @@ export const Landing = ({currentBuild}) => {
                 dispatch({type: 'DEACTIVATE'})
             }, 900);
         }
-        
-
     }
 
+    
 
 
   return (
     <>
         <Container>
                 {/* title */}
-                <TitleWrap>
+                <TitleWrap
+                    // initial={'offscreen'}
+                    // animate = {showElements ? 'onscreen' : "offscreen"}
+                    // variants={titleVarients}
+                    >
                     <Title currentBuild={currentBuild}>Rey Sanchez</Title>
                     <Subtitle>{messages[state.index]}</Subtitle>
                 </TitleWrap>
 
             {/* refresh buttom */}
             <ButtonWrap 
+                initial={'offscreen'}
+                animate = {showElements ? 'onscreen' : "offscreen"}
+                variants={btnVarients}
+
                 onClick={shuffle}
                 currentbuild={currentBuild}>
                     <IconWrap
@@ -123,7 +164,7 @@ const Container = styled.section`
 
 
 
-const TitleWrap = styled.div`
+const TitleWrap = styled(motion.div)`
     /* transform: translateY(-25%); */
     max-width: 800px;
     margin: auto 3.5rem;
