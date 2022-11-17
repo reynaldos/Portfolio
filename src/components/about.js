@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
 
@@ -44,9 +44,49 @@ const bioVariants = {
   }
 };
 
+
+function asyncCall(time) {
+  return new Promise((resolve) => setTimeout(() => resolve(), time));//1500
+}
+
+
 export const About = ({currentBuild}) => {
 
   const [bioLength, setBioLength] = useState(3);
+  const [portrait, setPortrait] = useState(0);
+
+
+   const togglePixel = async(skip) =>{
+      
+      if(portrait === 0 ){
+        if(skip === true){
+          for(let i = 0; i <= 3; i++){
+            setPortrait(i);
+            await asyncCall(100);
+          } 
+        }else{
+          setPortrait(4);
+          await asyncCall(300);
+        }
+
+        for(let i = 4; i >= 1; i--){
+          setPortrait(i);
+          await asyncCall(125);
+        }
+        for(let i = 2; i <= 4; i++){
+          setPortrait(i);
+          await asyncCall(100);
+        }
+
+        for(let i = 3; i >= 0; i--){
+          setPortrait(i);
+          await asyncCall(125);
+        }
+      
+        setPortrait(0);
+      }
+    }
+     
 
   return (
     <Container 
@@ -109,7 +149,7 @@ export const About = ({currentBuild}) => {
                    initial='offscreen'
                     whileInView='onscreen'
                     variants={portaitVariants}
-                 >
+                     onViewportEnter={togglePixel}>
                     <CustomSvg 
                     x="0" y="0"
                     width="350" height="330" viewBox="0 0 525 487" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,13 +161,26 @@ export const About = ({currentBuild}) => {
                   
                     <LabelContainer>
                         {/* top */}
-                      <PortraitLabelWrap currentBuild={currentBuild}>
+                      <PortraitLabelWrap 
+                          whileHover={{
+                            scale: 1.2,
+                            transition: { type: "spring",bounce: 0.25, duration: .3 },
+                          }}
+                          whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
+                          onClick={()=>togglePixel(true)}
+                          currentBuild={currentBuild}>
                         <Label currentBuild={currentBuild}>Me</Label>
                       </PortraitLabelWrap>
                        
 
                       {/* bottom */}
                       <PortraitLabelWrap 
+                              whileHover={{
+                                  scale: 1.2,
+                                  transition: { type: "spring",bounce: 0.25, duration: .3 },
+                                }}
+                                whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
+                             onClick={()=>togglePixel(true)}
                             currentBuild={currentBuild}
                             bottom={true}>
                         <Label currentBuild={currentBuild}>Me</Label>
@@ -136,7 +189,7 @@ export const About = ({currentBuild}) => {
 
                       {/* photo */}
                       <PhotoWrap>
-                          <Photo src={'./assets/me.jpg'}/>
+                          <Photo src={`./me/${portrait}.jpg`}/>
                       </PhotoWrap>
                     </LabelContainer>
                     
@@ -403,9 +456,9 @@ const Photo = styled.img`
   height: 100%;
   position: relative;
   object-fit: contain;
-  top: -40%;
+  top: -20%;
   left: 50%;
-  transform: translate(-50%,0%) scale(2.2);
+  transform: translate(-50%,0%) scale(1.5);
 `
 
 const LabelContainer = styled.div`
@@ -423,7 +476,7 @@ const LabelContainer = styled.div`
 
 `
 
-const PortraitLabelWrap = styled.div`
+const PortraitLabelWrap = styled(motion.div)`
   position: absolute;
   width: 16%;
   height: 4.5%;

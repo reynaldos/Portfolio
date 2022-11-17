@@ -20,7 +20,7 @@ TODO
 
 - about
     1- stroke around bio pic
-    2- hover effect for bio
+    
     1- correct bio paragraphs
 
 - projects
@@ -47,3 +47,4 @@ DONE:
 2-Loading screen fade away✅
 2- logo animations✅
 3- scroll animations✅
+2- hover effect for bio pic✅
