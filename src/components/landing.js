@@ -50,7 +50,8 @@ const btnVarients = {
             delay: 1.7,
             type: "spring",
             bounce: 0.25,
-            duration: .1
+            duration: .1,
+            scale:{duration: .3}
         }
     }
 } 
@@ -129,6 +130,12 @@ export const Landing = ({currentBuild,showElements}) => {
                 initial={'offscreen'}
                 animate = {showElements ? 'onscreen' : "offscreen"}
                 variants={btnVarients}
+
+                whileHover={{
+                    scale: 1.02,
+                    transition: { duration: .3 },
+                }}
+                whileTap={{ scale: 0.98, transition: { duration: .3 }, }}
 
                 onClick={shuffle}
                 currentbuild={currentBuild}>

@@ -1,10 +1,8 @@
 TODO
 
-
 - site wide
     1- section headers?
     2- color change tweaks
-    3- scroll animations
 
 - loading screen
     2- gradient border
@@ -13,7 +11,6 @@ TODO
     2- On top of content weird look
         -possible soltion: hide on scroll
         -possible soltion: drop shadow✅
-   
     3- some svg transitions not working
 
 - landing
@@ -49,3 +46,4 @@ DONE:
 3- Bio Pic color change logic✅
 2-Loading screen fade away✅
 2- logo animations✅
+3- scroll animations✅

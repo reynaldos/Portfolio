@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Data } from './data';
 import { SVGicons } from './icons';
-import { animateScroll as scroll } from 'react-scroll/modules';
 import { motion } from 'framer-motion';
 
 

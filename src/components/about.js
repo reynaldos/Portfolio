@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { motion } from "framer-motion";
 
 
 const bioDesc = [
@@ -11,6 +12,37 @@ const bioDesc = [
     ' In addition to my love of technology and design. I am also interested in education. history. economics and politics. Below are details of some of projects I have developed over my ten years of coding experience.']
 ]
 
+const portaitVariants = {
+  offscreen: {
+    opacity: 0,
+    x: 100,
+  },
+  onscreen: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: .1,
+      type: "ease",
+      duration: 0.8
+    }
+  }
+};
+
+const bioVariants = {
+  offscreen: {
+    opacity: 0,
+    x: -100,
+  },
+  onscreen: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: .2,
+      type: "ease",
+      duration: 0.8
+    }
+  }
+};
 
 export const About = ({currentBuild}) => {
 
@@ -24,7 +56,11 @@ export const About = ({currentBuild}) => {
 
           {/* left bio text section */}
           <BioSection>
-            <AdjusterWrap>
+            <AdjusterWrap
+              initial='offscreen'
+              whileInView='onscreen'
+              variants={bioVariants}
+            >
               <AdjusterText style={{margin:'auto 18px'}}>Adjust Bio Length</AdjusterText>
 
               <BubbleWrap>
@@ -50,7 +86,10 @@ export const About = ({currentBuild}) => {
             </AdjusterWrap>
 
 
-            <BioWrap>
+            <BioWrap
+              initial='offscreen'
+              whileInView='onscreen'
+              variants={bioVariants}>
               <BioText>
                  Hi I'm Rey!<br/>
                  
@@ -66,7 +105,11 @@ export const About = ({currentBuild}) => {
           {/* right portrait section */}
           <PortraitSection>
 
-                 <PortraitWrap>
+                 <PortraitWrap
+                   initial='offscreen'
+                    whileInView='onscreen'
+                    variants={portaitVariants}
+                 >
                     <CustomSvg 
                     x="0" y="0"
                     width="350" height="330" viewBox="0 0 525 487" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +158,7 @@ const Container = styled.section`
     display: grid;
     place-items: center;
     z-index: 15;
-    overflow-x: hidden;
+    overflow: hidden;
     position:relative;
     margin-top: 3rem;
 `
@@ -155,7 +198,9 @@ const BioSection = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  /* overflow: hidden; */
 
+  
    @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
         order: 2;
         margin: 0 1rem;
@@ -166,7 +211,7 @@ const BioSection = styled.div`
 
 
 
-const AdjusterWrap = styled.div`
+const AdjusterWrap = styled(motion.div)`
   width: 330px;
   margin-bottom: 2rem;
   margin-top: 4rem;
@@ -245,7 +290,7 @@ const BubbleBtn = styled.input`
 `
 
 
-const BioWrap = styled.div`
+const BioWrap = styled(motion.div)`
   width: 85%;
   max-width: 475px;
   min-width: 330px;
@@ -278,6 +323,8 @@ const PortraitSection = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    
+
 
     @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
         order: 1;
@@ -288,7 +335,7 @@ const PortraitSection = styled.div`
 `
 
 
-const PortraitWrap = styled.div`
+const PortraitWrap = styled(motion.div)`
   position: relative;
   height: 100%;
   width: 100%;

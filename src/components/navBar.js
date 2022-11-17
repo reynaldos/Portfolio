@@ -162,7 +162,8 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                 delay: 0,
                 type: "ease",
                 bounce: 0.4,
-                duration: .8
+                duration: .8,
+                scale:{duration: .3}
             }
         }
     };
@@ -190,7 +191,8 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
                         onClick={toggleHome}>               
                         <Logo  alt={'logo'} src={'./logo/logo.png'}/>
-                    </LogoWrap>                    
+                    </LogoWrap>  
+
                     <NavDesktop 
                         initial={'offscreen'}
                         animate = {showElements ? 'onscreen' : "offscreen"}
@@ -253,7 +255,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
             {/* colorway btn */}
                 <AccentBtnWrap 
-                     initial={'offscreen'}
+                    initial={'offscreen'}
                     animate = {showElements ? 'onscreen' : "offscreen"}
                     variants={barVariants}
                     status={navStatus}>

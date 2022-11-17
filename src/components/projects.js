@@ -1,6 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AccentButton } from './accentButton';
+import { motion } from 'framer-motion';
+
+
+const projectVariants = {
+  offscreen: {
+    opacity: 0,
+    // x: 1000,
+  },
+  onscreen: {
+    opacity: 1,
+    // x: 0,
+    // rotate: -10,
+    transition: {
+      type: "ease",
+      duration: 0.8
+    }
+  }
+};
+
+
 
 
 const projects = [
@@ -53,7 +73,11 @@ const ProjectBuild = ({currentBuild,project}) => {
 
 
   return (
-    <BuildContainer>
+    <BuildContainer
+        initial='offscreen'
+        whileInView='onscreen'
+        variants={projectVariants}
+        >
         <BuildWrapper currentBuild={currentBuild}>
 
             {/* bg image */}
@@ -133,7 +157,7 @@ const Wrapper = styled.div`
 
 `
 
-const BuildContainer = styled.div`
+const BuildContainer = styled(motion.div)`
     width: 100%;
     height: auto;
     margin: 1rem auto;
@@ -306,7 +330,6 @@ const TextWrap = styled.div`
     /* background-color: rgba(0,0,255,.5); */
     pointer-events: none;
 
-    
 
     ${props => props.side === 'right' ? `
        transform: translateX(90%);
