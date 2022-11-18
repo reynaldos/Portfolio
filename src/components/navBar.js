@@ -7,11 +7,10 @@ import { SVGicons } from './icons';
 
 import { Link as LinkS } from 'react-scroll';
 import { animateScroll as scroll } from 'react-scroll/modules';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 
 const navTransitonTime = .8;
-
-const loadingScreenDelay = process.env.REACT_APP_LOADING_TIME / 1000;
 
 export const NavBar = ({currentBuild,onClick,showElements}) => {
 
@@ -53,6 +52,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 
     const toggleNav = (windowChange) =>{
+         var targetElement = document.querySelector('#root');
 
         const resetBtn = (time) => {
             setTimeout(() => {
@@ -67,10 +67,14 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                 buttonRef.current.disabled = true;
 
                  if (navStatus === 'default'){
+                   
+                    disableBodyScroll(targetElement);
                     setNavStatus('open');
                     resetBtn(600);
                 }else if(navStatus === 'open'){
                     setNavStatus('close');
+                    enableBodyScroll(targetElement);
+
                     setTimeout(() => {
                         setNavStatus('default');
                         resetBtn(550);
@@ -759,9 +763,9 @@ const BottomContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     position: fixed;
-    top: 70%;
+    top: 69.9%;
     width: 120vw;
-    height: 30%;
+    height: 30.1%;
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};

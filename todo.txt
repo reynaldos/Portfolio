@@ -13,14 +13,13 @@ TODO
         -possible soltion: drop shadow✅
     3- some svg transitions not working
 
+
 - landing
     2- 3d model logic
     2- subtitle text change animation
-    1- correcct subtitle list
 
 - about
     1- stroke around bio pic
-    
     1- correct bio paragraphs
 
 - projects
@@ -33,7 +32,6 @@ TODO
 - 404 page
     1- UI design
     1- build
-
 
 DONE:
 3- scroll links✅
@@ -48,3 +46,5 @@ DONE:
 2- logo animations✅
 3- scroll animations✅
 2- hover effect for bio pic✅
+2- stop scrolling when nav bar open✅
+1- correcct subtitle list✅

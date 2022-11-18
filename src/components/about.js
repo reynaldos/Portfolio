@@ -168,7 +168,7 @@ export const About = ({currentBuild}) => {
                           }}
                           whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
                           onClick={()=>togglePixel(true)}
-                          currentBuild={currentBuild}>
+                          currentbuild={currentBuild}>
                         <Label currentBuild={currentBuild}>Me</Label>
                       </PortraitLabelWrap>
                        
@@ -181,8 +181,8 @@ export const About = ({currentBuild}) => {
                                 }}
                                 whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
                              onClick={()=>togglePixel(true)}
-                            currentBuild={currentBuild}
-                            bottom={true}>
+                            currentbuild={currentBuild}
+                            bottom={'true'}>
                         <Label currentBuild={currentBuild}>Me</Label>
                       </PortraitLabelWrap>
                       
@@ -490,10 +490,10 @@ const PortraitLabelWrap = styled(motion.div)`
   /* top: 50%;
   left: 50%;
   transform: translate(); */
-  background-color:  ${props=> props.theme[props.currentBuild].btn};
+  background-color:  ${props=> props.theme[props.currentbuild].btn};
    transition:  background-color ${props => props.theme.transitionStyleMid};
   
-  ${props => !props.bottom ? `
+  ${props => props.bottom !== 'true' ? `
     clip-path: polygon(28.5% 0%, 71.5% 0%, 100% 100%, 0% 100%);
     -webkit-clip-path: polygon(28.5% 0%, 71.5% 0%, 100% 100%, 0% 100%);
     top: 2.5%;

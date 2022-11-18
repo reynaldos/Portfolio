@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 const messages = [
     'software enginer', 
+    'front-end developer',
     'turns ideas into reality', 
     'problem solver', 
     'uses iced coffee as fuel',
@@ -14,7 +15,7 @@ const messages = [
     'has a lot of ideas',
     'innovative thinker',
     'uses comments in code',
-    'watches too much anime'
+    'watches too much anime',
 ];
 
 let stack = [0];
@@ -42,10 +43,12 @@ const titleVarients = {
 
 const btnVarients = {
     offscreen: {
-        y: 200
+        y: 200,
+        x: '-50%',
     },
     onscreen: {
         y: 0,
+        x: '-50%',
         transition: {
             delay: 1.7,
             type: "spring",
