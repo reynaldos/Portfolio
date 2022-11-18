@@ -7,6 +7,8 @@ import * as shader from "./Shaders/Shader";
 import { GUI } from 'dat.gui';
 
 
+var radToDeg = Math.PI / 180;
+
 class Scene extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +44,7 @@ class Scene extends Component {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color( 0xffffff );  
+    this.scene.background = new THREE.Color( 0x868e9c );  
     this.camera = new THREE.PerspectiveCamera(
       70,
       window.innerWidth / window.innerHeight,
@@ -50,7 +52,7 @@ class Scene extends Component {
       1000
     );
 
-    this.camera.position.set(0, 0, 2);
+    this.camera.position.set(0, 0, 0);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.scene.add(this.camera);
     
@@ -95,12 +97,18 @@ class Scene extends Component {
 
     let loadedModel;
     const glftLoader = new GLTFLoader();
-    glftLoader.load('./assets/corridor1/scene.gltf', (gltfScene) => {
+    glftLoader.load('./assets/corridors/corridor5/scene.gltf', (gltfScene) => {
       loadedModel = gltfScene;
       // console.log(loadedModel);
 
-      gltfScene.scene.rotation.y = Math.PI / 8;
-      gltfScene.scene.position.y = 3;
+      // gltfScene.scene.rotation.x = radToDeg * 0
+      gltfScene.scene.rotation.y = radToDeg * 180;
+      // gltfScene.scene.rotation.z = Math.PI /8;
+
+      gltfScene.scene.position.x = 2.675;
+      gltfScene.scene.position.y = -2;
+      gltfScene.scene.position.z = -5;
+
       // gltfScene.scene.scale.set(.5, .5, .5);
       this.scene.add(gltfScene.scene);
     });
@@ -112,9 +120,10 @@ class Scene extends Component {
     this.scene.add(this.ambientLight);
 
     // directional light - parallel sun rays
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 6);
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     // this.directionalLight.castShadow = true;
-    this.directionalLight.position.set(0, 32, 0);
+    this.directionalLight.position.set(2.675, -0, 2.675);
+    this.directionalLight.rotation.z = radToDeg * -30;
     this.scene.add(this.directionalLight);
 
 
@@ -123,38 +132,6 @@ class Scene extends Component {
 
 
   computeBoundingBox() {
-    // let offset = 1.6;
-    // const boundingBox = new THREE.Box3();
-    // boundingBox.setFromObject(this.object);
-    // const center = boundingBox.getCenter();
-    // const size = boundingBox.getSize();
-    // const maxDim = Math.max(size.x, size.y, size.z);
-    // const fov = this.camera.fov * (Math.PI / 180);
-    // let cameraZ = maxDim / 2 / Math.tan(fov / 2);
-    // cameraZ *= offset;
-    // this.camera.position.z = center.z + cameraZ;
-    // const minZ = boundingBox.min.z;
-    // const cameraToFarEdge = minZ < 0 ? -minZ + cameraZ : cameraZ - minZ;
-
-    // this.camera.far = cameraToFarEdge * 3;
-    // this.camera.lookAt(center);
-    // this.camera.updateProjectionMatrix();
-
-    // let controls = new OrbitControls(this.camera, this.renderer.domElement);
-    // controls.enableDamping = true;
-    // controls.dampingFactor = 0.25;
-    // controls.enableZoom = true;
-    // controls.zoomSpeed = 0.1;
-    // controls.enableKeys = false;
-    // controls.screenSpacePanning = false;
-    // controls.enableRotate = true;
-    // controls.autoRotate = true;
-    // controls.dampingFactor = 1;
-    // controls.autoRotateSpeed = 1.2;
-    // controls.enablePan = false;
-    // controls.target.set(center.x, center.y, center.z);
-    // controls.update();
-    // this.controls = controls;
     this.renderer.setSize(this.width, this.height);
     this.container.appendChild(this.renderer.domElement);
     this.start();

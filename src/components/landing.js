@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import styled from 'styled-components';
 import { SVGicons } from './icons';
-// import Scene from '../threeJs/Scene';
+import Scene from '../threeJs/Scene';
 import { motion } from "framer-motion";
 
 
@@ -113,8 +113,6 @@ export const Landing = ({currentBuild,showElements}) => {
         }
     }
 
-    
-
 
   return (
     <>
@@ -152,9 +150,9 @@ export const Landing = ({currentBuild,showElements}) => {
                     <ButtonTxt currentBuild={currentBuild}>Shuffle</ButtonTxt>
                 </ButtonWrap>
         </Container>
-        {/* <ThreeJsContainter>
+        <ThreeJsContainter>
             <Scene/>
-        </ThreeJsContainter> */}
+        </ThreeJsContainter>
     </>
     
     
@@ -227,7 +225,7 @@ const Subtitle = styled.h4`
     text-transform: uppercase;
     letter-spacing: .1rem;
     font-weight: 900;
-    text-align: right;
+    text-align: center;
     -webkit-text-stroke: 1px white;
     color: transparent;
 
@@ -312,15 +310,30 @@ const ButtonTxt = styled.h3`
 
 `
 
-// const ThreeJsContainter = styled.section`
+const ThreeJsContainter = styled.section`
 
-//     position: fixed;
-//     /* background-color: red; */
-//     width: 100vw;
-//     height: 100vh;
-//     z-index: 1000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    background-color: black;
+    opacity: .4;  
+    width: 100vw;
+    height: 100vh;
+    z-index: 140000;
+    z-index: 14; 
 
-
-// `
-
+    mask-image: -webkit-gradient(
+        linear, 
+        center top, 
+        center bottom, 
+        from(rgba(0,0,0,1)) , 
+        to(rgba(0,0,0,0)));
+    -webkit-mask-image: -webkit-gradient(
+        linear, 
+        center top, 
+        center bottom, 
+        from(rgba(0,0,0,1)) , 
+        to(rgba(0,0,0,0)));
+`
 
