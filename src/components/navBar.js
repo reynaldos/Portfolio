@@ -397,6 +397,7 @@ const Wrapper = styled.div`
 
     filter: drop-shadow(0px 0px 4px #000);
     -webkit-filter: drop-shadow(0px 0px 4px #000);
+     will-change: filter;
 
 
       @media screen and (min-width: ${props => props.theme.breakpoint.xl}){

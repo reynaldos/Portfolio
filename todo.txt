@@ -13,14 +13,12 @@ TODO
         -possible soltion: drop shadow✅
     3- some svg transitions not working
 
-
 - landing
     2- 3d model logic
     2- subtitle text change animation
 
 - about
     1- stroke around bio pic
-    1- correct bio paragraphs
 
 - projects
     1- item hover glitch
@@ -48,3 +46,5 @@ DONE:
 2- hover effect for bio pic✅
 2- stop scrolling when nav bar open✅
 1- correcct subtitle list✅
+1- correct bio paragraphs✅
+

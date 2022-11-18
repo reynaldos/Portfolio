@@ -21,25 +21,25 @@ const messages = [
 let stack = [0];
 
 
-const titleVarients = {
-    offscreen: {
-        scale: 0,
-        opacity:0,
-        transformOrigin: 'center',
-        y: 5
-    },
-    onscreen: {
-        scale: [0,0,1],
-        opacity: [0,0,1],
-        y: 0,
-        transition: {
-            delay: 1.4,
-            type: "ease",
-            bounce: 0.25,
-            duration: .8
-        }
-    }
-} 
+// const titleVarients = {
+//     offscreen: {
+//         scale: 0,
+//         opacity:0,
+//         transformOrigin: 'center',
+//         y: 5
+//     },
+//     onscreen: {
+//         scale: [0,0,1],
+//         opacity: [0,0,1],
+//         y: 0,
+//         transition: {
+//             delay: 1.4,
+//             type: "ease",
+//             bounce: 0.25,
+//             duration: .8
+//         }
+//     }
+// } 
 
 const btnVarients = {
     offscreen: {
@@ -95,6 +95,7 @@ export const reducer = (state,action) => {
 
   return new Error('no matching action type')
 }
+
 
 
 export const Landing = ({currentBuild,showElements}) => {

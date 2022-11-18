@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 
 const bioDesc = [
-  ['Super Cool Guy with drip and so much clout. Top tier pick dont sleep.'],
-  ['I enjoy using my problem solving skill to help startups launch and grow their products.'],
-  ['I have recently with a Computer Science degree have a passion for all things technology and design.'],
-  ['The series explores the experiences and emotions of Evangelion pilots and members of Nerv as they try to prevent Angels from causing more cataclysms. In the process, they are called upon to understand the ultimate causes of events and the motives for human action.'],
+  ['I build really cool things for really cool people.'],
+  ['I enjoy using my problem solving skills to help startups launch and grow their products.'],
+  ['I have recently graduated with a Computer Science degree and have a passion for all things technology and design.'],
+  ['I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.'],
   ['I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.',
-    ' In addition to my love of technology and design. I am also interested in education. history. economics and politics. Below are details of some of projects I have developed over my ten years of coding experience.']
+    ' In addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.']
 ]
 
 const portaitVariants = {
@@ -263,7 +263,6 @@ const BioSection = styled.div`
 `
 
 
-
 const AdjusterWrap = styled(motion.div)`
   width: 330px;
   margin-bottom: 2rem;
@@ -346,21 +345,20 @@ const BubbleBtn = styled.input`
 const BioWrap = styled(motion.div)`
   width: 85%;
   max-width: 475px;
-  min-width: 330px;
+  min-width: 355px;
   height: 300px;
 
   @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-      width: 100%;
      height: min-content;
-
   } 
 
   @media screen and (max-width: calc(${props => props.theme.breakpoint.xs})){
+      min-width: 355px;
   } 
 
 `
 const BioText = styled.p`
-
+   width: 100%;
 
 `
 
