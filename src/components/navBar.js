@@ -6,7 +6,7 @@ import { AccentButton } from './accentButton';
 import { SVGicons } from './icons';
 
 import { Link as LinkS } from 'react-scroll';
-// import { animateScroll as scroll } from 'react-scroll/modules';
+// import { animateScroll as scroll } from '/modules';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 

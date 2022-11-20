@@ -136,8 +136,8 @@ export const Landing = ({currentBuild,showElements}) => {
                 variants={btnVarients}
 
                 whileHover={{
-                    scale: 1.02,
-                    transition: { duration: .3 },
+                    scale: 1.1,
+                    transition: { duration: .2 },
                 }}
                 whileTap={{ scale: 0.98, transition: { duration: .3 }, }}
 
