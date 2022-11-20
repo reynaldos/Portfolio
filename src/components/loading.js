@@ -323,15 +323,31 @@ const Detail = styled.div`
     width:  ${props=>`${props.size}px`};
     height: ${props=>`${props.size}px`};
     /* outline: 1px solid red;  */
+/* 
+      animation: fade 3s 1 ease;
+
+     @keyframes fade {
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+     } */
 `
 
 
 const DetailText = styled.p`
     color: #23BC61;
+    opacity: 1;
+
     text-shadow: 0px 0px 4px #23BC60A8;
 
     font-family: 'DesignerGenes', 'Courier New Bold', Courier, monospace;
      z-index: 20000000000000;
+
+
+   
      
 `
 

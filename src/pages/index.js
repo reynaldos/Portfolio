@@ -7,8 +7,9 @@ import { Landing } from '../components/landing';
 import { About } from '../components/about';
 import { Projects } from '../components/projects';
 import { LoadingScreen } from '../components/loading';
-import {Footer} from '../components/footer';
+import { Footer} from '../components/footer';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { isIOS,isSafari } from 'react-device-detect';
 
 
 const loadTime = process.env.REACT_APP_LOADING_TIME;
@@ -25,8 +26,18 @@ export const Home = () => {
     
 
     useEffect(()=>{
-      var targetElement = document.querySelector('#root');
-      disableBodyScroll(targetElement);
+       var targetElement = document.querySelector('#root');
+
+      // if(isIOS && isSafari){
+      //   console.log('found')
+      //   // window.scrollTo(0,50);
+      //   setTimeout(() => {
+      //       // disableBodyScroll(targetElement);
+      //   }, 500);
+      // }else{
+        disableBodyScroll(targetElement);
+      // }
+
 
       setTimeout(() => {
        
@@ -40,6 +51,9 @@ export const Home = () => {
         }
 
       }, loadTime);
+
+
+
     }, [])
 
     const finishLoading = () => {

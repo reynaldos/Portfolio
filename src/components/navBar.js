@@ -6,7 +6,7 @@ import { AccentButton } from './accentButton';
 import { SVGicons } from './icons';
 
 import { Link as LinkS } from 'react-scroll';
-import { animateScroll as scroll } from 'react-scroll/modules';
+// import { animateScroll as scroll } from 'react-scroll/modules';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 
@@ -37,15 +37,15 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 
     const toggleHome = () =>{
-
-        if (navStatus === 'open'){
-            toggleNav();
-            setTimeout(() => {
-             scroll.scrollToTop();
-        }, 500);
-        }else{
-            scroll.scrollToTop();
-        }
+        document.location.reload();
+        // if (navStatus === 'open'){
+        //     toggleNav();
+        //     setTimeout(() => {
+        //      scroll.scrollToTop();
+        // }, 500);
+        // }else{
+        //     scroll.scrollToTop();
+        // }
     
     }
 
@@ -153,12 +153,14 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
     const logoVariants = {
         default: {transform:{ duration: .3}},
         offscreen: {
+            y: '-50%',
             opactiy:0,
             scale:0,
             rotate: 360,
             transformOrigin: 'center'
         },
         onscreen: {
+            y: '-50%',
             opactiy:1,
             scale:1,
             rotate: 0,
@@ -192,8 +194,9 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                         initial={'offscreen'}
                         animate = {showElements ? 'onscreen' : "offscreen"}
                         variants={logoVariants}
-
-                        onClick={toggleHome}>               
+                        href={'/'}
+                        // onClick={toggleHome}
+                        >               
                         <Logo  alt={'logo'} src={'./logo/logo.png'}/>
                     </LogoWrap>  
 
@@ -405,9 +408,23 @@ const Wrapper = styled.div`
     } 
 `
 
-const LogoWrap = styled(motion.div)`
-    height: 110%;
+const LogoWrap = styled(motion.a)`
+    height: 115%;
     margin: auto .5rem;
+    /* background-color: red; */
+    position: relative;
+    top:50%;
+
+    @media screen and (min-width: ${props => props.theme.breakpoint.lg}){
+        height: 130%;
+        top:55%;    
+    } 
+
+     @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
+        margin: auto 0rem;
+
+    } 
+
 `
 
 const Logo = styled.img`
