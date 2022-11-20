@@ -3,6 +3,7 @@ TODO
 - site wide
     1- section headers?
     2- color change tweaks
+    3- auto scroll for mobile
 
 - loading screen
     2- gradient border
@@ -14,7 +15,7 @@ TODO
     3- some svg transitions not working
 
 - landing
-    2- 3d model logic
+    3- 3d drop item logic
     2- subtitle text change animation
 
 - about
@@ -47,4 +48,6 @@ DONE:
 2- stop scrolling when nav bar open✅
 1- correcct subtitle list✅
 1- correct bio paragraphs✅
+3- 3d scene logicw✅
+3- lock movement on scroll and mobile✅
 

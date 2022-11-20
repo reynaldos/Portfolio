@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer,useEffect} from 'react';
 import styled from 'styled-components';
 import { SVGicons } from './icons';
 import Scene from '../threeJs/Scene';
@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 
 
 const messages = [
+    'Full-stack developer',
     'software enginer', 
-    'front-end developer',
     'turns ideas into reality', 
     'problem solver', 
-    'uses iced coffee as fuel',
+    'fueled by iced coffee',
     'loves learning new things',
     'has a lot of ideas',
     'innovative thinker',
@@ -65,7 +65,10 @@ const defaultState = {
 }
 
 
+
+
 export const reducer = (state,action) => {
+    
 
 
   if (action.type === 'ACTIVATE'){
@@ -81,6 +84,7 @@ export const reducer = (state,action) => {
         }
 
         stack.push(newIndex);
+
       return {
         ...state,
         index: newIndex,
@@ -97,7 +101,6 @@ export const reducer = (state,action) => {
 }
 
 
-
 export const Landing = ({currentBuild,showElements}) => {
 
     const [state, dispatch] = useReducer(reducer,defaultState);
@@ -112,7 +115,6 @@ export const Landing = ({currentBuild,showElements}) => {
             }, 900);
         }
     }
-
 
   return (
     <>
@@ -139,7 +141,18 @@ export const Landing = ({currentBuild,showElements}) => {
                 }}
                 whileTap={{ scale: 0.98, transition: { duration: .3 }, }}
 
-                onClick={shuffle}
+                onClick={()=>{
+                    
+                    shuffle();
+            
+                    if(state.status==='inactive'){
+                        // Dispatch the drop event.
+                        const dropEvent = new Event('dropItem');
+                        window.dispatchEvent(dropEvent);
+                    }
+                   
+                
+                }}
                 currentbuild={currentBuild}>
                     <IconWrap
                         status={state.status}>
@@ -151,7 +164,7 @@ export const Landing = ({currentBuild,showElements}) => {
                 </ButtonWrap>
         </Container>
         <ThreeJsContainter>
-            <Scene/>
+            <Scene status={state.status}/>
         </ThreeJsContainter>
     </>
     
@@ -317,10 +330,10 @@ const ThreeJsContainter = styled.section`
     left: 0;
     
     background-color: black;
-    opacity: .4;  
+    opacity: .4;   
     width: 100vw;
     height: 100vh;
-    z-index: 140000;
+    /* z-index: 140000; */
     z-index: 14; 
 
     mask-image: -webkit-gradient(
