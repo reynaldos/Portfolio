@@ -7,7 +7,7 @@ import { SVGicons } from './icons';
 
 import { Link as LinkS } from 'react-scroll';
 // import { animateScroll as scroll } from '/modules';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { lock as enableBodyScroll, unlock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
 
 const navTransitonTime = .8;
@@ -49,31 +49,27 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
     
     }
 
-
-
-    const toggleNav = (windowChange) =>{
-         var targetElement = document.querySelector('#root');
-
-        const resetBtn = (time) => {
+       const resetBtn = (time) => {
             setTimeout(() => {
                  buttonRef.current.disabled = false;
             }, time);
         }
-       
 
-        if (!windowChange){
+    const toggleNav = (windowChange) =>{
+
+         if (!windowChange){
           
             if(!buttonRef.current.disabled){
                 buttonRef.current.disabled = true;
 
                  if (navStatus === 'default'){
                    
-                    disableBodyScroll(targetElement);
+                    disableBodyScroll();
                     setNavStatus('open');
                     resetBtn(600);
                 }else if(navStatus === 'open'){
                     setNavStatus('close');
-                    enableBodyScroll(targetElement);
+                    enableBodyScroll();
 
                     setTimeout(() => {
                         setNavStatus('default');
@@ -241,7 +237,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                         <HamburgerWrap
                             ref={buttonRef}
                             currentBuild={currentBuild}
-                            onClick={(e)=>toggleNav(false)}>
+                            onClick={(e)=>{toggleNav(false)}}>
                             <HamburgerLine 
                                 status={navStatus}
                                 currentBuild={currentBuild}/>
