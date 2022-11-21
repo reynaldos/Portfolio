@@ -82,7 +82,7 @@ class Scene extends Component {
   // setup physics world
   setUpPhysics(){
     const corridorWidth = 6.7;
-    const gravity = -5;
+    const gravity = -3;
 
     // physics world
     this.physicsWorld =  new CANNON.World({
