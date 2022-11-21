@@ -37,7 +37,7 @@ const projects = [
         title: 'TYGR NFT - Web3 Dapp',
         image: './mockups/tygr_mockup.png',
         codestack: ['next.js', 'UI design'],
-        link: './',
+        link: 'https://tygr-dev-mu.vercel.app',
         side: 'right'
 
     },{

@@ -64,6 +64,10 @@ const MouseDot = styled(motion.div)`
     height: 10px;
     border-radius: 50%;
     background: #fffe;
+
+    filter: drop-shadow(0px 0px 4px #000);
+    -webkit-filter: drop-shadow(0px 0px 4px #000);
+     will-change: filter;
 `
 const MouseFrame = styled(motion.div)`
     position: fixed;
@@ -72,6 +76,10 @@ const MouseFrame = styled(motion.div)`
     transform: translate(-50%, -50%);
     /* transition: width .3s,height .3s; */
     transition: all .08s;
+
+    filter: drop-shadow(0px 0px 4px #000);
+    -webkit-filter: drop-shadow(0px 0px 4px #000);
+     will-change: filter;
 
 `
 
