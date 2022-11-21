@@ -133,6 +133,7 @@ class Scene extends Component {
 
     const bumperRadius = .1;
     const bumperHieght = 10;
+    const bumperPosY = 4.5;
     const spaceCount = 7;
     const spaceBetween = (Math.floor((corridorWidth/spaceCount) * 100))/100;
 
@@ -144,7 +145,7 @@ class Scene extends Component {
       });
 
       let xPos = (-corridorWidth/2) + (spaceBetween * i);
-      bumper.position.set(xPos , 4.5, -10);
+      bumper.position.set(xPos , bumperPosY, -10);
       bumper.quaternion.setFromEuler(radToDeg * 90,0,0);
       this.physicsWorld.addBody(bumper);
     }
@@ -341,7 +342,7 @@ class Scene extends Component {
     // item to drop physics body
     // create a sphere and set it at y=10
     const radius = .35;
-    const dropHieght = 7.5;
+    const dropHieght = 7.2;
     const sphereBody = new CANNON.Body({
       mass: 0.1,
       shape: new CANNON.Sphere(radius),
@@ -349,7 +350,7 @@ class Scene extends Component {
 
     // randomly shift in corridor
     const shiftX = getRandom(-3.1,3.1);
-    const shiftZ = getRandom(-5,6);
+    const shiftZ = getRandom(-5,4);
     sphereBody.quaternion.setFromEuler(0, radToDeg * -90, 0);
     sphereBody.position.set(shiftX, dropHieght, -10 + shiftZ);
     this.physicsWorld.addBody(sphereBody);
