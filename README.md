@@ -1,12 +1,13 @@
-<p align="center">
-  <img width="100" height="100" src="https://www.reysanchez.dev/logo/logo-180x180.png">
+<div align="center">
+  <img alt="Logo" src="https://www.reysanchez.dev/logo/logo-180x180.png" width="100" />
+</div>
+
+<h1 align="center">
+  Portfolio Website
+</h1>
 
 <p align="center">
-    ## Portfolio Website
-</p>
-
-<p align="center">
-A portfolio of work built with React and hosted with Vercel. ([reysanchez.dev](https://www.reysanchez.dev))
+  A portfolio of work built with <a href="https://reactjs.org" target="_blank">React</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>. (<a href="https://reysanchez.dev" target="_blank">reysanchez.dev</a>)
 </p>
 
 ![App Screenshot](https://www.reysanchez.dev/assets/share.png)
