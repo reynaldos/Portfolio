@@ -78,7 +78,7 @@ export const About = ({currentBuild}) => {
           await asyncCall(100);
         }
 
-        for(let i = 3; i >= 0; i--){
+        for(let i = 3; i >= 1; i--){
           setPortrait(i);
           await asyncCall(125);
         }
