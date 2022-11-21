@@ -124,7 +124,7 @@ export const LoadingScreen = ({fade}) => {
         if(Math.floor(percent*10) < 10){
             setTimeout(() => {
             setElapsedTime(old=> old+=1)
-            }, 0);
+            }, 200);
         }
     },[elapsedTime]);
 
