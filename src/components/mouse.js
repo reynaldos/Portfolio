@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { isMobile } from 'react-device-detect';
+
 
 
 export const MouseCursor = ({})=>{
@@ -19,8 +19,7 @@ export const MouseCursor = ({})=>{
         })
         }
 
-        if(!isMobile)
-            window.addEventListener("mousemove", mouseMove);
+        window.addEventListener("mousemove", mouseMove);
 
         return () => {
             window.removeEventListener("mousemove", mouseMove);
@@ -40,17 +39,16 @@ export const MouseCursor = ({})=>{
     }
 
     return(<>
-
-        {!isMobile && <MouseFrame
+        <MouseFrame
             animate={"frame"}
             variants={variants}>
             <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" style={{left: '234.025px',top: `12.0255px`}}>
                 <path d="M33 1h13a3 3 0 013 3v13h0m0 16v6.653a3 3 0 01-1.007 2.242L40 49h0-8m-15 0H4a3 3 0 01-3-3V33h0m0-15v-7.757a3 3 0 01.879-2.122L9 1h8" 
                 stroke="#fff" strokeWidth="1.5" fill="none" fillRule="evenodd"></path></svg>
-        </MouseFrame>}
-       {!isMobile && <MouseDot 
+        </MouseFrame>
+        <MouseDot 
             animate={"default"}
-            variants={variants}/>}
+            variants={variants}/>
         </>
 
     )
