@@ -8,8 +8,9 @@ import { About } from '../components/about';
 import { Projects } from '../components/projects';
 import { LoadingScreen } from '../components/loading';
 import { Footer} from '../components/footer';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { isIOS,isSafari } from 'react-device-detect';
+// import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { lock as enableBodyScroll, unlock as disableBodyScroll  } from 'tua-body-scroll-lock';
+
 
 
 const loadTime = process.env.REACT_APP_LOADING_TIME;
@@ -26,7 +27,6 @@ export const Home = () => {
     
 
     useEffect(()=>{
-       var targetElement = document.querySelector('#root');
 
       // if(isIOS && isSafari){
       //   console.log('found')
@@ -35,7 +35,7 @@ export const Home = () => {
       //       // disableBodyScroll(targetElement);
       //   }, 500);
       // }else{
-        disableBodyScroll(targetElement);
+        disableBodyScroll();
       // }
 
 
@@ -60,8 +60,7 @@ export const Home = () => {
         // console.log('close loading')
         
         window.removeEventListener("load", finishLoading);
-        var targetElement = document.querySelector('#root');
-        enableBodyScroll(targetElement);
+        enableBodyScroll();
         setFade(true);
       
         setTimeout(() => {
