@@ -45,7 +45,8 @@ const projects = [
         title: 'Mugen Manga - Cross Platform Manga Reader',
         image: './mockups/mugen_manga_mockup.png',
         codestack: ['flutter','firebase', 'UI design', 'webscrape'],
-        link: 'https://reynaldos.github.io/manga_reader_web/',
+        link: './',
+        // link: 'https://reynaldos.github.io/manga_reader_web/',
         side: 'left'
 
     },
@@ -125,11 +126,6 @@ const ProjectBuild = ({currentBuild,project}) => {
 }
 
 
-
-
-
-
-
 const Container = styled.section`
     min-height:700px;  
     width: 100%;
@@ -178,8 +174,17 @@ const BuildContainer = styled(motion.div)`
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
         aspect-ratio: 1.05/1;
         width: 100%;
+        /* height: ; */
         /* background-color: red; */
     } 
+
+      @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
+        aspect-ratio: 1.05/1.2;
+        width: 100%;
+        /* height: ; */
+        /* background-color: red; */
+    } 
+
 
    
 

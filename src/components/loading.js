@@ -97,9 +97,9 @@ export const LoadingScreen = ({fade}) => {
             // loading bar
             setTimeout(() => {
                 setPercent(old=> old+=.05);
-            }, 50);         
+            }, 150);         
         }else{
-            setPercent(-.05);
+            setPercent(0);
         }
     },[percent]);
 
