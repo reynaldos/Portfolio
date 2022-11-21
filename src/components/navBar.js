@@ -7,7 +7,7 @@ import { SVGicons } from './icons';
 
 import { Link as LinkS } from 'react-scroll';
 // import { animateScroll as scroll } from '/modules';
-import { lock as enableBodyScroll, unlock as disableBodyScroll  } from 'tua-body-scroll-lock';
+import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
 
 const navTransitonTime = .8;
