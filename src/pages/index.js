@@ -9,7 +9,7 @@ import { Projects } from '../components/projects';
 import { LoadingScreen } from '../components/loading';
 import { Footer} from '../components/footer';
 // import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { lock as enableBodyScroll, unlock as disableBodyScroll  } from 'tua-body-scroll-lock';
+import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
 
 
