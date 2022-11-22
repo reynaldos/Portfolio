@@ -45,7 +45,7 @@ const projects = [
         title: 'Mugen Manga - Cross Platform Manga Reader',
         image: './mockups/mugen_manga_mockup.png',
         codestack: ['flutter','firebase', 'UI design', 'webscrape'],
-        link: './',
+        link: 'https://reynaldos.github.io/reynaldos-github.io/#/',
         // link: 'https://reynaldos.github.io/manga_reader_web/',
         side: 'left'
 
