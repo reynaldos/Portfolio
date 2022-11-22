@@ -23,7 +23,6 @@ TODO
 
 - projects
     1- item hover glitch
-    2- message for broken links
 
 - footer
     1-revamp design
@@ -51,3 +50,4 @@ DONE:
 3- 3d scene logicw✅
 3- lock movement on scroll and mobile✅
 3- 3d drop item logic✅
+2- message for broken links✅
