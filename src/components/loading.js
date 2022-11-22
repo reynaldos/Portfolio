@@ -135,8 +135,8 @@ export const LoadingScreen = ({fade}) => {
                  <Shader/>
 
 
-            {/* BLACK RINGS */}
-           {[...Array(25)].map((v,i)=>{
+            {/* GRADIENT RINGS */}
+           {[...Array(40)].map((v,i)=>{
             return <Rings key={i} index={i} 
                     size={i < styleDetails.ringGapIndex ?
                             (i * styleDetails.ringSpacing) + styleDetails.innerCircleSize : 
