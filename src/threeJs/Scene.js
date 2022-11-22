@@ -151,9 +151,9 @@ class Scene extends Component {
     }
 
     // test world
-    this.cannonDebugger = new CannonDebugger(this.scene, this.physicsWorld, {
-      // color: 0xff0000,
-    });
+    // this.cannonDebugger = new CannonDebugger(this.scene, this.physicsWorld, {
+    //   // color: 0xff0000,
+    // });
   }
 
   // objects to add to scene
@@ -280,7 +280,7 @@ class Scene extends Component {
   animate() {
     this.frameId = requestAnimationFrame(this.animate);
     this.physicsWorld.fixedStep();
-    this.cannonDebugger.update();
+    // this.cannonDebugger.update();
 
 
     for(let i = 0; i <  this.meshes.length; i++){
