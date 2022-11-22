@@ -82,7 +82,7 @@ class Scene extends Component {
   // setup physics world
   setUpPhysics(){
     const corridorWidth = 6.7;
-    const gravity = -3;
+    const gravity = -10;
 
     // physics world
     this.physicsWorld =  new CANNON.World({
@@ -151,9 +151,9 @@ class Scene extends Component {
     }
 
     // test world
-    // this.cannonDebugger = new CannonDebugger(this.scene, this.physicsWorld, {
-    //   // color: 0xff0000,
-    // });
+    this.cannonDebugger = new CannonDebugger(this.scene, this.physicsWorld, {
+      // color: 0xff0000,
+    });
   }
 
   // objects to add to scene
@@ -280,7 +280,7 @@ class Scene extends Component {
   animate() {
     this.frameId = requestAnimationFrame(this.animate);
     this.physicsWorld.fixedStep();
-    // this.cannonDebugger.update();
+    this.cannonDebugger.update();
 
 
     for(let i = 0; i <  this.meshes.length; i++){
@@ -342,9 +342,9 @@ class Scene extends Component {
     // item to drop physics body
     // create a sphere and set it at y=10
     const radius = .35;
-    const dropHieght = 7.2;
+    const dropHieght = 5;
     const sphereBody = new CANNON.Body({
-      mass: 0.1,
+      mass: 5,
       shape: new CANNON.Sphere(radius),
     });
 
