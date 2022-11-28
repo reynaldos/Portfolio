@@ -464,6 +464,11 @@ const PortraitBubbleWrap = styled.div`
 
   @media screen and (max-width: ${props => props.theme.breakpoint.lg}){
        bottom: -10px;
+  } 
+
+    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
+        right: 25%;
+        bottom: 5px;
 
   } 
 
