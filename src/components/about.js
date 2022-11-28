@@ -93,7 +93,12 @@ export const About = ({currentBuild}) => {
          // final clear up
         for(let i = 3; i >= 1; i--){
           setPortrait(i);
-          await asyncCall(125);
+
+          if (i >1 )
+          {await asyncCall(125);}
+          else{
+          await asyncCall(50);
+          }
         }
       
         setPortrait(0);
