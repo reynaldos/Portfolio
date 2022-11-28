@@ -50,34 +50,47 @@ function asyncCall(time) {
 }
 
 
+
 export const About = ({currentBuild}) => {
 
   const [bioLength, setBioLength] = useState(3);
   const [portrait, setPortrait] = useState(0);
+  const [portraitID, setPortraitID] = useState(2);
+
 
 
    const togglePixel = async(skip) =>{
       
       if(portrait === 0 ){
+       
         if(skip === true){
+           // pixalate photo for me btn
           for(let i = 0; i <= 3; i++){
             setPortrait(i);
             await asyncCall(100);
           } 
         }else{
+          // already pixalted for transition 
           setPortrait(4);
           await asyncCall(300);
         }
 
+        // clear up photo
         for(let i = 4; i >= 1; i--){
           setPortrait(i);
           await asyncCall(125);
         }
+
+         // pixalate photo
         for(let i = 2; i <= 4; i++){
           setPortrait(i);
           await asyncCall(100);
         }
 
+        // photo switch
+        setPortraitID(portraitID === 1 ? 2 : 1);
+
+         // final clear up
         for(let i = 3; i >= 1; i--){
           setPortrait(i);
           await asyncCall(125);
@@ -106,6 +119,7 @@ export const About = ({currentBuild}) => {
               <BubbleWrap>
                 {[...Array(5)].map((value,index)=>{
                 return <BubbleBtn 
+                    
                           type={'checkbox'} 
                           checked={ index===bioLength-1}
                           onClick={()=>setBioLength(index+1)}
@@ -150,6 +164,7 @@ export const About = ({currentBuild}) => {
                     whileInView='onscreen'
                     variants={portaitVariants}
                      onViewportEnter={togglePixel}>
+                      
                     <CustomSvg 
                     x="0" y="0"
                     width="350" height="330" viewBox="0 0 525 487" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,15 +204,33 @@ export const About = ({currentBuild}) => {
 
                       {/* photo */}
                       <PhotoWrap>
-                          <Photo src={`./me/${portrait}.jpg`}/>
+                          <Photo 
+                            pic={portraitID}
+                            src={`./me/v${portraitID}/${portrait}.${portraitID !== 1 ? 'jpg': 'png'}`}/>
                       </PhotoWrap>
+
+                      {/* portrait id bubbles */}
+                      <PortraitBubbleWrap>
+                            {[...Array(2)].map((value,index)=>{
+                            return <BubbleBtn 
+                                      style={{height: '20px',width:'20px'}}
+                                      type={'checkbox'} 
+                                      checked={ index===portraitID-1}
+                                      key={index} 
+                                      currentBuild={currentBuild}
+                                      onChange={()=>{}}
+                                      // selected={index===bioLength-1}
+                                      />
+                          })}
+                         </PortraitBubbleWrap>
                     </LabelContainer>
                     
 
-                    
+                  
                     
                  </PortraitWrap>
-
+                  
+                  
                
           </PortraitSection>
 
@@ -334,7 +367,10 @@ const BubbleBtn = styled.input`
     }
 
 
-     transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+     transition: 
+          border ${props => props.theme.transitionStyleMid},
+          background-color ${props => props.theme.transitionStyleMid},
+          transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
 &:hover{
         transform-origin:center;
        transform: translateY(-.2rem) scale(1.1);
@@ -409,6 +445,25 @@ const PortraitWrap = styled(motion.div)`
 
 `
 
+const PortraitBubbleWrap = styled.div`
+  position: absolute;
+  height: 30px;
+  width:50px;
+  right: 15%;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+
+  @media screen and (max-width: ${props => props.theme.breakpoint.lg}){
+       bottom: -10px;
+
+  } 
+
+`
+
 const CustomSvg = styled.svg`
     position: absolute;
     /* left: 50%;
@@ -454,7 +509,7 @@ const Photo = styled.img`
   height: 100%;
   position: relative;
   object-fit: contain;
-  top: -20%;
+  top:  ${props=>(props.pic !== 1 ? '-20%': '-3%')};
   left: 50%;
   transform: translate(-50%,0%) scale(1.5);
 `
