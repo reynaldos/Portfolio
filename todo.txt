@@ -6,9 +6,6 @@ TODO
     3- auto scroll onload for mobile
     2- give all buttons onPressed animations
 
-- loading screen
-    2- gradient border
-
 - nav bar
     2- On top of content weird look
         -possible soltion: hide on scroll
@@ -51,3 +48,4 @@ DONE:
 3- lock movement on scroll and mobile✅
 3- 3d drop item logic✅
 2- message for broken links✅
+2- gradient border✅
