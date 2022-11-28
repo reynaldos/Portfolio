@@ -85,7 +85,8 @@ export const Home = () => {
       <> 
   
 
-     {isLoading && <LoadingScreen fade={fade}/>}
+     {/* {isLoading && <LoadingScreen fade={fade}/>} */}
+      <LoadingScreen fade={false}/>
      
      <Content currentBuild={currentBuild}>
           <div style={{
