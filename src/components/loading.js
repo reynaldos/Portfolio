@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 // import { motion } from 'framer-motion';
+import { isSafari } from 'react-device-detect';
 
 
 const mobile = {
@@ -200,7 +201,7 @@ export const LoadingScreen = ({fade}) => {
 
 
             <NameWrap>
-                <CenterText>MAGI 01</CenterText>
+                <CenterText>SKILLS 01</CenterText>
             </NameWrap>
 
 
@@ -311,6 +312,29 @@ const Rings = styled.div`
     background-origin: border-box;
     background-clip: content-box, border-box; */
 
+    ${!isSafari && `
+         &::before {
+        width: calc(100% + .5px);
+        height: calc(100% + .5px);
+         left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%); 
+        content: "";
+        position: absolute;
+        /* top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0; */
+        border-radius: 100%;
+        border: 7px solid transparent;
+        background: linear-gradient(180deg, rgba(150, 186, 53, 0.95) 13.02%, rgba(254, 172, 74, 0.65) 54.69%, rgba(254, 172, 74, 0.4) 80.73%, rgba(153, 34, 27, 0.95) 100%) border-box;
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+    }
+    `}
+   
 `
 
 const Detail = styled.div`
@@ -755,7 +779,7 @@ const CenterText = styled.h6`
     text-align: center;
     font-weight: bold;
 
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 2rem;
     letter-spacing: .0rem;
     text-shadow: 0px 0px 8px #F97C39B1;
@@ -769,8 +793,8 @@ const CenterText = styled.h6`
 
 
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        font-size: 2rem;
-        line-height: 1.6rem;
+        font-size: 1.5rem;
+        line-height: 1.4rem;
         letter-spacing: .0rem;
         text-shadow: 0px 0px 6px #F97C39B1;
     }
