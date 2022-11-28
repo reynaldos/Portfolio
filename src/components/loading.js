@@ -122,11 +122,12 @@ export const LoadingScreen = ({fade}) => {
     useEffect(() => {
         // console.log('ran0')
         
-        if(Math.floor(percent*10) < 10){
-            setTimeout(() => {
-            setElapsedTime(old=> old+=1)
-            }, 200);
-        }
+        if(window.innerWidth > 430){
+            if(Math.floor(percent*10) < 10){
+                setTimeout(() => {
+                setElapsedTime(old=> old+=1)
+                }, 200);
+        }}
     },[elapsedTime]);
 
   return (
@@ -313,6 +314,8 @@ const Rings = styled.div`
     background-clip: content-box, border-box; */
 
     ${!isSafari && `
+       border: none;
+
          &::before {
         width: calc(100% + .5px);
         height: calc(100% + .5px);
@@ -326,8 +329,8 @@ const Rings = styled.div`
         right: 0;
         bottom: 0; */
         border-radius: 100%;
-        border: 7px solid transparent;
-        background: linear-gradient(180deg, rgba(150, 186, 53, 0.95) 13.02%, rgba(254, 172, 74, 0.65) 54.69%, rgba(254, 172, 74, 0.4) 80.73%, rgba(153, 34, 27, 0.95) 100%) border-box;
+        border: 6px solid transparent;
+        background: linear-gradient(180deg, rgba(150, 186, 53, 0.75) 13.02%, rgba(254, 172, 74, 0.75) 54.69%, rgba(254, 172, 74, 0.5) 80.73%, rgba(153, 34, 27, 0.75) 100%) border-box;
         mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
         -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: destination-out;
@@ -433,7 +436,10 @@ const CornerContiner = styled.div`
 
             if(props.positon===0){
                 return `
-                   display: none;
+                    top:0;
+                    left: 50%;
+                    translate: -50% 0;
+                    margin: 1rem 0rem;
                 `
             }else if(props.positon===1){
                 return `
@@ -441,10 +447,8 @@ const CornerContiner = styled.div`
                 `
             }else if(props.positon===2){
                 return `
-                    top:0;
-                    left: 50%;
-                    translate: -50% 0;
-                    margin: 1rem 0rem;
+                     display: none;
+                    
 
                 `
             }else if(props.positon===3){
