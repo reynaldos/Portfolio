@@ -2,7 +2,7 @@ TODO
 
 - site wide
     1- section headers?
-    2- color change tweaks
+    1- color change tweaks
     3- auto scroll onload for mobile
     2- give all buttons onPressed animations
 
