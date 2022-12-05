@@ -126,7 +126,9 @@ export const Landing = ({currentBuild,showElements}) => {
                     // variants={titleVarients}
                     >
                     <Title currentBuild={currentBuild}>Rey Sanchez</Title>
-                    <Subtitle>{messages[state.index]}</Subtitle>
+                    <SubtitleWrap> 
+                        <Subtitle>{messages[state.index]}</Subtitle>
+                    </SubtitleWrap>
                 </TitleWrap>
 
             {/* refresh buttom */}
@@ -229,10 +231,18 @@ const Title = styled.h1`
     } 
 `
 
-const Subtitle = styled.h4`
-    /* background-color: red; */
+
+const SubtitleWrap = styled.div`
+    /* background-color: blue; */
     overflow-x: hidden;
     margin-top: 1rem;
+
+   
+
+`
+
+
+const Subtitle = styled.h4`
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -241,7 +251,6 @@ const Subtitle = styled.h4`
     text-align: center;
     -webkit-text-stroke: 1px white;
     color: transparent;
-
     
      @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
         font-size: 2rem;
