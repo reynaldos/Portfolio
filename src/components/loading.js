@@ -35,20 +35,20 @@ const desktop = {
     outerTextRotate: 2
 }
 
-    var magi = [
+var magi = [
+    {
+        title: 'frontend',
+        languages: ['React','Flutter', 'HTML/CSS', 'three.js']
+    },
         {
-            title: 'frontend',
-            languages: ['React','Flutter', 'HTML/CSS', 'three.js']
-        },
-         {
-            title: 'backend',
-            languages: ['JavaScript','Node.Js', 'Python', 'C/C++']
-        },
-         {
-            title: 'tools',
-            languages: ['Firebase','figma', 'git', 'roblox studio']
-        }
-    ]
+        title: 'backend',
+        languages: ['Express.js','Node.Js', 'Python', 'C/C++']
+    },
+        {
+        title: 'tools',
+        languages: ['Redux.js', 'Firebase','figma', 'git' ]
+    }
+]
 
 
 
@@ -134,7 +134,7 @@ export const LoadingScreen = ({fade}) => {
     <Container
         fade={fade} >
         <Wrapper>
-                 <Shader/>
+            <Shader/>
 
 
             {/* GRADIENT RINGS */}
@@ -283,7 +283,7 @@ const Container = styled.div`
     position: absolute;
     width: 100vw;
     height: 100vh;
-    z-index: 150;
+    z-index: 201;
     background: black;
     overflow: hidden;
     opacity: ${props=>props.fade ? '0': '1'};
@@ -1013,6 +1013,8 @@ const Shader = styled.div`
     top: 50%;
     transform: rotate(2deg) translate(-50%,-50%);
     overflow: visible;
+    mix-blend-mode: darken;
+    opacity: .95;
 
     @keyframes flash {
         0%{

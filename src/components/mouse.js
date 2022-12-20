@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 
-
+const loadTime = process.env.REACT_APP_LOADING_TIME;
 
 export const MouseCursor = ({})=>{
     const [mousePosition, setMousePosition] = useState({
@@ -16,11 +16,13 @@ export const MouseCursor = ({})=>{
             setMousePosition({
             x: e.clientX,
             y: e.clientY
-        })
+            })
         }
 
-        window.addEventListener("mousemove", mouseMove);
-
+        setTimeout(() => {
+            window.addEventListener("mousemove", mouseMove);
+        }, loadTime);
+       
         return () => {
             window.removeEventListener("mousemove", mouseMove);
         }
