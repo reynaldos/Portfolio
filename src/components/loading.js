@@ -55,7 +55,7 @@ var magi = [
    var cornerElementData = [
     {top:'Designed By', bottom:'Rey Sanchez'},
     {top:'Developed By', bottom:'Rey Sanchez'},
-    {top:'Time Since Sreen Raised', bottom:''},
+    {top:'Time Since Screen Raised', bottom:''},
     {},
 ]
 
