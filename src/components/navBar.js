@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Data } from './data';
 import { AccentButton } from './accentButton';
 import { SVGicons } from './icons';
+import { animateScroll as scroll } from 'react-scroll'
 
 import { Link as LinkS } from 'react-scroll';
 // import { animateScroll as scroll } from '/modules';
@@ -37,15 +38,15 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 
     const toggleHome = () =>{
-        document.location.reload();
-        // if (navStatus === 'open'){
-        //     toggleNav();
-        //     setTimeout(() => {
-        //      scroll.scrollToTop();
-        // }, 500);
-        // }else{
-        //     scroll.scrollToTop();
-        // }
+        // document.location.reload();
+        if (navStatus === 'open'){
+            toggleNav();
+            setTimeout(() => {
+             scroll.scrollToTop();
+        }, 500);
+        }else{
+            scroll.scrollToTop();
+        }
     
     }
 
@@ -190,8 +191,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                         initial={'offscreen'}
                         animate = {showElements ? 'onscreen' : "offscreen"}
                         variants={logoVariants}
-                        href={'/'}
-                        // onClick={toggleHome}
+                        onClick={toggleHome}
                         >               
                         <Logo  alt={'logo'} src={'./logo/logo.png'}/>
                     </LogoWrap>  
@@ -404,7 +404,7 @@ const Wrapper = styled.div`
     } 
 `
 
-const LogoWrap = styled(motion.a)`
+const LogoWrap = styled(motion.div)`
     height: 115%;
     margin: auto .5rem;
     /* background-color: red; */
