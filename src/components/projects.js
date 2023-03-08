@@ -20,12 +20,18 @@ const projectVariants = {
   }
 };
 
-
-
-
 const projects = [
     {
         id: 0,
+        title: 'VRNL - Video Sharing Social Media Platform',
+        image: './mockups/vrnl_mockup.png',
+        codestack: ['react','node.js','mongo DB','express'],
+        link: 'https://vrnl.vercel.app/',
+        side: 'right'
+
+    },
+    {
+        id: 1,
         title: 'GAT NFT - Immersive Web3 Dapp',
         image: './mockups/gat_mockup.png',
         codestack: ['react','node.js','three.js','firebase'],
@@ -33,7 +39,7 @@ const projects = [
         side: 'left'
 
     },{
-        id: 1,
+        id: 2,
         title: 'TYGR NFT - Web3 Dapp',
         image: './mockups/tygr_mockup.png',
         codestack: ['next.js', 'UI design'],
@@ -41,7 +47,7 @@ const projects = [
         side: 'right'
 
     },{
-        id: 2,
+        id: 3,
         title: 'Mugen Manga - Cross Platform Manga Reader',
         image: './mockups/mugen_manga_mockup.png',
         codestack: ['flutter','firebase', 'UI design', 'webscrape'],
@@ -321,12 +327,13 @@ const Cross = styled.div`
 `
 
 const TextWrap = styled.div`
-    position: relative;
+    position: absolute;
     top: calc(.5rem + 25px);
     left: calc(.5rem + 25px);
     /* transform: translate(-50%, -50%); */
     width: calc(65% - 1rem - 50px);
     height: calc(90% - 1rem - 50px);
+    /* outline: 1px red solid; */
 
     display: flex;
     flex-direction: column;
@@ -337,8 +344,10 @@ const TextWrap = styled.div`
 
 
     ${props => props.side === 'right' ? `
-       transform: translateX(90%);
-
+    //    transform: translateX(90%);
+            width: calc(45% - 1rem - 50px);
+          right: calc(.5rem + 25px);
+          left:unset;
     `:''};
 
 
@@ -379,6 +388,7 @@ const Title = styled.h1`
     /* background-color: rgba(0,255,0,.5); */
     margin-bottom: calc(2rem * 1.5);
     color: white;
+    text-shadow: black 0 0  4px;
 
     font-size: 1.4rem;
     line-height: 1.2rem;
@@ -396,19 +406,11 @@ const Title = styled.h1`
     order: 1;
 
 
-    ${props => props.side === 'right' ? `
-        width: 200px;
-
-    `:''};
-
-
-
 
     @media screen and (min-width: ${props => props.theme.breakpoint.lg}){
         font-size: 1.6rem;
         line-height: 1.4rem;
-        width: 300px;
-
+        /* width: 300px; */
     } 
 
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
@@ -428,6 +430,14 @@ const Title = styled.h1`
         line-height: 1rem;
         width: calc(100% / 1.5);
     } 
+
+
+      ${props => props.side === 'right' ? `
+            //    transform: translateX(90%);
+            width: 75%;
+            //    background-color: blue;
+            `:''}
+
 
 `
 
@@ -450,7 +460,7 @@ const Sitebtn = styled.div`
 `
 const StackWrap = styled.ul`
     order: 3;
-
+    text-shadow: black 0 0  4px;
     /* ${props => props.side === 'right' ? `
         align-items: flex-end;
     `:''}; */
