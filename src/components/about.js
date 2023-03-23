@@ -215,7 +215,9 @@ export const About = ({currentBuild}) => {
                       </PhotoWrap>
 
                       {/* portrait id bubbles */}
-                      <PortraitBubbleWrap>
+                      <PortraitBubbleWrap
+                          onClick={()=>togglePixel(true)}
+                          >
                             {[...Array(2)].map((value,index)=>{
                             return <BubbleBtn 
                                       style={{height: '20px',width:'20px'}}
@@ -460,7 +462,8 @@ const PortraitBubbleWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  pointer-events: none;
+  /* pointer-events: none; */
+
 
   @media screen and (max-width: ${props => props.theme.breakpoint.lg}){
        bottom: -10px;

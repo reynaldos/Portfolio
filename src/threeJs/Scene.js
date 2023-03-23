@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as shader from "./Shaders/Shader";
 import * as CANNON from "cannon-es";
-import CannonDebugger from "cannon-es-debugger";
+// import CannonDebugger from "cannon-es-debugger";
 
 
 // import { GUI } from 'dat.gui';
@@ -241,12 +241,12 @@ class Scene extends Component {
       let modifierY =  ( -this.mouse[1] - this.camera.position.y ) * .0025;
 
       // slow down move speed when coming close to edges
-      if (((this.camera.position.x > bufferRadius) && (modifierX > 0) )||( this.camera.position.x < -bufferRadius) && (modifierX < 0) ){
+      if (((this.camera.position.x > bufferRadius) && (modifierX > 0) ) || (( this.camera.position.x < -bufferRadius) && (modifierX < 0) )){
 
         modifierX *=.8
       }
 
-      if (((this.camera.position.y > bufferRadius) && (modifierY > 0) )||  (this.camera.position.y < -bufferRadius) && (modifierY < 0 )){
+      if (((this.camera.position.y > bufferRadius) && (modifierY > 0) ) ||  ((this.camera.position.y < -bufferRadius) && (modifierY < 0 ))){
         modifierY *=.8
       }
 

@@ -66,28 +66,30 @@ function numberWithCommas(x) {
 
 export const LoadingScreen = ({fade}) => {
 
-    const [percent, setPercent] = useState(.05);
+    const [percent, setPercent] = useState(0);
     const [loadingText, setLoadingText] = useState('Loading.');
     const [elapsedTime, setElapsedTime] = useState(0);
     const [styleDetails, setStyleDetails] = useState(window.innerWidth > 767 ? desktop : mobile);
+ 
 
     // sense screen size changes
     useEffect(() => {
         // console.log('ran1')
-         if(window.innerWidth > 767){
-            setStyleDetails(desktop)
-        }else{
-            setStyleDetails(mobile)
-        }
-        
-        window.addEventListener('resize',()=>{
-            // MD width cutoff
+
+        const checkSize = () =>{
             if(window.innerWidth > 767){
                 setStyleDetails(desktop)
+                // setStyleDetails('desktop')
+
             }else{
                 setStyleDetails(mobile)
+                // setStyleDetails('mobile')
             }
-        });
+        }
+        
+        window.addEventListener('resize',checkSize);
+
+        return  () =>{window.removeEventListener('resize',checkSize)};
 
     },[]);
 
@@ -98,15 +100,18 @@ export const LoadingScreen = ({fade}) => {
             // loading bar
             setTimeout(() => {
                 setPercent(old=> old+=.05);
-            }, 150);         
+                // console.log('up')
+            }, 400);         
         }else{
-            setPercent(0);
+             setTimeout(() => {
+                // console.log('reset')
+                setPercent(0);
+            }, 400);
         }
     },[percent]);
 
 
     useEffect(()=>{
-
         // loading text
         setTimeout(() => {
             if(loadingText.length < 10){
@@ -120,23 +125,28 @@ export const LoadingScreen = ({fade}) => {
 
     // changes elapsedTime
     useEffect(() => {
-        // console.log('ran0')
-        
+        // console.log(Math.floor(percent*10))
         if(window.innerWidth > 430){
-            if(Math.floor(percent*10) < 10){
+            
                 setTimeout(() => {
                 setElapsedTime(old=> old+=1)
                 }, 200);
-        }}
+        }
     },[elapsedTime]);
+
 
   return (
     <Container
         fade={fade} >
         <Wrapper>
+            {/* <VidWrap>
+                <VidBG id={'videoBG'}
+                        autoPlay loop muted 
+                        src={styleDetails === 'desktop' ? 'https://firebasestorage.googleapis.com/v0/b/vrnl-5055e.appspot.com/o/videoUrl%2F63a51c5a414a780b630fa80b%2F1677163200652?alt=media&token=b999a3e1-603a-4f59-a42c-9f37b4082a46' :''} 
+                        type='video/mp4'/>
+            </VidWrap> */}
+
             <Shader/>
-
-
             {/* GRADIENT RINGS */}
            {[...Array(40)].map((v,i)=>{
             return <Rings key={i} index={i} 
@@ -166,9 +176,6 @@ export const LoadingScreen = ({fade}) => {
                 })}</DetailText>
             </Detail>}) 
             }
-
-       
-    
 
         {/* CORNER ELEMENTS */}
         {cornerElementData.map((data, position)=>{
@@ -368,14 +375,11 @@ const DetailText = styled.p`
     color: #23BC61;
     opacity: 1;
 
-    text-shadow: 0px 0px 4px #23BC60A8;
+    text-shadow: 0px 0px 1px #23BC60A8;
 
     font-family: 'DesignerGenes', 'Courier New Bold', Courier, monospace;
      z-index: 20000000000000;
 
-
-   
-     
 `
 
 const Char = styled.span`
@@ -547,12 +551,14 @@ const TextTop = styled.h5`
         -o-transform: scale(.8, 1.8);
         transform: scale(.8, 1.8);
         // background-color: red; 
+        
     `:''}
 
 
      @media screen and (max-width: ${props => props.theme.breakpoint.md}){
         font-size: 1.5rem;
         line-height: 1.5rem;
+
 
         ${props=>props.reversed ? `
             left: 3%;
@@ -564,6 +570,7 @@ const TextTop = styled.h5`
             -moz-transform:scale(1, 1.1);
             -o-transform:scale(1, 1.1);
             transform:scale(1, 1.1);
+
         `:''}
 
         ${props=>props.loading ? `
@@ -615,7 +622,6 @@ const TextBottom = styled.h5`
 
     text-shadow: 0px 0px 1px #F97B39;
 
-
     position: relative;
     right: -4%;
     top: 1%;
@@ -626,8 +632,9 @@ const TextBottom = styled.h5`
         top: 2%;
         left: -10%;
         text-align: left;
-        letter-spacing: .1rem;
-        width: calc(100% * 1.2);
+        letter-spacing: .05rem;
+        word-spacing: .1rem;
+        width: calc(100% * 1.3);
     `:''}
 
 
@@ -1054,3 +1061,51 @@ const Shader = styled.div`
     } 
 
 `
+
+
+// const VidWrap = styled.div`
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     transition: all .3s ease-in-out;
+//     width: 100vw;
+//     height: 100vh;
+//     background: black;
+//     opacity: 1;
+// `
+
+// const VidBG = styled.video`
+//     width: 100%;
+//     height: 100%;
+//     -o-object-fit: cover;
+//     object-fit: cover;
+//     position: relative;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     top: 50%;
+
+//     animation: fadein 2s ease-in-out 1;
+
+//     @keyframes fadein {
+//         from {
+//             opacity: 0;
+//              /* scale: 2; */
+//         }
+//         to {
+//             opacity: 1;
+//              /* scale: 1; */
+//         }
+//     }
+
+//     @-webkit-keyframes fadein {
+//         from {
+//             opacity: 0;
+//              /* scale: 2; */
+//         }
+//         to {
+//             opacity: 1;
+//              /* scale: 1; */
+//         }
+//     }
+  
+// `
