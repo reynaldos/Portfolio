@@ -42,11 +42,11 @@ export const Home = () => {
       setTimeout(() => {
        
         if (document.readyState === "complete") {
-            // console.log('page already loaded');
+            console.log('page already loaded');
             finishLoading();
               
         } else {
-            // console.log('page not loaded')
+            console.log('page not loaded')
             window.addEventListener("load", finishLoading);
         }
 
@@ -57,7 +57,7 @@ export const Home = () => {
     }, [])
 
     const finishLoading = () => {
-        // console.log('close loading')
+        console.log('close loading')
         
         window.removeEventListener("load", finishLoading);
         enableBodyScroll();

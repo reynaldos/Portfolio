@@ -225,7 +225,7 @@ export const About = ({currentBuild}) => {
                                       checked={ index===portraitID-1}
                                       key={index} 
                                       currentBuild={currentBuild}
-                                      // onChange={()=>{}}
+                                      onChange={()=>{}}
                                       // selected={index===bioLength-1}
                                       />
                           })}
