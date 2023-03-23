@@ -1063,49 +1063,49 @@ const Shader = styled.div`
 `
 
 
-const VidWrap = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: all .3s ease-in-out;
-    width: 100vw;
-    height: 100vh;
-    background: black;
-    opacity: 1;
-`
+// const VidWrap = styled.div`
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     transition: all .3s ease-in-out;
+//     width: 100vw;
+//     height: 100vh;
+//     background: black;
+//     opacity: 1;
+// `
 
-const VidBG = styled.video`
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
+// const VidBG = styled.video`
+//     width: 100%;
+//     height: 100%;
+//     -o-object-fit: cover;
+//     object-fit: cover;
+//     position: relative;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     top: 50%;
 
-    animation: fadein 2s ease-in-out 1;
+//     animation: fadein 2s ease-in-out 1;
 
-    @keyframes fadein {
-        from {
-            opacity: 0;
-             /* scale: 2; */
-        }
-        to {
-            opacity: 1;
-             /* scale: 1; */
-        }
-    }
+//     @keyframes fadein {
+//         from {
+//             opacity: 0;
+//              /* scale: 2; */
+//         }
+//         to {
+//             opacity: 1;
+//              /* scale: 1; */
+//         }
+//     }
 
-    @-webkit-keyframes fadein {
-        from {
-            opacity: 0;
-             /* scale: 2; */
-        }
-        to {
-            opacity: 1;
-             /* scale: 1; */
-        }
-    }
+//     @-webkit-keyframes fadein {
+//         from {
+//             opacity: 0;
+//              /* scale: 2; */
+//         }
+//         to {
+//             opacity: 1;
+//              /* scale: 1; */
+//         }
+//     }
   
-`
+// `

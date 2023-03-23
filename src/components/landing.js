@@ -1,4 +1,4 @@
-import React, {useReducer,useEffect} from 'react';
+import React, {useReducer} from 'react';
 import styled from 'styled-components';
 import { SVGicons } from './icons';
 import Scene from '../threeJs/Scene';

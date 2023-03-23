@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const loadTime = process.env.REACT_APP_LOADING_TIME;
 
-export const MouseCursor = ({})=>{
+export const MouseCursor = ()=>{
     const [mousePosition, setMousePosition] = useState({
         x: 0,
         y: 0
