@@ -421,6 +421,7 @@ const Title = styled.h1`
         margin-top: 1rem;
         margin-bottom: 2rem;
         width: calc(100% / 1.5);
+         text-shadow: none;
 
     } 
 
@@ -468,7 +469,11 @@ const StackWrap = styled.ul`
      @media screen and (max-width: ${props => props.theme.breakpoint.md}){
         padding: .1rem;
         order: 2;
+         text-shadow: none;
+        /* text-shadow: black 0 0  1px; */
+
     } 
+
 
      @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
         margin-top: .5rem
