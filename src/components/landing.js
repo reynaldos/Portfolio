@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 
 
 const messages = [
+    'software engineer',
     'Full-stack developer',
-    'software engineer', 
     'turns ideas into reality', 
     'problem solver', 
     'fueled by iced coffee',
