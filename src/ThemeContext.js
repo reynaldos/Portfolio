@@ -67,7 +67,7 @@ export const BuildStyles = {
     transitionStyleBottom: '.8s cubic-bezier(1,.02,.25,.5)',
     letterSpacingDG: '.1rem',
     breakpoint: {
-        xs: '400px',
+        xs: '430px',
         sm: '576px',
         md: '767px',
         lg: '1000px',

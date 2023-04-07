@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Data } from './data';
 import { SVGicons } from './icons';
+import { Contact } from './contacts';
 
 // import { motion } from 'framer-motion';
 
@@ -11,11 +12,17 @@ export const Footer = ({currentBuild}) => {
   return (
     <Container >
         <Wrapper currentBuild={currentBuild}>
+
             {/* call to action */}
             <MessageWrap currentBuild={currentBuild}>
                 <p>Available for full-time and freelance opportunities</p>
-                <p>Thanks for stopping by, I'm currently looking to join a team of creative designers and developers. If you think we might be a good fit for one another, give me a call or send me an email!</p>
+                {/* <h3>Available for full-time and<br/>freelance opportunities</h3> */}
+
+                <p>Thanks for stopping by, I'm currently looking to join a team of creative designers and developers. If you think we might be a good fit for one another, give me a call or send me a message!</p>
             </MessageWrap>
+
+            {/* contact box */}
+            <Contact/>
 
             {/* socials list */}
              <SocialWrap>
@@ -61,6 +68,8 @@ const Container = styled.footer`
 `
 
 const Wrapper = styled.div`
+    position: relative;
+    
     width: calc(100% - 8rem);
     max-width: 1200px;
     height: 100%;
@@ -73,8 +82,6 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    /* background-color: ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)}; */
-
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
        width: 100%;
@@ -83,18 +90,35 @@ const Wrapper = styled.div`
 
 
 const MessageWrap = styled.div`
+position: relative;
+top: 50px;
+
     min-width: 300px;
     max-width: 450px;
     width: 100%;
-    /* border: 2px solid black; */
+    /* border: 8px solid ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)};; */
     margin: 2rem;
     border-radius: 3px;
     padding: 10px;
-    background-color: #221A2B;
-    color: #BCD167;
+     /* background-color: #221A2B; */
+    /* color: #BCD167; */
+    color: white;
+
+    /* background-color: ${props => props.theme[props.currentBuild].btn}; */
+    /* color:  ${props => props.theme[props.currentBuild].btnText}; */
+
+   
+    /* h3{
+        padding-top: 15px;
+        line-height: 20px;
+        font-size: 20px;
+    } */
 
     p{ 
-        color: #BCD167;
+        /* color:  ${props => props.theme[props.currentBuild].btnText}; */
+        /* color: #BCD167; */
+        color: white;
+
         padding: 15px;
         text-align: center;
         font-weight: normal;
@@ -105,10 +129,10 @@ const MessageWrap = styled.div`
         &:nth-child(1){
             font-weight: bold;
             font-size: 24px;
-            line-height: 20px;
+            line-height: 24px;
             padding: 5px;
             text-transform: capitalize;
-            letter-spacing: .05rem;
+            letter-spacing: .1rem;
         }
     }
 

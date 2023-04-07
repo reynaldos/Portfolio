@@ -1,8 +1,9 @@
 {
-  "name": "react-three-boilerplate",
+  "name": "portfolio-v1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.10.0",
     "cannon-es": "^0.20.0",
     "cannon-es-debugger": "^1.0.0",
     "dat.gui": "^0.7.9",
