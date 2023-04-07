@@ -27,6 +27,20 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
     }
 
+    // const checkScroll = (e) => {
+
+    // }
+
+    // useEffect(() => {
+
+    //     window.addEventListener('', checkScroll);
+
+    //      return () => {
+    //         window.removeEventListener('', checkScroll);
+    //     }
+    // });
+
+    // navbar resizing
     useEffect(() => {
 
         window.addEventListener('resize', checkResize);
@@ -388,6 +402,7 @@ const Wrapper = styled.div`
     position: relative;
     margin: auto auto;
     height: 100%;
+    width: 100%;
     /* margin: auto 1rem; */
     /* max-width: ${props => props.theme.maxWidth}; */
     display: flex;
