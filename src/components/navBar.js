@@ -13,8 +13,8 @@ import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body
 
 const navTransitonTime = .8;
 var lastScrollTop = window.scrollY;
-var scrollUpThreshold = 15;
-var scrollDownThreshold = 2;
+var scrollUpThreshold = 5;
+var scrollDownThreshold = 5;
 
 
 export const NavBar = ({currentBuild,onClick,showElements}) => {
@@ -404,7 +404,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 // ////////// nav bar styling // /////////////        
 const Container = styled.nav`
-    outline: 2px solid red;
+    /* outline: 2px solid red; */
 
     position: fixed;
     top: 0;
@@ -422,7 +422,7 @@ const Container = styled.nav`
 `
 
 const Wrapper = styled.div`
-    outline: 1px solid blue;
+    /* outline: 1px solid blue; */
 
     position: relative;
     margin: auto auto;
