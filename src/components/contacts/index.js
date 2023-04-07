@@ -119,7 +119,7 @@ const Container = styled.section`
   
   width: 100%;
   height: 100%;
-  max-width: 800px;
+  max-width: 900px;
   aspect-ratio: 1.48;
   
 
@@ -263,7 +263,6 @@ const InputWrap = styled.div`
   font-weight: bold;
   font-family: 'Helvetica';
 
-
   input, textarea, span, select{
     color: #BCD167;
     font-weight: bold;
@@ -273,6 +272,8 @@ const InputWrap = styled.div`
     width: calc(100% - 1rem);
     padding: .5rem;
     transition: all ease-in-out .15s;
+
+    font-size: 1rem;
 
     -webkit-appearance: none;
     -ms-appearance: none;
@@ -291,6 +292,10 @@ const InputWrap = styled.div`
       filter: brightness(70%);
       -webkit-filter: brightness(70%);
     }
+
+    /* @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
+      font-size: .75rem;
+      }  */
   }
 
   input[type=email]{
