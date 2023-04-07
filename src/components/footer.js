@@ -15,8 +15,8 @@ export const Footer = ({currentBuild}) => {
 
             {/* call to action */}
             <MessageWrap currentBuild={currentBuild}>
-                {/* <p>Available for full-time and freelance opportunities</p> */}
-                <h3>Available for full-time and<br/>freelance opportunities</h3>
+                <p>Available for full-time and freelance opportunities</p>
+                {/* <h3>Available for full-time and<br/>freelance opportunities</h3> */}
 
                 <p>Thanks for stopping by, I'm currently looking to join a team of creative designers and developers. If you think we might be a good fit for one another, give me a call or send me a message!</p>
             </MessageWrap>
@@ -68,6 +68,8 @@ const Container = styled.footer`
 `
 
 const Wrapper = styled.div`
+    position: relative;
+    
     width: calc(100% - 8rem);
     max-width: 1200px;
     height: 100%;
@@ -106,12 +108,11 @@ top: 50px;
     /* color:  ${props => props.theme[props.currentBuild].btnText}; */
 
    
-    h3{
+    /* h3{
         padding-top: 15px;
         line-height: 20px;
         font-size: 20px;
-       
-    }
+    } */
 
     p{ 
         /* color:  ${props => props.theme[props.currentBuild].btnText}; */
@@ -126,12 +127,12 @@ top: 50px;
         letter-spacing: .075rem;
 
         &:nth-child(1){
-            /* font-weight: bold;
+            font-weight: bold;
             font-size: 24px;
-            line-height: 20px;
+            line-height: 24px;
             padding: 5px;
             text-transform: capitalize;
-            letter-spacing: .05rem; */
+            letter-spacing: .1rem;
         }
     }
 

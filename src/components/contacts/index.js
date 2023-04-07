@@ -7,6 +7,8 @@ import bumpersdesktop from './bumpers_desktop.svg';
 import bgMobile from './contactBG_mobile.svg';
 import bumpersMobile from './bumpers_mobile.svg';
 
+import { LoadingWheel } from '../loadingWheel';
+
 
 export const Contact = () => {
 
@@ -15,6 +17,7 @@ export const Contact = () => {
   const templateID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID
 
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 767);
+  const [emailState, setEmailState] = useState('idle')
 
   const form = useRef();
 
@@ -32,13 +35,17 @@ export const Contact = () => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+    setEmailState('loading');
 
     try {
       const result = await emailjs.sendForm(serviceID, templateID, form.current, publicKey);
       // console.log(result.text);
+      setEmailState('sent');
+
       form.current.reset();
 
     } catch (error) {
+      setEmailState('error');
       console.log(error.text);
     }
     
@@ -62,7 +69,7 @@ export const Contact = () => {
             <span>
               {/* from field */}
               <InputWrap>
-                  <span style={{position: 'absolute', pointerEvents:'none'}}>From:</span>
+                  <span style={{position: 'absolute', pointerEvents:'none',}}>From:</span>
                   <input type='email' name='user_email' placeholder='john@gmail.com' required></input>
               </InputWrap>  
 
@@ -100,7 +107,7 @@ export const Contact = () => {
             <SendBtn type='submit' value={'send'}><h2>Send</h2></SendBtn>
         </FormWrap>
 
-         
+        {emailState !== 'idle' && <LoadingWheel email={{emailState,setEmailState}}/>}
       </Wrapper>
     </Container>
   )
@@ -114,10 +121,15 @@ const Container = styled.section`
   height: 100%;
   max-width: 800px;
   aspect-ratio: 1.48;
+  
 
 
   @media screen and (max-width: ${props => props.theme.breakpoint.md}){
       aspect-ratio: 0.77;
+  } 
+
+    @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
+      width: calc(100% - 2rem);
   } 
 
    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
@@ -134,14 +146,6 @@ const Wrapper = styled.div`
    width: 100%;
    height: 100%;
 
-  @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
-      width: calc(100% - 2rem);
-  } 
-
-   @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-      /* width: 120%; */
-
-  } 
 
 
 `
@@ -215,6 +219,11 @@ const FormWrap = styled.form`
     ::after{ right: 0; }
 
     @media screen and (max-width: ${props => props.theme.breakpoint.md}){
+      font-size: .75rem;
+      letter-spacing: .1rem;
+    } 
+
+     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
       font-size: .5rem;
       letter-spacing: .1rem;
     } 
@@ -272,6 +281,8 @@ const InputWrap = styled.div`
     border: none;
     background-color: transparent;
     resize: none;
+    
+
 
     &::placeholder{
       font-weight: normal;
@@ -283,22 +294,23 @@ const InputWrap = styled.div`
   }
 
   input[type=email]{
-    padding: .5rem 3.75rem;
-    width: calc(100% - 7.5rem);
+    padding: .75rem 0rem .5rem 3.75rem;
+    width: 100%;
     }
 
-  &:hover{
-    border: #BCD167 2px solid;
-  }
-
-  &:nth-child(2){
     &:hover{
-    border: #BCD16744 2px solid;
+      border: #BCD167 2px solid;
     }
 
-    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-     display: none;
-    } 
+    /* To Field */
+    &:nth-child(2){
+      &:hover{
+      border: #BCD16744 2px solid;
+      }
+
+      @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
+      display: none;
+      } 
   }
 
   input:focus, textarea:focus, select:focus {
