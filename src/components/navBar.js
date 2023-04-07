@@ -12,9 +12,14 @@ import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body
 
 
 const navTransitonTime = .8;
+var lastScrollTop = window.scrollY;
+var scrollUpThreshold = 5;
+var scrollDownThreshold = 5;
+
 
 export const NavBar = ({currentBuild,onClick,showElements}) => {
 
+    const [scrollDirection, setScrollDirction] = useState('down');
     const [navStatus, setNavStatus] = useState('default');
     const buttonRef = useRef(null);
 
@@ -27,18 +32,29 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
     }
 
-    // const checkScroll = (e) => {
 
-    // }
+    const checkScroll = () => {
+        let newScroll = window.scrollY;
+    
+        if (newScroll - lastScrollTop > scrollUpThreshold) {
+            setScrollDirction('up')
+        } else if (newScroll - lastScrollTop < -scrollDownThreshold) {
+            setScrollDirction('down')
+        } else if(newScroll < 10){
+             setScrollDirction('down');
+        }
+        
+        lastScrollTop = newScroll
+    }
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     window.addEventListener('', checkScroll);
+        window.addEventListener('scroll', checkScroll);
 
-    //      return () => {
-    //         window.removeEventListener('', checkScroll);
-    //     }
-    // });
+         return () => {
+            window.removeEventListener('scroll', checkScroll);
+        }
+    });
 
     // navbar resizing
     useEffect(() => {
@@ -189,7 +205,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
     <>  
 
         {/* navbar desktop */}
-        <Container>
+        <Container scrollDirection={scrollDirection}>
             <Wrapper>
                 {/* logo */}
                     <LogoWrap 
@@ -388,17 +404,26 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 // ////////// nav bar styling // /////////////        
 const Container = styled.nav`
+    /* outline: 2px solid red; */
+
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     width: 100%;
     height: 64px;
     margin-top: 1rem;
     z-index: 50;
+    transform: translateX(-50%);
+    transition: width ease-in-out .5s ;
+
+
+    width: ${({scrollDirection})=>scrollDirection === 'down' ? '100%' : ' 200%'};
 
 `
 
 const Wrapper = styled.div`
+    /* outline: 1px solid blue; */
+
     position: relative;
     margin: auto auto;
     height: 100%;
@@ -458,10 +483,8 @@ const NavDesktop = styled(motion.div)`
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     margin-right: calc(-600px * .08);
 
-   
-
     @media screen and (min-width: ${props => props.theme.breakpoint.xl}){
-         margin-right: 0;
+         margin-right: 2rem;
     } 
 
     @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
