@@ -417,7 +417,7 @@ const Container = styled.nav`
     transition: width ease-in-out .5s ;
 
 
-    width: ${({scrollDirection})=>scrollDirection === 'down' ? '100%' : ' 200%'};
+    width: ${({scrollDirection})=>scrollDirection === 'down' ? '100%' : ' 400%'};
 
 `
 
