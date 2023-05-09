@@ -38,15 +38,17 @@ const projects = [
         link: 'https://godsandtitans.io/',
         side: 'left'
 
-    },{
-        id: 2,
-        title: 'TYGR NFT - Web3 Dapp',
-        image: './mockups/tygr_mockup.png',
-        codestack: ['next.js', 'UI design'],
-        link: 'https://tygr-dev-mu.vercel.app',
+    },
+       {
+        id: 5,
+        title: 'KennyCuts - Barber Portfolio',
+        image: './mockups/kenymock3.png',
+        codestack: ['react','firebase','UI Design'],
+        link: 'https://thekennycuts.com/',
         side: 'right'
 
-    },{
+    },
+    {
         id: 3,
         title: 'Mugen Manga - Cross Platform Manga Reader',
         image: './mockups/mugen_manga_mockup.png',
@@ -54,6 +56,16 @@ const projects = [
         link: 'https://reynaldos.github.io/reynaldos-github.io/#/',
         // link: 'https://reynaldos.github.io/manga_reader_web/',
         side: 'left'
+
+    },
+    
+    {
+        id: 2,
+        title: 'TYGR NFT - Web3 Dapp',
+        image: './mockups/tygr_mockup.png',
+        codestack: ['next.js', 'UI design'],
+        link: 'https://tygr-dev-mu.vercel.app',
+        side: 'right'
 
     },
 ]
