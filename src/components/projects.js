@@ -39,15 +39,7 @@ const projects = [
         side: 'left'
 
     },
-       {
-        id: 5,
-        title: 'KennyCuts - Barber Portfolio',
-        image: './mockups/kenymock3.png',
-        codestack: ['react','firebase','UI Design'],
-        link: 'https://thekennycuts.com/',
-        side: 'right'
-
-    },
+      
     {
         id: 3,
         title: 'Mugen Manga - Cross Platform Manga Reader',
