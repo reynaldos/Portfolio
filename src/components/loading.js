@@ -38,16 +38,17 @@ const desktop = {
 var magi = [
     {
         title: 'frontend',
-        languages: ['React','Flutter', 'HTML/CSS', 'three.js']
+        languages: ['React','Typescript', 'HTML/CSS', 'three.js']
+    },
+    {
+        title: 'tools',
+        languages: ['Firebase','figma', 'Auth0','AWS', ]
     },
         {
         title: 'backend',
-        languages: ['Express.js','Node.Js', 'Python', 'C/C++']
+        languages: [ 'Serverless','Express.js','Node.Js', 'Python']
     },
-        {
-        title: 'tools',
-        languages: ['Redux.js', 'Firebase','figma', 'git' ]
-    }
+        
 ]
 
 
@@ -745,6 +746,8 @@ const Align = styled.div`
     height: fit-content;
     /* background-color: rgba(255,0,0,.5); */
     z-index: 22000 ;
+    transition: rotate 400ms cubic-bezier(.47,1.64,.41,.8);
+    /* rotate: calc(120deg * 1); */
 
     /* &::before{
         content: '';
