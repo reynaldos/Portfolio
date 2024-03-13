@@ -38,7 +38,7 @@ const desktop = {
 var magi = [
     {
         title: 'frontend',
-        languages: ['React','Typescript', 'HTML/CSS', 'three.js']
+        languages: ['React','Typescript', 'SASS/CSS', 'three.js']
     },
     {
         title: 'tools',
