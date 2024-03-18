@@ -413,20 +413,7 @@ const Rings = styled.div`
     }
     `}
 
-  /* opacity: 0;
-
-  -webkit-animation: fadein 1s ease-in 0s 1; 
-  animation: fadein 1s ease-in 0s 1;
-  animation-fill-mode: forwards;
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  } */
+  
 `;
 
 const Detail = styled.div`
