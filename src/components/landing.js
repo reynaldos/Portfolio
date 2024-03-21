@@ -167,6 +167,8 @@ export const Landing = ({ currentBuild, showElements }) => {
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
+  height: 100svh;
+
   display: grid;
   place-content: center;
   z-index: 15;
@@ -239,7 +241,7 @@ const Subtitle = styled.h4`
   }
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0.15rem;
   }
 `;
