@@ -821,7 +821,6 @@ const SkillItemBody = styled.div`
 
     .BG {
       height: 100%;
-      outline: 1px solid red;
       position: absolute;
     }
   }
