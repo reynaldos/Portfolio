@@ -16,7 +16,7 @@ const messages = [
   "uses comments in code",
   "watches too much anime",
   "likes sci-fi movies",
-  "currently playing basketball",
+  // "currently playing basketball",
   "last seen in the metaverse",
   "working on ***** ******",
   "technology-bender",
