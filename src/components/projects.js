@@ -64,18 +64,23 @@ const projects = [
 
 export const Projects = ({currentBuild}) => {
   return (
-    <Container id='work'>
-        <Wrapper>
-           {projects.map((project, index)=>{
-                return <ProjectBuild 
-                    key={index}
-                    project={project}
-                    currentBuild={currentBuild}/>
-           })}
-        
-        </Wrapper>
+    <Container id="work">
+      <SectionTitle>
+        <h2> {`<WORK />`}</h2>
+      </SectionTitle>
+      <Wrapper>
+        {projects.map((project, index) => {
+          return (
+            <ProjectBuild
+              key={index}
+              project={project}
+              currentBuild={currentBuild}
+            />
+          );
+        })}
+      </Wrapper>
     </Container>
-  )
+  );
 }
 
 
@@ -146,6 +151,31 @@ const Container = styled.section`
     position:relative;
 `
 
+const SectionTitle = styled.div`
+  width: calc(100% - 8rem);
+  max-width: 1200px;
+  margin: 4rem auto 1rem auto;
+
+  h2 {
+    position: relative;
+    left: 120px;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: white;
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+      left: 40px;
+    }
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+    h2 {
+      left: 0px;
+    }
+  }
+`;
+
+
 
 const Wrapper = styled.div`
   width: calc(100% - 8.5rem);
@@ -164,41 +194,35 @@ const Wrapper = styled.div`
 `
 
 const BuildContainer = styled(motion.div)`
+  width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  aspect-ratio: 1.9/1;
+  transition: aspect-ratio 0.3s ease, transform 0.3s ease;
+  border-radius: 2.5px;
+  overflow: hidden;
+  transform-origin: center;
+  transition: transform 0.5s ease;
+
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    aspect-ratio: 1.05/1;
     width: 100%;
-    height: auto;
-    margin: 1rem auto;
-    aspect-ratio: 1.9/1;
-    transition:  aspect-ratio  .3s ease,
-                transform  .3s ease;
-    border-radius: 2.5px;
-    overflow: hidden;
-    transform-origin: center;
-    transition:  transform  .5s ease;
+    /* height: ; */
+    /* background-color: red; */
+  }
 
-    &:hover{
-        transform: scale(1.01);
-
-    }
-
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        aspect-ratio: 1.05/1;
-        width: 100%;
-        /* height: ; */
-        /* background-color: red; */
-    } 
-
-      @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-        aspect-ratio: 1.05/1.2;
-        width: 100%;
-        /* height: ; */
-        /* background-color: red; */
-    } 
-
-
-   
-
-`
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+    aspect-ratio: 1.05/1.2;
+    width: 100%;
+    /* height: ; */
+    /* background-color: red; */
+  }
+`;
 
 const BuildWrapper = styled.section`
     position: relative;
