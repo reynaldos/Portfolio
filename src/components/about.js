@@ -107,200 +107,232 @@ export const About = ({currentBuild}) => {
      
 
   return (
-    <Container 
-        id={'about'}
-        currentBuild={currentBuild}>
-        <Wrappper>
+    <Container id={"about"} currentBuild={currentBuild}>
+      <Title>
+        <h2> {`<About />`}</h2>
+      </Title>
+      <Wrappper>
+        {/* left bio text section */}
+        <BioSection>
+          <AdjusterWrap
+            initial="offscreen"
+            whileInView="onscreen"
+            variants={bioVariants}
+          >
+            <AdjusterText style={{ margin: "auto 18px" }}>
+              Adjust Bio Length
+            </AdjusterText>
 
-          {/* left bio text section */}
-          <BioSection>
-            <AdjusterWrap
-              initial='offscreen'
-              whileInView='onscreen'
-              variants={bioVariants}
-            >
-              <AdjusterText style={{margin:'auto 18px'}}>Adjust Bio Length</AdjusterText>
-
-              <BubbleWrap>
-                {[...Array(5)].map((value,index)=>{
-                return <BubbleBtn 
-                    
-                          type={'checkbox'} 
-                          checked={ index===bioLength-1}
-                          onClick={()=>setBioLength(index+1)}
-                          key={index} 
-                          currentBuild={currentBuild}
-                          onChange={()=>{}}
-                          // selected={index===bioLength-1}
-                          />
+            <BubbleWrap>
+              {[...Array(5)].map((value, index) => {
+                return (
+                  <BubbleBtn
+                    type={"checkbox"}
+                    checked={index === bioLength - 1}
+                    onClick={() => setBioLength(index + 1)}
+                    key={index}
+                    currentBuild={currentBuild}
+                    onChange={() => {}}
+                    // selected={index===bioLength-1}
+                  />
+                );
               })}
-              </BubbleWrap>
-              
+            </BubbleWrap>
 
-              <LabelWrap>
-                   <AdjusterText>Shortest</AdjusterText>
-                    <AdjusterText>Longest</AdjusterText>
-              </LabelWrap>
-             
-            </AdjusterWrap>
+            <LabelWrap>
+              <AdjusterText>Shortest</AdjusterText>
+              <AdjusterText>Longest</AdjusterText>
+            </LabelWrap>
+          </AdjusterWrap>
 
+          <BioWrap
+            initial="offscreen"
+            whileInView="onscreen"
+            variants={bioVariants}
+          >
+            <BioText>
+              Hi I'm Rey!
+              <br />
+              {bioDesc[bioLength - 1].map((value) => {
+                return (
+                  <span key={value}>
+                    {value}
+                    <br />
+                    <br />
+                  </span>
+                );
+              })}
+            </BioText>
+          </BioWrap>
+        </BioSection>
 
-            <BioWrap
-              initial='offscreen'
-              whileInView='onscreen'
-              variants={bioVariants}>
-              <BioText>
-                 Hi I'm Rey!<br/>
-                 
-                 {bioDesc[bioLength-1].map((value)=>{
-                  return <span key={value}>{value}<br/><br/></span>;
-                 })}
-                
-                
-              </BioText>
-            </BioWrap>
-          </BioSection>
+        {/* right portrait section */}
+        <PortraitSection>
+          <PortraitWrap
+            initial="offscreen"
+            whileInView="onscreen"
+            variants={portaitVariants}
+            onViewportEnter={togglePixel}
+          >
+            <CustomSvg
+              x="0"
+              y="0"
+              width="350"
+              height="330"
+              viewBox="0 0 525 487"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <CustomPath
+                currentBuild={currentBuild}
+                d="M521.37 38.5456L488.114 448.226C488.071 448.746 487.638 449.146 487.117 449.146H258H233.083C232.604 449.146 232.14 449.318 231.777 449.631L189.306 486.257C189.124 486.414 188.893 486.5 188.653 486.5H130.949C130.723 486.5 130.503 486.423 130.326 486.282L84.2215 449.581C83.8675 449.299 83.4284 449.146 82.9759 449.146H1.60329C1.02483 449.146 0.567035 448.656 0.605496 448.079L27.9056 38.3982C27.9406 37.8729 28.3769 37.4647 28.9034 37.4647H288.935C289.384 37.4647 289.82 37.3136 290.173 37.0358L336.281 0.714454C336.458 0.575537 336.676 0.5 336.9 0.5H395.934C396.177 0.5 396.412 0.58864 396.595 0.749328L437.745 36.9661C438.11 37.2874 438.58 37.4647 439.066 37.4647H520.373C520.957 37.4647 521.417 37.9634 521.37 38.5456Z"
+              />
+            </CustomSvg>
 
-          {/* right portrait section */}
-          <PortraitSection>
+            <LabelContainer>
+              {/* top */}
+              <PortraitLabelWrap
+                whileHover={{
+                  scale: 1.2,
+                  transition: { type: "spring", bounce: 0.25, duration: 0.3 },
+                }}
+                whileTap={{
+                  scale: 0.9,
+                  transition: { type: "spring", bounce: 0.25 },
+                }}
+                onClick={() => togglePixel(true)}
+                currentbuild={currentBuild}
+              >
+                <Label currentBuild={currentBuild}>Me</Label>
+              </PortraitLabelWrap>
 
-                 <PortraitWrap
-                   initial='offscreen'
-                    whileInView='onscreen'
-                    variants={portaitVariants}
-                     onViewportEnter={togglePixel}>
-                      
-                    <CustomSvg 
-                    x="0" y="0"
-                    width="350" height="330" viewBox="0 0 525 487" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <CustomPath 
-                        currentBuild={currentBuild}
-                        d="M521.37 38.5456L488.114 448.226C488.071 448.746 487.638 449.146 487.117 449.146H258H233.083C232.604 449.146 232.14 449.318 231.777 449.631L189.306 486.257C189.124 486.414 188.893 486.5 188.653 486.5H130.949C130.723 486.5 130.503 486.423 130.326 486.282L84.2215 449.581C83.8675 449.299 83.4284 449.146 82.9759 449.146H1.60329C1.02483 449.146 0.567035 448.656 0.605496 448.079L27.9056 38.3982C27.9406 37.8729 28.3769 37.4647 28.9034 37.4647H288.935C289.384 37.4647 289.82 37.3136 290.173 37.0358L336.281 0.714454C336.458 0.575537 336.676 0.5 336.9 0.5H395.934C396.177 0.5 396.412 0.58864 396.595 0.749328L437.745 36.9661C438.11 37.2874 438.58 37.4647 439.066 37.4647H520.373C520.957 37.4647 521.417 37.9634 521.37 38.5456Z" />
-                    </CustomSvg>
+              {/* bottom */}
+              <PortraitLabelWrap
+                whileHover={{
+                  scale: 1.2,
+                  transition: { type: "spring", bounce: 0.25, duration: 0.3 },
+                }}
+                whileTap={{
+                  scale: 0.9,
+                  transition: { type: "spring", bounce: 0.25 },
+                }}
+                onClick={() => togglePixel(true)}
+                currentbuild={currentBuild}
+                bottom={"true"}
+              >
+                <Label currentBuild={currentBuild}>Me</Label>
+              </PortraitLabelWrap>
 
-                  
-                    <LabelContainer>
-                        {/* top */}
-                      <PortraitLabelWrap 
-                          whileHover={{
-                            scale: 1.2,
-                            transition: { type: "spring",bounce: 0.25, duration: .3 },
-                          }}
-                          whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
-                          onClick={()=>togglePixel(true)}
-                          currentbuild={currentBuild}>
-                        <Label currentBuild={currentBuild}>Me</Label>
-                      </PortraitLabelWrap>
-                       
+              {/* photo */}
+              <PhotoWrap>
+                <Photo
+                  pic={portraitID}
+                  src={`./me/v${portraitID}/${portrait}.${
+                    portraitID !== 1 ? "jpg" : "png"
+                  }`}
+                />
+              </PhotoWrap>
 
-                      {/* bottom */}
-                      <PortraitLabelWrap 
-                              whileHover={{
-                                  scale: 1.2,
-                                  transition: { type: "spring",bounce: 0.25, duration: .3 },
-                                }}
-                                whileTap={{ scale: 0.9, transition:{ type: "spring",bounce: 0.25,} }}
-                             onClick={()=>togglePixel(true)}
-                            currentbuild={currentBuild}
-                            bottom={'true'}>
-                        <Label currentBuild={currentBuild}>Me</Label>
-                      </PortraitLabelWrap>
-                      
-
-                      {/* photo */}
-                      <PhotoWrap>
-                          <Photo 
-                            pic={portraitID}
-                            src={`./me/v${portraitID}/${portrait}.${portraitID !== 1 ? 'jpg': 'png'}`}/>
-                      </PhotoWrap>
-
-                      {/* portrait id bubbles */}
-                      <PortraitBubbleWrap
-                          onClick={()=>togglePixel(true)}
-                          >
-                            {[...Array(2)].map((value,index)=>{
-                            return <BubbleBtn 
-                                      style={{height: '20px',width:'20px'}}
-                                      type={'checkbox'} 
-                                      checked={ index===portraitID-1}
-                                      key={index} 
-                                      currentBuild={currentBuild}
-                                      onChange={()=>{}}
-                                      // selected={index===bioLength-1}
-                                      />
-                          })}
-                         </PortraitBubbleWrap>
-                    </LabelContainer>
-                    
-
-                  
-                    
-                 </PortraitWrap>
-                  
-                  
-               
-          </PortraitSection>
-
-        </Wrappper>
+              {/* portrait id bubbles */}
+              <PortraitBubbleWrap onClick={() => togglePixel(true)}>
+                {[...Array(2)].map((value, index) => {
+                  return (
+                    <BubbleBtn
+                      style={{ height: "20px", width: "20px" }}
+                      type={"checkbox"}
+                      checked={index === portraitID - 1}
+                      key={index}
+                      currentBuild={currentBuild}
+                      onChange={() => {}}
+                      // selected={index===bioLength-1}
+                    />
+                  );
+                })}
+              </PortraitBubbleWrap>
+            </LabelContainer>
+          </PortraitWrap>
+        </PortraitSection>
+      </Wrappper>
     </Container>
-  )
+  );
 }
 
 const Container = styled.section`
     width: 100%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 15;
     overflow: hidden;
     position:relative;
     margin-top: 3rem;
 `
 
+const Title = styled.div`
+  width: calc(100% - 8rem);
+  max-width: 1200px;
+  margin: 4rem auto 1rem auto;
+
+  h2 {
+    position: relative;
+    left: 120px;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: white;
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+      left: 40px;
+    }
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+
+    h2{
+      left: 0px;
+    }
+  }
+`;
 
 const Wrappper = styled.div`
+
   width: calc(100% - 8rem);
   max-width: 1200px;
   height: 500px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin:  4rem 4rem 0rem 4rem;
-  /* background-color: red; */
+  margin: 0rem 4rem;
 
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    height: min-content;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 
-  @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-        height: min-content;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-
-    } 
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
-        width: 100%;
-        margin: 4rem auto 1rem auto;
-    } 
-
-`
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    width: 100%;
+    margin: 4rem auto 1rem auto;
+  }
+`;
 
 // ///////// BIO STYLES  // /////////
 
 const BioSection = styled.div`
-  flex:1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   /* overflow: hidden; */
 
-  
-   @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-        order: 2;
-        margin: 0 1rem;
-
-    } 
-
-`
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    order: 2;
+    margin: 0 1rem;
+  }
+`;
 
 
 const AdjusterWrap = styled(motion.div)`
