@@ -309,7 +309,7 @@ export const About = ({ currentBuild }) => {
         </PortraitSection>
       </Wrappper>
 
-      <h4 className="skillsTitle">SKILLS</h4>
+      <h4 className="skillsTitle">{`<SKILLS />`}</h4>
       <Wrappper style={{height: 'fit-content'}}>
         {skills.map((section, index) => (
           <SkillGroup key={index}>
@@ -371,7 +371,7 @@ const Container = styled.section`
   margin-top: 3rem;
 
   .skillsTitle {
-    margin-top: 2rem;
+    padding-top: 2rem;
 
     font-size: 24px;
     font-family: "DesignerGenes", "Courier New Bold", Courier, monospace;
@@ -379,6 +379,19 @@ const Container = styled.section`
     font-weight: normal;
     color: white;
     text-transform: uppercase;
+
+    width: calc(100% - 8rem);
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0rem 4rem;
+    flex-wrap: wrap;
+
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+      width: calc(100% - 32px);
+    }
   }
 `;
 
