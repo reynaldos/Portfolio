@@ -339,12 +339,11 @@ const SkillItem = ({ name, icon, progress, currentBuild }) => (
 
     <span>
       {[...Array(10)].map((a, i) => (
-        <>
+        <React.Fragment key={`${name}-${i}`}>
           <div className={i < progress ? "filled" : ""}>
             <ProgressIcon
               currentBuild={currentBuild}
               name={i < progress ? "filled" : "outline"}
-              key={`${name}-${i}`}
             />
           </div>
 
@@ -362,7 +361,7 @@ const SkillItem = ({ name, icon, progress, currentBuild }) => (
               />
             </div>
           )}
-        </>
+        </React.Fragment>
       ))}
     </span>
   </SkillItemBody>
