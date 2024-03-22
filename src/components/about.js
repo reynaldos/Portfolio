@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import { motion } from "framer-motion";
 
+const progressFilled = "./icons/filled.svg";
+const progressOutline = "./icons/outline.svg";
 
 const bioDesc = [
-  ['I build really cool things for really cool people.'],
-  ['I enjoy using my problem solving skills to help startups launch and grow their products.'],
-  ['I have recently graduated with a Computer Science degree and have a passion for all things technology and design.'],
-  ['I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.'],
-  ['I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.',
-    ' In addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.']
-]
+  ["I build really cool things for really cool people."],
+  [
+    "I enjoy using my problem solving skills to help startups launch and grow their products.",
+  ],
+  [
+    "I have recently graduated with a Computer Science degree and have a passion for all things technology and design.",
+  ],
+  [
+    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
+  ],
+  [
+    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
+    " In addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.",
+  ],
+];
 
 const portaitVariants = {
   offscreen: {
@@ -21,11 +31,11 @@ const portaitVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      delay: .1,
+      delay: 0.1,
       type: "ease",
-      duration: 0.8
-    }
-  }
+      duration: 0.8,
+    },
+  },
 };
 
 const bioVariants = {
@@ -37,74 +47,119 @@ const bioVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      delay: .2,
+      delay: 0.2,
       type: "ease",
-      duration: 0.8
-    }
-  }
+      duration: 0.8,
+    },
+  },
 };
 
+const skills = [
+  {
+    title: "frontend",
+    tech: [
+      {
+        name: "Next.js",
+        icon: "./icons/Nextjs.svg",
+        progress: 6,
+      },
+      {
+        name: "Figma",
+        icon: "./icons/Figma.svg",
+        progress: 8,
+      },
+      {
+        name: "React",
+        icon: "./icons/React.svg",
+        progress: 7,
+      },
+      {
+        name: `HTML/\nCSS/JS`,
+        icon: "./icons/html.svg",
+        progress: 9,
+      },
+    ],
+  },
+  {
+    title: "backend",
+    tech: [
+      {
+        name: "AWS",
+        icon: "./icons/AWS.svg",
+        progress: 5,
+      },
+      {
+        name: "Serverless",
+        icon: "./icons/Serverless.svg",
+        progress: 4,
+      },
+      {
+        name: "Firebase",
+        icon: "./icons/Firebase.svg",
+        progress: 5,
+      },
+      {
+        name: "Node.js",
+        icon: "./icons/Nodejs.svg",
+        progress: 6,
+      },
+    ],
+  },
+];
 
 function asyncCall(time) {
-  return new Promise((resolve) => setTimeout(() => resolve(), time));//1500
+  return new Promise((resolve) => setTimeout(() => resolve(), time)); //1500
 }
 
-
-
-export const About = ({currentBuild}) => {
-
+export const About = ({ currentBuild }) => {
   const [bioLength, setBioLength] = useState(3);
   const [portrait, setPortrait] = useState(0);
   const [portraitID, setPortraitID] = useState(2);
 
-
-
-   const togglePixel = async(skip) =>{
-      
-      if(portrait === 0 ){
-       
-        if(skip === true){
-           // pixalate photo for me btn
-          for(let i = 0; i <= 3; i++){
-            setPortrait(i);
-            await asyncCall(100);
-          } 
-        }else{
-          // already pixalted for transition 
-          setPortrait(4);
-          await asyncCall(300);
-        }
-
-        // clear up photo
-        for(let i = 4; i >= 1; i--){
-          setPortrait(i);
-          await asyncCall(125);
-        }
-
-         // pixalate photo
-        for(let i = 2; i <= 4; i++){
+  const togglePixel = async (skip) => {
+    if (portrait === 0) {
+      if (skip === true) {
+        // pixalate photo for me btn
+        for (let i = 0; i <= 3; i++) {
           setPortrait(i);
           await asyncCall(100);
         }
-
-        // photo switch
-        setPortraitID(portraitID === 1 ? 2 : 1);
-
-         // final clear up
-        for(let i = 3; i >= 1; i--){
-          setPortrait(i);
-
-          if (i >1 )
-          {await asyncCall(125);}
-          else{
-          await asyncCall(50);
-          }
-        }
-      
-        setPortrait(0);
+      } else {
+        // already pixalted for transition
+        setPortrait(4);
+        await asyncCall(300);
       }
+
+      // clear up photo
+      for (let i = 4; i >= 1; i--) {
+        setPortrait(i);
+        await asyncCall(125);
+      }
+
+      // pixalate photo
+      for (let i = 2; i <= 4; i++) {
+        setPortrait(i);
+        await asyncCall(100);
+      }
+
+      // photo switch
+      setPortraitID(portraitID === 1 ? 2 : 1);
+
+      // final clear up
+      for (let i = 3; i >= 1; i--) {
+        setPortrait(i);
+
+        if (i > 1) {
+          await asyncCall(125);
+        } else {
+          await asyncCall(50);
+        }
+      }
+
+      setPortrait(0);
     }
-     
+  };
+
 
   return (
     <Container id={"about"} currentBuild={currentBuild}>
@@ -253,20 +308,79 @@ export const About = ({currentBuild}) => {
           </PortraitWrap>
         </PortraitSection>
       </Wrappper>
+
+      <h4 className="skillsTitle">SKILLS</h4>
+      <Wrappper style={{height: 'fit-content'}}>
+        {skills.map((section, index) => (
+          <SkillGroup key={index}>
+            <h4>{section.title}</h4>
+            <SkillItemWrap>
+              {section.tech.map((skill, jndex) => (
+                <SkillItem {...skill} key={`${index}-${jndex}`} />
+              ))}
+            </SkillItemWrap>
+          </SkillGroup>
+        ))}
+      </Wrappper>
     </Container>
   );
-}
+};
+
+const SkillItem = ({ name, icon, progress }) => (
+  <SkillItemBody>
+    <div className="iconWrap">
+      <img src={icon} alt={name} />
+    </div>
+    <p>{name}</p>
+
+    <span>
+      {[...Array(10)].map((a, i) => (
+        <>
+          <img
+            key={`${name}-${i}`}
+            className={i < progress ? "filled" : ""}
+            src={i < progress ? progressFilled : progressOutline}
+            alt="progress"
+          />
+
+          {i === progress && (
+            <img
+              style={{
+                left: `calc(23px * ${i - 1})`,
+              }}
+              key={`${name}-${i}-progressBG`}
+              className={"BG"}
+              src={progressOutline}
+              alt="progress"
+            />
+          )}
+        </>
+      ))}
+    </span>
+  </SkillItemBody>
+);
 
 const Container = styled.section`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 15;
-    overflow: hidden;
-    position:relative;
-    margin-top: 3rem;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 15;
+  overflow: hidden;
+  position: relative;
+  margin-top: 3rem;
+
+  .skillsTitle {
+    margin-top: 2rem;
+
+    font-size: 24px;
+    font-family: "DesignerGenes", "Courier New Bold", Courier, monospace;
+    letter-spacing: 0.1rem;
+    font-weight: normal;
+    color: white;
+    text-transform: uppercase;
+  }
+`;
 
 const Title = styled.div`
   width: calc(100% - 8rem);
@@ -286,15 +400,13 @@ const Title = styled.div`
   }
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-
-    h2{
+    h2 {
       left: 0px;
     }
   }
 `;
 
 const Wrappper = styled.div`
-
   width: calc(100% - 8rem);
   max-width: 1200px;
   height: 500px;
@@ -302,6 +414,7 @@ const Wrappper = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   margin: 0rem 4rem;
+  flex-wrap: wrap;
 
   @media screen and (max-width: calc(${(props) =>
       props.theme.breakpoint.md} + 100px)) {
@@ -313,7 +426,7 @@ const Wrappper = styled.div`
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
     width: 100%;
-    margin: 4rem auto 1rem auto;
+    margin: 1rem auto 1rem auto;
   }
 `;
 
@@ -334,38 +447,31 @@ const BioSection = styled.div`
   }
 `;
 
-
 const AdjusterWrap = styled(motion.div)`
   width: 330px;
   margin-bottom: 2rem;
   margin-top: 4rem;
-  
-`
+`;
 
 const LabelWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-
-`
-
+`;
 
 const AdjusterText = styled.h6`
   width: fit-content;
   color: white;
-  font-size: .5rem;
+  font-size: 0.5rem;
   text-align: center;
   margin: auto 8px;
   text-transform: uppercase;
 
-   @media screen and (max-width: ${props => props.theme.breakpoint.sm}){
-      font-size: 8px;
-
-    } 
-`   
-
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    font-size: 8px;
+  }
+`;
 
 const BubbleWrap = styled.div`
   width: 100%;
@@ -373,49 +479,43 @@ const BubbleWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: .75rem auto;
+  margin: 0.75rem auto;
   margin-top: 1.5rem;
-
-`
-
+`;
 
 const BubbleBtn = styled.input`
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    /* create custom checkbox appearance */
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    padding: 2px;
-    /* background-color only for content */
-    background-clip: content-box;
-    border: 2px solid ${props=> props.theme[props.currentBuild].accent};
-    border-radius: 100%;
-    background-color: transparent;
-    /* margin: 0 1rem; */
-   
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 
-    &:checked{
-        background-color:  ${props=> props.theme[props.currentBuild].accent};
-    }
+  /* create custom checkbox appearance */
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 2px;
+  /* background-color only for content */
+  background-clip: content-box;
+  border: 2px solid ${(props) => props.theme[props.currentBuild].accent};
+  border-radius: 100%;
+  background-color: transparent;
+  /* margin: 0 1rem; */
 
-    &:focus{
-        outline: none !important;
-    }
+  &:checked {
+    background-color: ${(props) => props.theme[props.currentBuild].accent};
+  }
 
+  &:focus {
+    outline: none !important;
+  }
 
-     transition: 
-          border ${props => props.theme.transitionStyleMid},
-          background-color ${props => props.theme.transitionStyleMid},
-          transform .3s cubic-bezier(0.39, 0.575, 0.565, 1);
-&:hover{
-        transform-origin:center;
-       transform: translateY(-.2rem) scale(1.1);
-    }
-`
-
+  transition: border ${(props) => props.theme.transitionStyleMid},
+    background-color ${(props) => props.theme.transitionStyleMid},
+    transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  &:hover {
+    transform-origin: center;
+    transform: translateY(-0.2rem) scale(1.1);
+  }
+`;
 
 const BioWrap = styled(motion.div)`
   width: 85%;
@@ -423,43 +523,36 @@ const BioWrap = styled(motion.div)`
   min-width: 355px;
   height: 300px;
 
-  @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-     height: min-content;
-  } 
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    height: min-content;
+  }
 
-  @media screen and (max-width: calc(${props => props.theme.breakpoint.xs})){
-      min-width: 355px;
-  } 
-
-`
+  @media screen and (max-width: calc(${(props) => props.theme.breakpoint.xs})) {
+    min-width: 355px;
+  }
+`;
 const BioText = styled.p`
-   width: 100%;
-
-`
-
-
+  width: 100%;
+`;
 
 // ///////// PORTRAIT STYLES  // /////////
 
 const PortraitSection = styled.div`
-    /* width: 350px; */
-    flex: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    
+  /* width: 350px; */
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
-
-    @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-        order: 1;
-        width: 100%;
-
-    } 
-
-`
-
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    order: 1;
+    width: 100%;
+  }
+`;
 
 const PortraitWrap = styled(motion.div)`
   position: relative;
@@ -467,27 +560,22 @@ const PortraitWrap = styled(motion.div)`
   width: 100%;
   max-width: 535px;
   /* background-color: greenyellow; */
-  
 
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    width: 80%;
+  }
 
-    @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-        width: 80%;
-
-    } 
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-        width: 160%;
-        max-width: none;
-
-    } 
-  
-
-`
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+    width: 160%;
+    max-width: none;
+  }
+`;
 
 const PortraitBubbleWrap = styled.div`
   position: absolute;
   height: 30px;
-  width:50px;
+  width: 50px;
   right: 15%;
   bottom: 0;
 
@@ -496,39 +584,36 @@ const PortraitBubbleWrap = styled.div`
   justify-content: space-between;
   /* pointer-events: none; */
 
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.lg}) {
+    bottom: -10px;
+  }
 
-  @media screen and (max-width: ${props => props.theme.breakpoint.lg}){
-       bottom: -10px;
-  } 
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-        right: 25%;
-        bottom: 5px;
-
-  } 
-
-`
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+    right: 25%;
+    bottom: 5px;
+  }
+`;
 
 const CustomSvg = styled.svg`
-    position: absolute;
-    /* left: 50%;
+  position: absolute;
+  /* left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); */
-    width: 100%;
-    height: 100%;
-    /* background-color: darkblue; */
-
-`
-
+  width: 100%;
+  height: 100%;
+  /* background-color: darkblue; */
+`;
 
 const CustomPath = styled.path`
-    fill: ${props => (props.currentBuild === 0 ? '#A5B091' : props.theme[props.currentBuild].btnText)};
-    stroke: black;
-    stroke-width: 1px;
+  fill: ${(props) =>
+    props.currentBuild === 0
+      ? "#A5B091"
+      : props.theme[props.currentBuild].btnText};
+  stroke: black;
+  stroke-width: 1px;
 
-    transition: fill ${props => props.theme.transitionStyleMid};
-`
-
+  transition: fill ${(props) => props.theme.transitionStyleMid};
+`;
 
 const PhotoWrap = styled.div`
   position: absolute;
@@ -536,43 +621,38 @@ const PhotoWrap = styled.div`
   left: 49.75%;
   transform: translate(-50%, -50%);
   clip-path: polygon(5.5% 0, 100% 0, 93.5% 100%, 0 100%);
-  -webkit-clip-path:  polygon(5.5% 0, 100% 0, 93.5% 100%, 0 100%);
+  -webkit-clip-path: polygon(5.5% 0, 100% 0, 93.5% 100%, 0 100%);
   /* border: 1px solid black; */
 
   width: 78%;
   aspect-ratio: 1.25/1;
   overflow: hidden;
   /* background-color: red; */
-
-
-  @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-      
-    } 
-`
+`;
 
 const Photo = styled.img`
   height: 100%;
   position: relative;
   object-fit: contain;
-  top:  ${props=>(props.pic !== 1 ? '-20%': '-3%')};
+  top: ${(props) => (props.pic !== 1 ? "-20%" : "-3%")};
   left: 50%;
-  transform: translate(-50%,0%) scale(1.5);
-`
+  transform: translate(-50%, 0%) scale(1.5);
+`;
 
 const LabelContainer = styled.div`
-    position: relative;
-    width: 115%;
-    aspect-ratio: 1.25/1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: relative;
+  width: 115%;
+  aspect-ratio: 1.25/1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-    @media screen and (max-width: calc(${props => props.theme.breakpoint.md} + 100px)){
-      transform: translate(-50%, 0%);
-      width: 100%;
-    } 
-
-`
+  @media screen and (max-width: calc(${(props) =>
+      props.theme.breakpoint.md} + 100px)) {
+    transform: translate(-50%, 0%);
+    width: 100%;
+  }
+`;
 
 const PortraitLabelWrap = styled(motion.div)`
   position: absolute;
@@ -588,43 +668,162 @@ const PortraitLabelWrap = styled(motion.div)`
   /* top: 50%;
   left: 50%;
   transform: translate(); */
-  background-color:  ${props=> props.theme[props.currentbuild].btn};
-   transition:  background-color ${props => props.theme.transitionStyleMid};
-  
-  ${props => props.bottom !== 'true' ? `
+  background-color: ${(props) => props.theme[props.currentbuild].btn};
+  transition: background-color ${(props) => props.theme.transitionStyleMid};
+
+  ${(props) =>
+    props.bottom !== "true"
+      ? `
     clip-path: polygon(28.5% 0%, 71.5% 0%, 100% 100%, 0% 100%);
     -webkit-clip-path: polygon(28.5% 0%, 71.5% 0%, 100% 100%, 0% 100%);
     top: 2.5%;
     right: 25%;
   
-  ` : `
+  `
+      : `
     clip-path: polygon(0% 0%, 100% 0%, 71.5% 100%, 28.5% 100%);
     -webkit-clip-path:  polygon(0% 0%, 100% 0%, 71.5% 100%, 28.5% 100%);
     bottom: 2.5%;
     left: 25%;
   
   `}
-`
-
-
+`;
 
 const Label = styled.h6`
-  color:  ${props=> props.theme[props.currentBuild].btnText};
+  color: ${(props) => props.theme[props.currentBuild].btnText};
   text-transform: uppercase;
-  font-size: .6rem;
-  margin-bottom: .1rem;
+  font-size: 0.6rem;
+  margin-bottom: 0.1rem;
 
-   -webkit-text-stroke-width: ${props => (props.currentBuild !== 1 ? '.2px' : '0')};
-  -webkit-text-stroke-color:  ${props => (props.currentBuild !== 1 ? 'black' : '')};
+  -webkit-text-stroke-width: ${(props) =>
+    props.currentBuild !== 1 ? ".2px" : "0"};
+  -webkit-text-stroke-color: ${(props) =>
+    props.currentBuild !== 1 ? "black" : ""};
 
-  transition:  color ${props => props.theme.transitionStyleMid};
-  
+  transition: color ${(props) => props.theme.transitionStyleMid};
 
-   @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        font-size: .5rem;
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    font-size: 0.5rem;
+  }
+`;
 
-    } 
+const SkillGroup = styled.div`
+  margin: 1rem auto;
 
-    
+  h4 {
+    font-family: "DesignerGenes", "Courier New Bold", Courier, monospace;
+    letter-spacing: 0.1rem;
+    font-weight: normal;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
 
-`
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    width: calc(100% - 32px);
+  }
+`;
+
+const SkillItemWrap = styled.div`
+  width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    width: 380px;
+  }
+`;
+
+const SkillItemBody = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+
+  /* icon */
+  .iconWrap {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #221a2b;
+    border-radius: 2;
+    clip-path: polygon(0 28%, 50% 0, 100% 28%, 100% 72%, 50% 100%, 0 72%);
+    -webkit-clip-path: polygon(
+      0 28%,
+      50% 0,
+      100% 28%,
+      100% 72%,
+      50% 100%,
+      0 72%
+    );
+  }
+
+  /* title */
+  & > p {
+    min-width: 102px;
+    line-height: 16px;
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+      min-width: 85px;
+    }
+  }
+
+  /* progress bar */
+  & > span {
+    width: 100%;
+    display: flex;
+    position: relative;
+
+    img {
+      margin: 0 -8px;
+      position: relative;
+    }
+
+    .filled:has(+ :not(.filled)) {
+      animation: blinker 3s ease-in-out infinite 1.25s;
+
+      @keyframes blinker {
+        50% {
+          opacity: 0;
+        }
+      }
+    }
+
+    .BG {
+      position: absolute;
+    }
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    & > span {
+      transform-origin: left center;
+      scale: 0.85;
+    }
+  }
+
+  &:nth-child(2n) {
+    & > span {
+      width: 100%;
+      display: flex;
+      position: relative;
+
+      .filled:has(+ :not(.filled)) {
+        animation: blinker 3s ease-in-out infinite 0.25s;
+
+        @keyframes blinker {
+          50% {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+`;
