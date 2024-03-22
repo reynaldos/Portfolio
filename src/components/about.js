@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const progressFilled = "./icons/filled.svg";
-const progressOutline = "./icons/outline.svg";
+import { ProgressIcon } from "./ProgressIcon";
+
 
 const bioDesc = [
   ["I build really cool things for really cool people."],
@@ -310,13 +310,17 @@ export const About = ({ currentBuild }) => {
       </Wrappper>
 
       <h4 className="skillsTitle">{`<SKILLS />`}</h4>
-      <Wrappper style={{height: 'fit-content'}}>
+      <Wrappper style={{ height: "fit-content" }}>
         {skills.map((section, index) => (
           <SkillGroup key={index}>
             <h4>{section.title}</h4>
             <SkillItemWrap>
               {section.tech.map((skill, jndex) => (
-                <SkillItem {...skill} key={`${index}-${jndex}`} />
+                <SkillItem
+                  {...skill}
+                  key={`${index}-${jndex}`}
+                  currentBuild={currentBuild}
+                />
               ))}
             </SkillItemWrap>
           </SkillGroup>
@@ -326,7 +330,7 @@ export const About = ({ currentBuild }) => {
   );
 };
 
-const SkillItem = ({ name, icon, progress }) => (
+const SkillItem = ({ name, icon, progress, currentBuild }) => (
   <SkillItemBody>
     <div className="iconWrap">
       <img src={icon} alt={name} />
@@ -336,29 +340,35 @@ const SkillItem = ({ name, icon, progress }) => (
     <span>
       {[...Array(10)].map((a, i) => (
         <>
-          <img
-            key={`${name}-${i}`}
-            className={i < progress ? "filled" : ""}
-            src={i < progress ? progressFilled : progressOutline}
-            alt="progress"
-          />
+          <div className={i < progress ? "filled" : ""}>
+            <ProgressIcon
+              currentBuild={currentBuild}
+              name={i < progress ? "filled" : "outline"}
+              key={`${name}-${i}`}
+            />
+          </div>
 
           {i === progress && (
-            <img
+            <div
+              className={"BG"}
               style={{
                 left: `calc(23px * ${i - 1})`,
               }}
-              key={`${name}-${i}-progressBG`}
-              className={"BG"}
-              src={progressOutline}
-              alt="progress"
-            />
+            >
+              <ProgressIcon
+                currentBuild={currentBuild}
+                name={"outline"}
+                key={`${name}-${i}-progressBG`}
+              />
+            </div>
           )}
         </>
       ))}
     </span>
   </SkillItemBody>
 );
+
+
 
 const Container = styled.section`
   width: 100%;
@@ -795,7 +805,7 @@ const SkillItemBody = styled.div`
     display: flex;
     position: relative;
 
-    img {
+    & > div {
       margin: 0 -8px;
       position: relative;
     }
