@@ -15,6 +15,17 @@ const messages = [
   "innovative thinker",
   "uses comments in code",
   "watches too much anime",
+  "likes sci-fi movies",
+  "currently playing basketball",
+  "last seen in the metaverse",
+  "working on ***** ******",
+  "technology-bender",
+  "programming skills > 9000",
+  "lisan al gaib",
+  "looking for more memory",
+  "future AI apologist",
+  "viewports === canvases",
+  "UI/ux enthusiast",
 ];
 
 let stack = [0];
@@ -156,6 +167,8 @@ export const Landing = ({ currentBuild, showElements }) => {
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
+  height: 100svh;
+
   display: grid;
   place-content: center;
   z-index: 15;
@@ -225,6 +238,11 @@ const Subtitle = styled.h4`
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
     font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    font-size: 18px;
+    letter-spacing: 0.15rem;
   }
 `;
 
