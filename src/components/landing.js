@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import styled from "styled-components";
 import { SVGicons } from "./icons";
-import Scene from "../threeJs/Scene";
+// import Scene from "../threeJs/Scene";
+// import Scene from "../threeJs/SceneV2";
 import { motion } from "framer-motion";
 
 const messages = [
@@ -158,7 +159,7 @@ export const Landing = ({ currentBuild, showElements }) => {
         </ButtonWrap>
       </Container>
       <ThreeJsContainter>
-        <Scene status={state.status} />
+        {/* <Scene status={state.status} /> */}
       </ThreeJsContainter>
     </>
   );

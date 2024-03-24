@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
+import ReactDOM from "react-dom/client";
 // import { createRoot } from 'react-dom/client'
 import './index.css';
 import App from './App';
@@ -10,8 +10,9 @@ import { ThemeProvider } from 'styled-components';
 
 // Create a root.
 // const root = createRoot(container);
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-ReactDOM.render(  
+root.render(  
     <React.StrictMode>   
         <BuildThemeProvider>
             <ThemeProvider theme={BuildStyles}>
@@ -19,8 +20,8 @@ ReactDOM.render(
             </ThemeProvider>
         </BuildThemeProvider> 
     </React.StrictMode>
-    // );
-    , document.getElementById('root'));
+    );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
