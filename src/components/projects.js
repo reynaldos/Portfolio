@@ -21,46 +21,59 @@ const projectVariants = {
 };
 
 const projects = [
-    {
-        id: 0,
-        title: 'VRNL - Video Sharing Social Media Platform',
-        image: './mockups/vrnl_mockup.png',
-        codestack: ['react','node.js','mongo DB','express'],
-        link: 'https://vrnl.vercel.app/',
-        side: 'right'
+  {
+    id: -1,
+    title: "Claris Cleaning - Maid Service Storefront",
+    image: "./mockups/claris_cleaning.png",
+    codestack: ["next.js", "UI design", "Figma"],
+    link: "https://www.clariscleaning.com/",
+    side: "right",
+  },
+  {
+    id: 1,
+    title: "GAT NFT - Immersive Web3 Dapp",
+    image: "./mockups/gat_mockup.png",
+    codestack: ["react", "node.js", "three.js", "firebase"],
+    link: "https://godsandtitans.io/",
+    side: "left",
+  },
+  {
+    id: 0,
+    title: `KennyCuts -\nBaber Portfolio`,
+    image: "./mockups/kenymock.png",
+    codestack: ["React", "UI design", "Figma"],
+    link: "https://www.thekennycuts.com/",
+    side: "right",
+  },
+  // {
+  //     id: 0,
+  //     title: 'VRNL - Video Sharing Social Media Platform',
+  //     image: './mockups/vrnl_mockup.png',
+  //     codestack: ['react','node.js','mongo DB','express'],
+  //     link: 'https://vrnl.vercel.app/',
+  //     side: 'right'
 
-    },
-    {
-        id: 1,
-        title: 'GAT NFT - Immersive Web3 Dapp',
-        image: './mockups/gat_mockup.png',
-        codestack: ['react','node.js','three.js','firebase'],
-        link: 'https://godsandtitans.io/',
-        side: 'left'
+  // },
 
-    },
-      
-    {
-        id: 3,
-        title: 'Mugen Manga - Cross Platform Manga Reader',
-        image: './mockups/mugen_manga_mockup.png',
-        codestack: ['flutter','firebase', 'UI design', 'webscrape'],
-        link: 'https://reynaldos.github.io/reynaldos-github.io/#/',
-        // link: 'https://reynaldos.github.io/manga_reader_web/',
-        side: 'left'
+  {
+    id: 3,
+    title: "Mugen Manga - Cross Platform Manga Reader",
+    image: "./mockups/mugen_manga_mockup.png",
+    codestack: ["flutter", "firebase", "UI design", "webscrape"],
+    link: "https://reynaldos.github.io/reynaldos-github.io/#/",
+    // link: 'https://reynaldos.github.io/manga_reader_web/',
+    side: "left",
+  },
 
-    },
-    
-    {
-        id: 2,
-        title: 'TYGR NFT - Web3 Dapp',
-        image: './mockups/tygr_mockup.png',
-        codestack: ['next.js', 'UI design'],
-        link: 'https://tygr-dev-mu.vercel.app',
-        side: 'right'
-
-    },
-]
+  {
+    id: 2,
+    title: "TYGR NFT - Web3 Dapp",
+    image: "./mockups/tygr_mockup.png",
+    codestack: ["next.js", "UI design", "Figma"],
+    link: "https://tygr-dev-mu.vercel.app",
+    side: "right",
+  },
+];
 
 export const Projects = ({currentBuild}) => {
   return (
@@ -90,54 +103,70 @@ const ProjectBuild = ({currentBuild,project}) => {
 
   return (
     <BuildContainer
-        initial='offscreen'
-        whileInView='onscreen'
-        variants={projectVariants}
-        >
-        <BuildWrapper currentBuild={currentBuild}>
+      initial="offscreen"
+      whileInView="onscreen"
+      variants={projectVariants}
+    >
+      <BuildWrapper currentBuild={currentBuild}>
+        {/* bg image */}
+        <ImageWrap side={project.side}>
+          <ProjectImage src={project.image} project={project.id} />
+          <span/>
+        </ImageWrap>
 
-            {/* bg image */}
-            <ImageWrap>
-                <ProjectImage src={project.image} project={project.id}/>
-            </ImageWrap>
+        {/* skrews */}
+        <Screw currentBuild={currentBuild}>
+          <Cross />
+          <Cross />
+        </Screw>
+        <Screw currentBuild={currentBuild}>
+          <Cross />
+          <Cross />
+        </Screw>
+        <Screw currentBuild={currentBuild}>
+          <Cross />
+          <Cross />
+        </Screw>
+        <Screw currentBuild={currentBuild}>
+          <Cross />
+          <Cross />
+        </Screw>
 
-            {/* skrews */}
-            <Screw currentBuild={currentBuild}><Cross/><Cross/></Screw>
-            <Screw currentBuild={currentBuild}><Cross/><Cross/></Screw>
-            <Screw currentBuild={currentBuild}><Cross/><Cross/></Screw>
-            <Screw currentBuild={currentBuild}><Cross/><Cross/></Screw>
+        {/* text */}
+        <TextWrap side={project.side}>
+          <Title currentBuild={currentBuild} side={project.side}>
+            {project.title}
+          </Title>
+          {/* <Spacer top={true}/> */}
 
-            {/* text */}
-            <TextWrap side={project.side}>
-                <Title 
-                    currentBuild={currentBuild}
-                    side={project.side}>{project.title}</Title>
-                {/* <Spacer top={true}/> */}
+          <Sitebtn
+            onClick={() => {
+              openInNewTab(project.link);
+            }}
+            currentBuild={currentBuild}
+          >
+            <AccentButton currentBuild={currentBuild} text={"Visit Site"} />
+          </Sitebtn>
 
-                <Sitebtn 
-                    onClick={()=>{
-                        openInNewTab(project.link);
-                    }}
-                    currentBuild={currentBuild}>
-                    
-                    <AccentButton  currentBuild={currentBuild} text={'Visit Site'}/>
-                    </Sitebtn>
+          <Spacer />
 
-                <Spacer/>
-                
-                <StackWrap >
-                    {project.codestack.map((value, index)=>{
-                        return <StackText 
-                            currentBuild={currentBuild}
-                            side={project.side}
-                                key={index} >{value}</StackText>
-                    })}
-                </StackWrap>
-            </TextWrap>
-
-        </BuildWrapper>
+          <StackWrap>
+            {project.codestack.map((value, index) => {
+              return (
+                <StackText
+                  currentBuild={currentBuild}
+                  side={project.side}
+                  key={index}
+                >
+                  {value}
+                </StackText>
+              );
+            })}
+          </StackWrap>
+        </TextWrap>
+      </BuildWrapper>
     </BuildContainer>
-  )
+  );
 }
 
 
@@ -243,42 +272,58 @@ const BuildWrapper = styled.section`
 `
 
 const ImageWrap = styled.div`
-    overflow: hidden;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0%;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.56, 0.42, 0.73, 0.9);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    height: 50%;
+    bottom: 50%;
+    transition: bottom 0.3s ease;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoint.md}) {
+  & > span {
+    content: "";
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    bottom: 0%;
-    transform-origin: center;
-    transition:  transform  .4s cubic-bezier(.56,.42,.73,.9);
 
-    &:hover{
-        transform: scale(1.05);
-    }
-
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        height: 50%;
-        bottom: 50%;
-        transition:  bottom  .3s ease;
-
-        &:hover{
-            transform: scale(1);
-        }
-
-        
-    } 
-
-`
+    ${(props) =>
+      props.side === "right"
+        ? `
+    background: rgb(2,0,36);
+background: linear-gradient(270deg, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    `
+        : `
+      background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);`};
+  }}
+`;
 
 const ProjectImage = styled.img`
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 
-
-`
+  
+`;
 
 const Screw = styled.div`
     position: absolute;
@@ -412,63 +457,60 @@ const TextWrap = styled.div`
 
 
 const Title = styled.h1`
-    width: 250px;
-    /* background-color: rgba(0,255,0,.5); */
-    margin-bottom: calc(2rem * 1.5);
-    color: white;
-    text-shadow: black 0 0  4px;
+  width: 250px;
+  /* background-color: rgba(0,255,0,.5); */
+  margin-bottom: calc(2rem * 1.5);
+  color: white;
+  text-shadow: black 0 0 4px;
 
-    font-size: 1.4rem;
-    line-height: 1.2rem;
-    letter-spacing: .01rem;
-    word-spacing: .25rem;
-    padding-bottom: 1.6rem;;
+  font-size: 1.4rem;
+  line-height: 1.2rem;
+  letter-spacing: 0.01rem;
+  word-spacing: 0.25rem;
+  padding-bottom: 1.6rem;
 
-   
+  transform-origin: top left;
+  -webkit-transform: scale(1.5, 1.8);
+  -moz-transform: scale(1.5, 1.8);
+  -o-transform: scale(1.5, 1.8);
+  transform: scale(1.5, 1.8);
+
+  order: 1;
+  white-space: pre-wrap;
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoint.lg}) {
+    font-size: 1.6rem;
+    line-height: 1.4rem;
+    /* width: 300px; */
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    color: ${(props) => (props.currentBuild === 2 ? "black" : "white")};
+    transition: color ${(props) => props.theme.transitionStyleMid};
     transform-origin: top left;
-    -webkit-transform: scale(1.5, 1.8);
-    -moz-transform: scale(1.5, 1.8);
-    -o-transform: scale(1.5, 1.8);
-    transform: scale(1.5, 1.8);
-    
-    order: 1;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: calc(100% / 1.5);
+    text-shadow: none;
+  }
 
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
+    margin-bottom: 0rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    width: calc(100% / 1.5);
+  }
 
-
-    @media screen and (min-width: ${props => props.theme.breakpoint.lg}){
-        font-size: 1.6rem;
-        line-height: 1.4rem;
-        /* width: 300px; */
-    } 
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.md}){
-        color: ${props => props.currentBuild === 2 ? 'black' : 'white'};
-        transition: color ${props => props.theme.transitionStyleMid};
-        transform-origin: top left;
-        font-size: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-        width: calc(100% / 1.5);
-         text-shadow: none;
-
-    } 
-
-    @media screen and (max-width: ${props => props.theme.breakpoint.xs}){
-        margin-bottom: 0rem;
-        font-size: 1rem;
-        line-height: 1rem;
-        width: calc(100% / 1.5);
-    } 
-
-
-      ${props => props.side === 'right' ? `
+  ${(props) =>
+    props.side === "right"
+      ? `
             //    transform: translateX(90%);
             width: 75%;
             //    background-color: blue;
-            `:''}
-
-
-`
+            `
+      : ""}
+`;
 
 const Sitebtn = styled.div`
     pointer-events: visible;
