@@ -4,6 +4,7 @@ import { SVGicons } from "./icons";
 // import Scene from "../threeJs/Scene";
 // import Scene from "../threeJs/SceneV2";
 import { motion } from "framer-motion";
+import { ModelViewer } from "../threeJs/SceneV2";
 
 const messages = [
   "software engineer",
@@ -22,7 +23,7 @@ const messages = [
   "working on ***** ******",
   "technology-bender",
   "programming skills > 9000",
-  "lisan al gaib",
+  // "lisan al gaib",
   "looking for more memory",
   "future AI apologist",
   "viewports === canvases",
@@ -31,25 +32,25 @@ const messages = [
 
 let stack = [0];
 
-// const titleVarients = {
-//     offscreen: {
-//         scale: 0,
-//         opacity:0,
-//         transformOrigin: 'center',
-//         y: 5
-//     },
-//     onscreen: {
-//         scale: [0,0,1],
-//         opacity: [0,0,1],
-//         y: 0,
-//         transition: {
-//             delay: 1.4,
-//             type: "ease",
-//             bounce: 0.25,
-//             duration: .8
-//         }
-//     }
-// }
+const titleVarients = {
+    offscreen: {
+        scale: 0,
+        opacity:0,
+        transformOrigin: 'center',
+        y: 5
+    },
+    onscreen: {
+        scale: [0,0,1],
+        opacity: [0,0,1],
+        y: 0,
+        transition: {
+            delay: 1.4,
+            type: "ease",
+            bounce: 0.25,
+            duration: .8
+        }
+    }
+}
 
 const btnVarients = {
   offscreen: {
@@ -118,12 +119,13 @@ export const Landing = ({ currentBuild, showElements }) => {
 
   return (
     <>
+    
       <Container>
         {/* title */}
         <TitleWrap
-        // initial={'offscreen'}
-        // animate = {showElements ? 'onscreen' : "offscreen"}
-        // variants={titleVarients}
+          initial={"offscreen"}
+          animate={showElements ? "onscreen" : "offscreen"}
+          variants={titleVarients}
         >
           <Title currentBuild={currentBuild}>Rey Sanchez</Title>
           <SubtitleWrap>
@@ -159,6 +161,7 @@ export const Landing = ({ currentBuild, showElements }) => {
         </ButtonWrap>
       </Container>
       <ThreeJsContainter>
+        <ModelViewer />
         {/* <Scene status={state.status} /> */}
       </ThreeJsContainter>
     </>
@@ -311,13 +314,13 @@ const ThreeJsContainter = styled.section`
   left: 0;
 
   background-color: black;
-  opacity: 0.4;
+  /* opacity: 0.4; */
   width: 100vw;
   height: 100vh;
-  /* z-index: 140000; */
   z-index: 14;
+  /* z-index: 1000; */
 
-  /* opacity: 0;
+  opacity: 0;
 
   -webkit-animation: fadein 2s ease-in 0s 1; 
   animation: fadein 2s ease-in 0s 1;
@@ -329,9 +332,10 @@ const ThreeJsContainter = styled.section`
     }
     to {
       opacity: 0.4;
-    }
-  } */
+      /* opacity: 1; */
 
+    }
+  }
   mask-image: -webkit-gradient(
     linear,
     center top,

@@ -11,8 +11,6 @@ import { Footer} from '../components/footer';
 // import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
-
-
 const loadTime = process.env.REACT_APP_LOADING_TIME;
 const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true' ? true: false;
 
@@ -83,7 +81,6 @@ export const Home = () => {
     return (
       
       <> 
-  
 
      {isLoading && <LoadingScreen fade={fade}/>}
      
