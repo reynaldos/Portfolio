@@ -340,14 +340,14 @@ const ThreeJsContainter = styled.section`
     linear,
     center top,
     center bottom,
-    from(rgba(0, 0, 0, 1)),
+    from(rgba(0, 0, 0, .85)),
     to(rgba(0, 0, 0, 0))
   );
   -webkit-mask-image: -webkit-gradient(
     linear,
     center top,
     center bottom,
-    from(rgba(0, 0, 0, 1)),
+    from(rgba(0, 0, 0, .85)),
     to(rgba(0, 0, 0, 0))
   );
 `;
