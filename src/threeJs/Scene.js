@@ -74,9 +74,9 @@ class Scene extends Component {
     // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.scene.add(this.camera);
     
-    this.addObjects();
-    this.setUpPhysics()
-    this.computeBoundingBox();
+    // this.addObjects();
+    // this.setUpPhysics()
+    // this.computeBoundingBox();
   }
 
   // setup physics world
@@ -181,8 +181,6 @@ class Scene extends Component {
       vertexShader: shader.vertex,
       fragmentShader: shader.fragment,
     });
-
-    
 
     // corridor model
     const glftLoader = new GLTFLoader();
