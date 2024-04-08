@@ -1,56 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { AccentButton } from "./accentButton";
-import { motion } from "framer-motion";
 
-const projectVariants = {
-  offscreen: {
-    opacity: 0,
-    // x: 1000,
-  },
-  onscreen: {
-    opacity: 1,
-    // x: 0,
-    // rotate: -10,
-    transition: {
-      type: "ease",
-      duration: 0.8,
-    },
-  },
-};
+import SwiperIcon from "../icons/view_swiper.js";
+import GridIcon from "../icons/view_grid.js";
+
+import { BuildStyles } from "../ThemeContext.js";
+
+import ProjectSwiper from "./projectSwiper.js";
+import ProjectGrid from "./projectGrid.js";
 
 const projects = [
   {
     id: -2,
-    title: "Service.ly - HVAC Digital Media Manager",
-    image: "./mockups/servicely.png",
+    title: "Service.ly",
+    subtitle: "HVAC Digital Media Manager",
+    image: "./mockups/servicely2.png",
     codestack: ["next.js", "AWS", "Contentful", "UI design"],
     link: "https://app.service.ly/",
     side: "left",
+    type: "work",
   },
   {
     id: -1,
-    title: "Claris Cleaning - Maid Service Storefront",
+    title: "Clari's Cleaning ",
+    subtitle: "Maid Service Storefront",
     image: "./mockups/claris_cleaning.png",
     codestack: ["next.js", "Firebase", "UI design", "Figma"],
     link: "https://www.clariscleaning.com/",
     side: "right",
+    type: "work",
   },
   {
     id: 1,
-    title: "GAT NFT - Immersive Web3 Dapp",
+    title: "GAT NFT",
+    subtitle: "Immersive Web3 Dapp",
     image: "./mockups/gat_mockup.png",
     codestack: ["react", "node.js", "three.js", "firebase"],
     link: "https://godsandtitans.io/",
     side: "left",
+    type: "work",
   },
   {
     id: 0,
-    title: `KennyCuts -\nBaber Portfolio`,
+    title: `KennyCuts`,
+    subtitle: "Baber Portfolio",
     image: "./mockups/kenymock.png",
     codestack: ["React", "UI design", "Figma"],
     link: "https://www.thekennycuts.com/",
     side: "right",
+    type: "work",
   },
   // {
   //     id: 0,
@@ -59,116 +57,112 @@ const projects = [
   //     codestack: ['react','node.js','mongo DB','express'],
   //     link: 'https://vrnl.vercel.app/',
   //     side: 'right'
+  //  type: 'personal'
 
   // },
 
   {
     id: 3,
-    title: "Mugen Manga - Cross Platform Manga Reader",
+    title: "Mugen Manga",
+    subtitle: "Cross Platform Manga Reader",
     image: "./mockups/mugen_manga_mockup.png",
-    codestack: ["flutter", "firebase", "UI design", "webscrape"],
+    codestack: ["flutter", "firebase", "UI design"],
     link: "https://reynaldos.github.io/reynaldos-github.io/#/",
     // link: 'https://reynaldos.github.io/manga_reader_web/',
     side: "left",
+    type: "personal",
   },
 
   {
     id: 2,
-    title: "TYGR NFT - Web3 Dapp",
+    title: "TYGR NFT",
+    subtitle: "Web3 Dapp",
     image: "./mockups/tygr_mockup.png",
     codestack: ["next.js", "UI design", "Figma"],
     link: "https://tygr-dev-mu.vercel.app",
     side: "right",
+    type: "work",
   },
 ];
 
 export const Projects = ({ currentBuild }) => {
+  const [currentTab, setCurrentTab] = useState("all");
+  const [currentView, setCurrentView] = useState("swiper");
+
+  const tabs = [
+    {
+      label: "All",
+      type: "all",
+    },
+    {
+      label: "Experience",
+      type: "work",
+    },
+    {
+      label: "My Projects",
+      type: "personal",
+    },
+  ];
+
+  const views = [
+    {
+      name: "swiper",
+      icon: <SwiperIcon color={BuildStyles[currentBuild].accent} />,
+    },
+    {
+      name: "grid",
+      icon: <GridIcon color={BuildStyles[currentBuild].accent} />,
+    },
+  ];
+
+  const filterProjects = projects.filter(
+    (project) => project.type === currentTab || currentTab === "all"
+  );
+
   return (
     <Container id="work">
       <SectionTitle>
         <h2> {`<WORK />`}</h2>
       </SectionTitle>
-      <Wrapper>
-        {projects.map((project, index) => {
-          return (
-            <ProjectBuild
+      <ToggleBar currentbuild={currentBuild}>
+        <div>
+          {tabs.map((tab, index) => (
+            <button
               key={index}
-              project={project}
-              currentBuild={currentBuild}
-            />
-          );
-        })}
-      </Wrapper>
+              data-isactive={tab.type === currentTab}
+              onClick={() => {
+                setCurrentTab(tab.type);
+              }}
+            >
+              <h3> {tab.label}</h3>
+            </button>
+          ))}
+        </div>
+        <div>
+          <h3>View by: </h3>
+
+          <span className="viwBtns">
+            {views.map((view, index) => (
+              <button
+                onClick={() => {
+                  setCurrentView(view.name);
+                }}
+                key={index}
+                data-isactive={view.name === currentView}
+              >
+                {view.icon}
+              </button>
+            ))}
+          </span>
+        </div>
+      </ToggleBar>
+
+      {currentView === "swiper" ? (
+        <ProjectSwiper currentBuild={currentBuild} projects={filterProjects} />
+      ) : (
+        <ProjectGrid currentBuild={currentBuild} projects={filterProjects} />
+      )}
     </Container>
-  );
-};
-
-const ProjectBuild = ({ currentBuild, project }) => {
-  return (
-    <BuildContainer
-      initial="offscreen"
-      whileInView="onscreen"
-      variants={projectVariants}
-    >
-      <BuildWrapper currentBuild={currentBuild}>
-        {/* bg image */}
-        <ImageWrap side={project.side}>
-          <ProjectImage src={project.image} project={project.id} />
-          <span />
-        </ImageWrap>
-
-        {/* skrews */}
-        <Screw currentBuild={currentBuild}>
-          <Cross />
-          <Cross />
-        </Screw>
-        <Screw currentBuild={currentBuild}>
-          <Cross />
-          <Cross />
-        </Screw>
-        <Screw currentBuild={currentBuild}>
-          <Cross />
-          <Cross />
-        </Screw>
-        <Screw currentBuild={currentBuild}>
-          <Cross />
-          <Cross />
-        </Screw>
-
-        {/* text */}
-        <TextWrap side={project.side}>
-          <Title currentBuild={currentBuild} side={project.side}>
-            {project.title}
-          </Title>
-          {/* <Spacer top={true}/> */}
-
-          <Sitebtn
-            onClick={() => {
-              openInNewTab(project.link);
-            }}
-            currentBuild={currentBuild}
-          >
-            <AccentButton currentBuild={currentBuild} text={"Visit Site"} />
-          </Sitebtn>
-
-          <Spacer />
-
-          <StackWrap>
-            {project.codestack.map((value, index) => {
-              return (
-                <StackText
-                  currentBuild={currentBuild}
-                  side={project.side}
-                  key={index}
-                >
-                  {value}
-                </StackText>
-              );
-            })}
-          </StackWrap>
-        </TextWrap>
-      </BuildWrapper>
-    </BuildContainer>
   );
 };
 
@@ -206,376 +200,101 @@ const SectionTitle = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const ToggleBar = styled.div`
+  margin-top: 16px;
   width: calc(100% - 8.5rem);
-  max-width: 1000px;
-  /* height: 500px; */
+  max-width: 1200px;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 4rem;
+  flex-wrap: wrap;
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    width: 95%;
-  }
-`;
-
-const BuildContainer = styled(motion.div)`
-  width: 100%;
-  height: auto;
-  margin: 1rem auto;
-  aspect-ratio: 1.9/1;
-  transition: aspect-ratio 0.3s ease, transform 0.3s ease;
-  border-radius: 2.5px;
-  overflow: hidden;
-  transform-origin: center;
-  transition: transform 0.5s ease;
-
-  &:hover {
-    transform: scale(1.01);
+  @media screen and (max-width: 680px) {
+    width: calc(100% - 2rem);
+    justify-content: center;
+    gap: 16px;
   }
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    aspect-ratio: 1.05/1;
-    width: 100%;
-    /* height: ; */
-    /* background-color: red; */
+  button {
+    background: transparent;
+    outline: none;
+    border: none;
   }
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-    aspect-ratio: 1.05/1.2;
-    width: 100%;
-    /* height: ; */
-    /* background-color: red; */
-  }
-`;
-
-const BuildWrapper = styled.section`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: transparent;
-  border-radius: 1.5px;
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    background-color: ${(props) =>
-      props.currentBuild === 0
-        ? "#A5B091"
-        : props.theme[props.currentBuild].btnText};
-    transition: background-color ${(props) => props.theme.transitionStyleMid};
-  }
-`;
-
-const ImageWrap = styled.div`
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  bottom: 0%;
-  transform-origin: center;
-  transition: transform 0.4s cubic-bezier(0.56, 0.42, 0.73, 0.9);
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    height: 50%;
-    bottom: 50%;
-    transition: bottom 0.3s ease;
-
-    &:hover {
-      transform: scale(1);
-    }
-  }
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoint.md}) {
-    & > span {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-
-      ${(props) =>
-        props.side === "right"
-          ? `
-    background: rgb(2,0,36);
-background: linear-gradient(270deg, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
-    `
-          : `
-      background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);`};
-    }
-  }
-`;
-
-const ProjectImage = styled.img`
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const Screw = styled.div`
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  background-color: ${(props) => props.theme[props.currentBuild].btn};
-  border-radius: 100%;
-  margin: 0.5rem;
-  display: grid;
-  place-content: center;
-  transform: rotate(0deg);
-  -webkit-transform: rotate(0deg);
-
-  transition: transform 1s ease, scale 1s ease,
-    background-color ${(props) => props.theme.transitionStyleMid};
-  z-index: 15;
-
-  &:hover {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: rotate(360deg) scale(1.1);
-    -webkit-transform: rotate(360deg) scale(1.1);
-    scale: 1.1;
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-
-  &:nth-child(2) {
-    right: 0%;
-  }
-  &:nth-child(3) {
-    bottom: 0%;
-    right: 0%;
-  }
-  &:nth-child(4) {
-    bottom: 0%;
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    width: 18px;
-    height: 18px;
-  }
-`;
-
-const Cross = styled.div`
-  position: absolute;
-  width: 10px;
-  height: 2px;
-  background-color: black;
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    width: 6px;
-    height: 1.5px;
-  }
-
-  &:nth-child(1) {
-    transform-origin: center;
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-  &:nth-child(2) {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-`;
-
-const TextWrap = styled.div`
-  position: absolute;
-  top: calc(0.5rem + 25px);
-  left: calc(0.5rem + 25px);
-  /* transform: translate(-50%, -50%); */
-  width: calc(65% - 1rem - 50px);
-  height: calc(90% - 1rem - 50px);
-  /* outline: 1px red solid; */
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  /* background-color: rgba(0,0,255,.5); */
-  pointer-events: none;
-
-  ${(props) =>
-    props.side === "right"
-      ? `
-    //    transform: translateX(90%);
-            width: calc(45% - 1rem - 50px);
-          right: calc(.5rem + 25px);
-          left:unset;
-    `
-      : ""};
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoint.md}) {
-    padding: 2rem;
-    ${(props) =>
-      props.side === "right"
-        ? `
-       padding: 2rem 2rem  2rem 0;
-
-    `
-        : ""};
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    transform: translateX(0%);
-    width: calc(100% - 2rem - 50px);
-    height: 50%;
-    align-items: flex-start;
-    top: 50%;
-    padding: 0 0.5rem;
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    width: calc(100% - 2rem - 36px);
-    left: calc(0.5rem + 18px);
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-    width: calc(100% - 1rem - 36px);
-    padding: 0;
-  }
-`;
-
-const Title = styled.h1`
-  width: 250px;
-  /* background-color: rgba(0,255,0,.5); */
-  margin-bottom: calc(2rem * 1.5);
-  color: white;
-  text-shadow: black 0 0 4px;
-
-  font-size: 1.4rem;
-  line-height: 1.2rem;
-  letter-spacing: 0.01rem;
-  word-spacing: 0.25rem;
-  padding-bottom: 1.6rem;
-
-  transform-origin: top left;
-  -webkit-transform: scale(1.5, 1.8);
-  -moz-transform: scale(1.5, 1.8);
-  -o-transform: scale(1.5, 1.8);
-  transform: scale(1.5, 1.8);
-
-  order: 1;
-  white-space: pre-wrap;
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoint.lg}) {
-    font-size: 1.6rem;
-    line-height: 1.4rem;
-    /* width: 300px; */
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    color: ${(props) => (props.currentBuild === 2 ? "black" : "white")};
-    transition: color ${(props) => props.theme.transitionStyleMid};
-    transform-origin: top left;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    width: calc(100% / 1.5);
-    text-shadow: none;
-  }
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-    margin-bottom: 0rem;
+  h3 {
     font-size: 1rem;
-    line-height: 1rem;
-    width: calc(100% / 1.5);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 0.05rem;
+    letter-spacing: 0px;
+    -webkit-transform: unset;
+    -moz-transform: unset;
+    -o-transform: unset;
+    transform: unset;
+
+    color: ${(props) => props.theme[props.currentbuild].accent};
+    transition: font-size 0.1s ease,
+      color ${(props) => props.theme.transitionStyleMid},
+      letter-spacing 0.3s ease-in;
   }
 
-  ${(props) =>
-    props.side === "right"
-      ? `
-            //    transform: translateX(90%);
-            width: 75%;
-            //    background-color: blue;
-            `
-      : ""}
-`;
+  /* tabs */
+  & > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
-const Sitebtn = styled.div`
-  pointer-events: visible;
-  position: relative;
-  width: fit-content;
-  order: 2;
+    @media screen and (max-width: 680px) {
+      justify-content: center;
+      width: 100%;
+      gap: 24px;
+    }
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    order: 3;
-    margin-bottom: 1rem;
+    button {
+      border-bottom: 2px solid transparent;
+
+      transition: font-size 0.1s ease,
+        border ${(props) => props.theme.transitionStyleBottom},
+        letter-spacing 0.3s ease-in;
+    }
+
+    button[data-isactive="true"] {
+      border-bottom: 2px solid
+        ${(props) => props.theme[props.currentbuild].accent};
+    }
   }
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-    margin: 1rem auto;
-  }
-`;
-const StackWrap = styled.ul`
-  order: 3;
-  text-shadow: black 0 0 4px;
-  /* ${(props) =>
-    props.side === "right"
-      ? `
-        align-items: flex-end;
-    `
-      : ""}; */
+  /* view by */
+  & > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    padding: 0.1rem;
-    order: 2;
-    text-shadow: none;
-    /* text-shadow: black 0 0  1px; */
-  }
+    .viwBtns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.xs}) {
-    margin-top: 0.5rem;
-  }
-`;
-const StackText = styled.p`
-  text-align: center;
-  text-transform: capitalize;
-  list-style: none;
-  display: inline-block;
-  margin-right: 1rem;
-  font-weight: normal;
-  color: white;
-  transition: color ${(props) => props.theme.transitionStyleMid};
+      button {
+        border: 2px solid transparent;
+        border-radius: 1.5px;
 
-  /* ${(props) =>
-    props.side === "right"
-      ? `
-        margin-right: 0rem;
-        margin-left: 1rem;
-    `
-      : ""}; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    margin-right: 1rem;
-    margin-left: 0rem;
-    color: ${(props) => (props.currentBuild === 2 ? "black" : "white")};
-  }
-`;
-const Spacer = styled.div`
-  order: 2;
-  flex: 2;
-  background-color: transparent;
+        svg {
+          path {
+            transition: fill ${(props) => props.theme.transitionStyleBottom};
+          }
+        }
+      }
 
-  ${(props) => (props.top ? "flex: 1.5;" : "")}
-
-  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
-    display: none;
+      button[data-isactive="true"] {
+        border: 2px solid ${(props) => props.theme[props.currentbuild].accent};
+      }
+    }
   }
 `;
-
-const openInNewTab = (url) => {
-  const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-  if (newWindow) newWindow.opener = null;
-};
