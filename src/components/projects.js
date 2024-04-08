@@ -208,6 +208,7 @@ const ToggleBar = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  height: fit-content;
 
   @media screen and (max-width: 680px) {
     width: calc(100% - 2rem);
@@ -267,6 +268,7 @@ const ToggleBar = styled.div`
 
   /* view by */
   & > div:last-child {
+    height: fit-content;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -276,8 +278,10 @@ const ToggleBar = styled.div`
       align-items: center;
       justify-content: center;
       gap: 8px;
+      height: fit-content;
 
       button {
+        height:54px;
         border: 2px solid transparent;
         border-radius: 1.5px;
 
