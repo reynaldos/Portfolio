@@ -161,7 +161,7 @@ export const Landing = ({ currentBuild, showElements }) => {
         </ButtonWrap>
       </Container>
       <ThreeJsContainter>
-        <ModelViewer />
+        {/* <ModelViewer /> */}
         {/* <Scene status={state.status} /> */}
       </ThreeJsContainter>
     </>
