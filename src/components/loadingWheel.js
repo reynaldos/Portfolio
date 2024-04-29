@@ -9,7 +9,7 @@ export const LoadingWheel = ({email}) => {
     setTimeout(() => {
        setEmailState('idle')
     }, 2000);
-  },[emailState]);
+  },[emailState,setEmailState]);
 
 
   return (
