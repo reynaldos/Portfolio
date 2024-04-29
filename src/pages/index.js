@@ -52,7 +52,7 @@ export const Home = () => {
 
 
 
-    }, [])
+    }, []) // eslint-disable-line
 
     const finishLoading = () => {
         console.log('close loading')

@@ -39,21 +39,22 @@ export function BuildThemeProvider({children}){
 
 
 export const BuildStyles = {
-    [0] : {
+    
+    [0] : { // eslint-disable-line
         main: '#1B41A8DA',
         mainNav: '#1B41A8',
         accent: '#CC5938',
          btn: '#FCFDFA',
          btnText: '#CC5938'
     },
-    [1] : {
+    [1] : { // eslint-disable-line
         main: '#371C6EDA',
         mainNav: '#371C6E',
         accent: '#FEAC4A',
         btn: '#BCD167',
          btnText: '#221A2B'
     },
-    [2] : {
+    [2] : { // eslint-disable-line
         main: '#99221BDA',
         mainNav: '#99221B',
         accent: '#96BA35',

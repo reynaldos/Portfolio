@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import {
   Gltf,
-  OrbitControls,
-  CameraControls,
+  // OrbitControls,
+  // CameraControls,
   PerspectiveCamera,
   Cylinder,
   Plane,
@@ -173,7 +173,7 @@ const ScenePhysics = () => {
     return () => {
       window.removeEventListener("dropItem", dropItem);
     };
-  }, []);
+  }, []);// eslint-disable-line
 
 
   // drop ball

@@ -38,7 +38,7 @@ export const Contact = () => {
     setEmailState('loading');
 
     try {
-      const result = await emailjs.sendForm(serviceID, templateID, form.current, publicKey);
+      await emailjs.sendForm(serviceID, templateID, form.current, publicKey);
       // console.log(result.text);
       setEmailState('sent');
 
