@@ -129,13 +129,6 @@ export const LoadingScreen = ({ fade }) => {
   return (
     <Container fade={fade}>
       <Wrapper>
-        {/* <VidWrap>
-                <VidBG id={'videoBG'}
-                        autoPlay loop muted 
-                        src={styleDetails === 'desktop' ? 'https://firebasestorage.googleapis.com/v0/b/vrnl-5055e.appspot.com/o/videoUrl%2F63a51c5a414a780b630fa80b%2F1677163200652?alt=media&token=b999a3e1-603a-4f59-a42c-9f37b4082a46' :''} 
-                        type='video/mp4'/>
-            </VidWrap> */}
-
         <Shader />
         {/* GRADIENT RINGS */}
         {[...Array(40)].map((v, i) => {
@@ -218,7 +211,6 @@ export const LoadingScreen = ({ fade }) => {
         <Align>
           {/* SVG WRAP */}
           <CenterWrap>
-            {/* <svg style={{height:'100%'}} x="0" y="0" width="555" height="555" viewBox="0 0 555 555" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
             <svg
               style={{ height: "100%" }}
               x="0"
@@ -412,31 +404,18 @@ const Rings = styled.div`
         mask-composite: exclude;
     }
     `}
-
-  
 `;
 
 const Detail = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
-  /* background-color: red; */
   transform: translate(-50%, -50%);
   border-radius: 50%;
   width: ${(props) => `${props.size}px`};
   height: ${(props) => `${props.size}px`};
-  /* outline: 1px solid red;  */
-  /* 
-      animation: fade 3s 1 ease;
+  /* background-color: red; */
 
-     @keyframes fade {
-        0%{
-            opacity: 0;
-        }
-        100%{
-            opacity: 1;
-        }
-     } */
 `;
 
 const DetailText = styled.p`
@@ -446,11 +425,11 @@ const DetailText = styled.p`
   text-shadow: 0px 0px 1px #23bc60a8;
 
   font-family: "DesignerGenes", "Courier New Bold", Courier, monospace;
-  z-index: 20000000000000;
+  z-index: 20000000000;
 
-  opacity: 0;
+  opacity: 1;
 
-  -webkit-animation: fadein 1s ease-in 0s 1; /* Safari, Chrome and Opera > 12.1 */
+  /* -webkit-animation: fadein 1s ease-in 0s 1;
   animation: fadein 1s ease-in 0s 1;
   animation-fill-mode: forwards;
 
@@ -461,13 +440,14 @@ const DetailText = styled.p`
     to {
       opacity: 1;
     }
-  }
+  } */
 `;
 
 const Char = styled.span`
   position: absolute;
   left: 50%;
   top: 0%;
+  -webkit-transform-origin: ${(props) => props.size};
   transform-origin: ${(props) => props.size};
 `;
 
