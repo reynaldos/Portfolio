@@ -29,6 +29,7 @@ const projects = [
     link: "https://www.clariscleaning.com/",
     side: "right",
     type: "work",
+    code: 'https://github.com/reynaldos/claris_cleaning'
   },
   {
     id: 1,
@@ -49,6 +50,7 @@ const projects = [
     link: "https://www.thekennycuts.com/",
     side: "right",
     type: "work",
+    code: 'https://github.com/reynaldos/kenny_cuts'
   },
   // {
   //     id: 0,
@@ -82,6 +84,7 @@ const projects = [
     link: "https://tygr-dev-mu.vercel.app",
     side: "right",
     type: "work",
+    code: 'https://github.com/reynaldos/tygr-dev'
   },
 ];
 
