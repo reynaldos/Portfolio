@@ -80,8 +80,10 @@ const ProjectBuild = ({ currentBuild, project, type }) => {
 
           <BottomRow currentBuild={currentBuild}>
             <button
+              data-isdisabled={project.code ? `false` : `true`}
               onClick={() => {
-                openInNewTab(project.link);
+                if(project.code )
+                openInNewTab(project.code);
               }}
             >
               {`</>`}
@@ -341,7 +343,7 @@ const BottomRow = styled.div`
     line-height: 16px;
     text-transform: uppercase;
     text-align: center;
-    font-weight: bold;
+    font-weight: bold;   
   }
 
   button:first-child {
@@ -352,6 +354,13 @@ const BottomRow = styled.div`
   button:last-child {
     flex: 1;
   }
+
+
+  button:first-child[data-isdisabled=true]{
+    pointer-events: none;
+    opacity: .4;
+}
+
 `;
 const StackWrap = styled.ul`
   text-shadow: black 0 0 4px;
