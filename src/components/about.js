@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 import { ProgressIcon } from "./ProgressIcon";
 
-
 const bioDesc = [
   ["I build really cool things for really cool people."],
   [
@@ -17,8 +16,7 @@ const bioDesc = [
     "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
   ],
   [
-    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
-    " In addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.",
+    `I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.\n\nIn addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.`,
   ],
 ];
 
@@ -160,7 +158,6 @@ export const About = ({ currentBuild }) => {
     }
   };
 
-
   return (
     <Container id={"about"} currentBuild={currentBuild}>
       <Title>
@@ -210,11 +207,15 @@ export const About = ({ currentBuild }) => {
               <br />
               {bioDesc[bioLength - 1].map((value) => {
                 return (
-                  <span key={value}>
+                  <TypeWriter
+                    n={value.length}
+                    style={{ "--n:": `${value.length}` }}
+                    key={value}
+                  >
                     {value}
                     <br />
                     <br />
-                  </span>
+                  </TypeWriter>
                 );
               })}
             </BioText>
@@ -367,8 +368,6 @@ const SkillItem = ({ name, icon, progress, currentBuild }) => (
   </SkillItemBody>
 );
 
-
-
 const Container = styled.section`
   width: 100%;
   display: flex;
@@ -396,7 +395,6 @@ const Container = styled.section`
     align-items: flex-start;
     margin: 0rem 4rem;
     flex-wrap: wrap;
-
 
     @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
       width: calc(100% - 32px);
@@ -556,6 +554,47 @@ const BioWrap = styled(motion.div)`
 `;
 const BioText = styled.p`
   width: 100%;
+`;
+
+const TypeWriter = styled.span.attrs((props) => props)`
+  --n: ${(props) => props.n};
+
+  white-space: pre-wrap;
+
+  color: #0000;
+  background: linear-gradient(-90deg, #fff calc(1.05rem / 2), #0000 0)
+      calc(1.05rem / 5) 0,
+    linear-gradient(#fff 0 0) 0 0;
+  background-size: calc(var(--n) * calc(1.2ch)) 200%;
+  -webkit-background-clip: padding-box, text;
+  background-clip: padding-box, text;
+  background-repeat: no-repeat;
+  animation: b 0.7s infinite steps(1),
+    t calc(var(--n) * 0.075s) steps(var(--n)) forwards;
+
+  @keyframes t {
+    from {
+      background-size: 0 200%;
+    }
+  }
+  @keyframes b {
+    50% {
+      background-position: 0 -100%, 0 0;
+    }
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    color: #0000;
+    background: linear-gradient(-90deg, #fff calc(0.88rem / 2), #0000 0)
+        calc(0.88rem / 5) 0,
+      linear-gradient(#fff 0 0) 0 0;
+    background-size: calc(var(--n) * calc(1.15ch)) 200%;
+    -webkit-background-clip: padding-box, text;
+    background-clip: padding-box, text;
+    background-repeat: no-repeat;
+    animation: b 0.7s infinite steps(1),
+      t calc(var(--n) * 0.075s) steps(var(--n)) forwards;
+  }
 `;
 
 // ///////// PORTRAIT STYLES  // /////////
@@ -752,7 +791,6 @@ const SkillItemWrap = styled.div`
   flex-direction: column;
   gap: 8px;
   position: relative;
-
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
     width: 380px;
