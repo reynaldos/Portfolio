@@ -7,16 +7,17 @@ import { ProgressIcon } from "./ProgressIcon";
 const bioDesc = [
   ["I build really cool things for really cool people."],
   [
-    "I enjoy using my problem solving skills to help startups launch and grow their products.",
+    "I love using my problem-solving skills to help startups launch and grow their products.",
   ],
   [
-    "I have recently graduated with a Computer Science degree and have a passion for all things technology and design.",
+    `I graduated with a Computer Science degree and have a passion for all things technology and design. Since then, I have been using frontend and problem solving skills to help startups go from 0 → 1 and beyond.`,
   ],
   [
-    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
+    "After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my frontend development and problem-solving skills to help startups transition from initial concepts to fully-fledged products. My approach combines a creative mindset with out-of-the-box thinking, allowing me to effectively collaborate with teams and drive growth and success at every stage of development",
   ],
   [
-    `I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.\n\nIn addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.`,
+    `After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my development and problem-solving skills to impact the startup ecosystem. My expertise spans frontend technologies like React, Next.js, and Three.js, as well as backend technologies such as Node.js and AWS. This full-stack proficiency enables me to build dynamic, user-friendly interfaces and robust backend systems. I thrive on guiding startups from concepts to market-ready products, using creativity and out-of-the-box thinking to devise innovative solutions. `,
+  // My passion for technology and design extends to my personal life. I'm fascinated by software engineering and UI/UX design, constantly learning to stay updated with industry trends. Beyond work, my interests in anime, basketball, and art enrich my life and inspire my creativity. 
   ],
 ];
 
@@ -429,7 +430,7 @@ const Title = styled.div`
 const Wrappper = styled.div`
   width: calc(100% - 8rem);
   max-width: 1200px;
-  height: 500px;
+  height: 575px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
