@@ -13,7 +13,7 @@ const bioDesc = [
     `I graduated with a Computer Science degree and have a passion for all things technology and design. Since then, I have been using frontend and problem solving skills to help startups go from 0 → 1 and beyond.`,
   ],
   [
-    "After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my frontend development and problem-solving skills to help startups transition from initial concepts to fully-fledged products. My approach combines a creative mindset with out-of-the-box thinking, allowing me to effectively collaborate with teams and drive growth and success at every stage of development",
+    "After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my frontend development and problem-solving skills to help startups transition from initial concepts to fully-fledged products. My approach combines a creative mindset with out-of-the-box thinking, allowing me to effectively collaborate with teams and drive growth and success at every stage of development.",
   ],
   [
     `After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my development and problem-solving skills to impact the startup ecosystem. My expertise spans frontend technologies like React, Next.js, and Three.js, as well as backend technologies such as Node.js and AWS. This full-stack proficiency enables me to build dynamic, user-friendly interfaces and robust backend systems. I thrive on guiding startups from concepts to market-ready products, using creativity and out-of-the-box thinking to devise innovative solutions. `,
