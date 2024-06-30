@@ -28,7 +28,7 @@ export default ProjectGrid
 
 
 const GridWrap = styled.div`
-  width: calc(100% - 8.5rem);
+  width: calc(100vw - 8.5rem);
   max-width: 1200px;
   /* display: flex;
   flex-wrap: wrap;
@@ -41,6 +41,6 @@ const GridWrap = styled.div`
   column-gap: 8px;
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
-    width: calc(100% - 1rem);
+    width: calc(100vw - 1rem);
   }
 `;

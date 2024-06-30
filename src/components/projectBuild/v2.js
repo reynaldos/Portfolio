@@ -25,7 +25,7 @@ const ProjectBuild = ({ currentBuild, project, type }) => {
       initial="offscreen"
       whileInView="onscreen"
       variants={projectVariants}
-      isgrid={`${type === "grid"}`}
+      isgrid={type === "grid" && 'true'}
     >
       <BuildWrapper currentBuild={currentBuild}>
         {/* bg image */}
@@ -105,13 +105,14 @@ const ProjectBuild = ({ currentBuild, project, type }) => {
 
 const BuildContainer = styled(motion.div)`
   width: 355px;
-  height: max-content;
+  height: ${({ isgrid }) => (!isgrid ? "500px" : "max-content")};
   margin: 1rem auto;
   transition: aspect-ratio 0.3s ease, transform 0.3s ease;
   border-radius: 2.5px;
   overflow: hidden;
   transform-origin: center;
   transition: transform 0.5s ease;
+
 
   &:hover {
     transform: scale(1.01);
