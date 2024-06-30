@@ -36,7 +36,7 @@ const desktop = {
 var magi = [
   {
     title: "frontend",
-    languages: ["React", "Typescript", "SASS/CSS", "three.js"],
+    languages: ["Next.js", "React", "Typescript","three.js"],
   },
   {
     title: "tools",
@@ -44,7 +44,7 @@ var magi = [
   },
   {
     title: "backend",
-    languages: ["Serverless", "Express.js", "Node.Js", "Python"],
+    languages: ["Node.Js", "Serverless", "Express.js", "PostgreSQL"],
   },
 ];
 
