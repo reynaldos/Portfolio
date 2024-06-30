@@ -25,11 +25,11 @@ const ProjectBuild = ({ currentBuild, project, type }) => {
       initial="offscreen"
       whileInView="onscreen"
       variants={projectVariants}
-      isGrid={type === "grid"}
+      isgrid={`${type === "grid"}`}
     >
       <BuildWrapper currentBuild={currentBuild}>
         {/* bg image */}
-        <ImageWrap side={project.side} isGrid={type === "grid"}>
+        <ImageWrap side={project.side} isgrid={type === "grid"}>
           <ProjectImage
             side={project.side}
             src={project.image}
@@ -57,7 +57,7 @@ const ProjectBuild = ({ currentBuild, project, type }) => {
         </Screw>
 
         {/* text */}
-        <TextWrap side={project.side} isGrid={type === "grid"}>
+        <TextWrap side={project.side} isgrid={type === "grid"}>
           <Title currentBuild={currentBuild} side={project.side}>
             {project.title}
           </Title>
@@ -117,7 +117,7 @@ const BuildContainer = styled(motion.div)`
     transform: scale(1.01);
   }
 
-  aspect-ratio: ${({ isGrid }) => (isGrid ? "1/1.05" : "1/1.6")};
+  aspect-ratio: ${({ isgrid }) => (isgrid ? "1/1.05" : "1/1.6")};
 `;
 
 const BuildWrapper = styled.section`
@@ -150,7 +150,7 @@ const ImageWrap = styled.div`
 
   width: 100%;
   top: 0;
-  height: ${({ isGrid }) => (isGrid ? "40%" : "60%")};
+  height: ${({ isgrid }) => (isgrid ? "40%" : "60%")};
   transition: bottom 0.3s ease;
 
   &:hover {
@@ -158,8 +158,8 @@ const ImageWrap = styled.div`
   }
 
   img {
-    height: ${({ isGrid }) => (isGrid ? "auto" : "100%")};
-    width: ${({ isGrid }) => (isGrid ? "100%" : "auto")};
+    height: ${({ isgrid }) => (isgrid ? "auto" : "100%")};
+    width: ${({ isgrid }) => (isgrid ? "100%" : "auto")};
   }
 `;
 
@@ -254,8 +254,8 @@ const TextWrap = styled.div`
   align-items: flex-start;
   padding: 0 0.5rem;
 
-  top: ${({ isGrid }) => (isGrid ? "calc(40% + 1rem)" : "calc(60% + 1rem)")};
-  height: ${({ isGrid }) => (isGrid ? "calc(60% - 48px)" : "calc(40% - 48px)")};
+  top: ${({ isgrid }) => (isgrid ? "calc(40% + 1rem)" : "calc(60% + 1rem)")};
+  height: ${({ isgrid }) => (isgrid ? "calc(60% - 48px)" : "calc(40% - 48px)")};
 `;
 
 const Title = styled.h1`
