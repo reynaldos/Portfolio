@@ -4,21 +4,20 @@ import { motion } from "framer-motion";
 
 import { ProgressIcon } from "./ProgressIcon";
 
-
 const bioDesc = [
   ["I build really cool things for really cool people."],
   [
-    "I enjoy using my problem solving skills to help startups launch and grow their products.",
+    "I love using my problem-solving skills to help startups launch and grow their products.",
   ],
   [
-    "I have recently graduated with a Computer Science degree and have a passion for all things technology and design.",
+    `I graduated with a Computer Science degree and have a passion for all things technology and design. Since then, I have been using frontend and problem solving skills to help startups go from 0 → 1 and beyond.`,
   ],
   [
-    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
+    "After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my frontend development and problem-solving skills to help startups transition from initial concepts to fully-fledged products. My approach combines a creative mindset with out-of-the-box thinking, allowing me to effectively collaborate with teams and drive growth and success at every stage of development.",
   ],
   [
-    "I have recently completed a Bachelor of Engineering, majoring in Computer Science at the University of South Florida. I have a passion for all things technology and design, from software engineering to UI/UX.",
-    " In addition to my love of technology and design. I am also interested in anime, basketball, and art. Below are details of some of projects I have developed over the years.",
+    `After completing a Bachelor of Engineering in Computer Science at the University of South Florida, I have been leveraging my development and problem-solving skills to impact the startup ecosystem. My expertise spans frontend technologies like React, Next.js, and Three.js, as well as backend technologies such as Node.js and AWS. This full-stack proficiency enables me to build dynamic, user-friendly interfaces and robust backend systems. I thrive on guiding startups from concepts to market-ready products, using creativity and out-of-the-box thinking to devise innovative solutions. `,
+  // My passion for technology and design extends to my personal life. I'm fascinated by software engineering and UI/UX design, constantly learning to stay updated with industry trends. Beyond work, my interests in anime, basketball, and art enrich my life and inspire my creativity. 
   ],
 ];
 
@@ -160,7 +159,6 @@ export const About = ({ currentBuild }) => {
     }
   };
 
-
   return (
     <Container id={"about"} currentBuild={currentBuild}>
       <Title>
@@ -210,11 +208,15 @@ export const About = ({ currentBuild }) => {
               <br />
               {bioDesc[bioLength - 1].map((value) => {
                 return (
-                  <span key={value}>
+                  <TypeWriter
+                    n={value.length}
+                    style={{ "--n:": `${value.length}` }}
+                    key={value}
+                  >
                     {value}
                     <br />
                     <br />
-                  </span>
+                  </TypeWriter>
                 );
               })}
             </BioText>
@@ -367,8 +369,6 @@ const SkillItem = ({ name, icon, progress, currentBuild }) => (
   </SkillItemBody>
 );
 
-
-
 const Container = styled.section`
   width: 100%;
   display: flex;
@@ -396,7 +396,6 @@ const Container = styled.section`
     align-items: flex-start;
     margin: 0rem 4rem;
     flex-wrap: wrap;
-
 
     @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
       width: calc(100% - 32px);
@@ -431,7 +430,7 @@ const Title = styled.div`
 const Wrappper = styled.div`
   width: calc(100% - 8rem);
   max-width: 1200px;
-  height: 500px;
+  height: 575px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -556,6 +555,47 @@ const BioWrap = styled(motion.div)`
 `;
 const BioText = styled.p`
   width: 100%;
+`;
+
+const TypeWriter = styled.span.attrs((props) => props)`
+  --n: ${(props) => props.n};
+
+  white-space: pre-wrap;
+
+  color: #0000;
+  background: linear-gradient(-90deg, #fff calc(1.05rem / 2), #0000 0)
+      calc(1.05rem / 5) 0,
+    linear-gradient(#fff 0 0) 0 0;
+  background-size: calc(var(--n) * calc(1.2ch)) 200%;
+  -webkit-background-clip: padding-box, text;
+  background-clip: padding-box, text;
+  background-repeat: no-repeat;
+  animation: b 0.7s infinite steps(1),
+    t calc(var(--n) * 0.075s) steps(var(--n)) forwards;
+
+  @keyframes t {
+    from {
+      background-size: 0 200%;
+    }
+  }
+  @keyframes b {
+    50% {
+      background-position: 0 -100%, 0 0;
+    }
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    color: #0000;
+    background: linear-gradient(-90deg, #fff calc(0.88rem / 2), #0000 0)
+        calc(0.88rem / 5) 0,
+      linear-gradient(#fff 0 0) 0 0;
+    background-size: calc(var(--n) * calc(1.15ch)) 200%;
+    -webkit-background-clip: padding-box, text;
+    background-clip: padding-box, text;
+    background-repeat: no-repeat;
+    animation: b 0.7s infinite steps(1),
+      t calc(var(--n) * 0.075s) steps(var(--n)) forwards;
+  }
 `;
 
 // ///////// PORTRAIT STYLES  // /////////
@@ -752,7 +792,6 @@ const SkillItemWrap = styled.div`
   flex-direction: column;
   gap: 8px;
   position: relative;
-
 
   @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
     width: 380px;
