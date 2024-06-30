@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import styled from "styled-components";
 import { SVGicons } from "./icons";
 // import Scene from "../threeJs/Scene";
@@ -18,9 +18,10 @@ const messages = [
   "uses comments in code",
   "watches too much anime",
   "likes sci-fi movies",
+  "FrontEnd developer",
   // "currently playing basketball",
   "last seen in the metaverse",
-  "working on ***** ******",
+  "wrapping up side projects",
   "technology-bender",
   "programming skills > 9000",
   // "lisan al gaib",
@@ -30,27 +31,25 @@ const messages = [
   "UI/ux enthusiast",
 ];
 
-let stack = [0];
-
 const titleVarients = {
-    offscreen: {
-        scale: 0,
-        opacity:0,
-        transformOrigin: 'center',
-        y: 5
+  offscreen: {
+    scale: 0,
+    opacity: 0,
+    transformOrigin: "center",
+    y: 5,
+  },
+  onscreen: {
+    scale: [0, 0, 1],
+    opacity: [0, 0, 1],
+    y: 0,
+    transition: {
+      delay: 1.4,
+      type: "ease",
+      bounce: 0.25,
+      duration: 0.8,
     },
-    onscreen: {
-        scale: [0,0,1],
-        opacity: [0,0,1],
-        y: 0,
-        transition: {
-            delay: 1.4,
-            type: "ease",
-            bounce: 0.25,
-            duration: .8
-        }
-    }
-}
+  },
+};
 
 const btnVarients = {
   offscreen: {
@@ -70,56 +69,95 @@ const btnVarients = {
   },
 };
 
+const randomNext = Math.floor(Math.random() * messages.length - 1) + 1;
 const defaultState = {
-  index: 0,
+  current: 0,
+  next: randomNext,
   status: "inactive",
-};
-
-export const reducer = (state, action) => {
-  if (action.type === "ACTIVATE") {
-    if (stack.length === messages.length) {
-      stack = [];
-    }
-
-    var newIndex = Math.floor(Math.random() * messages.length);
-
-    while (newIndex === state.index || stack.includes(newIndex)) {
-      newIndex = Math.floor(Math.random() * messages.length);
-    }
-
-    stack.push(newIndex);
-
-    return {
-      ...state,
-      index: newIndex,
-      status: "active",
-    };
-  } else if (action.type === "DEACTIVATE") {
-    return {
-      ...state,
-      status: "inactive",
-    };
-  }
-
-  return new Error("no matching action type");
+  stack: [0, randomNext],
 };
 
 export const Landing = ({ currentBuild, showElements }) => {
-  const [state, dispatch] = useReducer(reducer, defaultState);
-
   const shuffle = () => {
     if (state.status === "inactive") {
       dispatch({ type: "ACTIVATE" });
 
       setTimeout(() => {
         dispatch({ type: "DEACTIVATE" });
-      }, 900);
+      }, 1000);
     }
   };
 
+  const reducer = (state, action) => {
+    let stack = state.stack;
+    let reset = false;
+    if(stack.length === messages.length){
+      stack = []
+      reset = true;
+    }
+
+    if (action.type === "INITIALIZE") {
+      return {
+        ...state,
+        currentWord: action.payload.current,
+        nextWord: action.payload.next,
+      };
+    } else if (action.type === "ACTIVATE") {
+      var newIndex = Math.floor(Math.random() * messages.length);
+
+      while (newIndex === state.index || stack.includes(newIndex)) {
+        newIndex = Math.floor(Math.random() * messages.length);
+      }
+
+      // toggle classes
+      const CURRENT_CLASS = "current";
+      const NEXT_CLASS = "next";
+
+      const wrapper = document.getElementById("subtitleSlot");
+
+      const currentWord = wrapper.childNodes[state.current];
+      const nextWord = wrapper.childNodes[state.next];
+      const nextNextWord = wrapper.childNodes[newIndex];
+
+      currentWord.classList = [];
+      nextWord.classList = [];
+      nextWord.classList.add(CURRENT_CLASS);
+      nextNextWord.classList.add(NEXT_CLASS);
+
+      return {
+        current: state.next,
+        next: reset ? 0 : newIndex,
+        stack: reset ? [0 , state.next] : [...stack, newIndex],
+        status: "active",
+      };
+    } else if (action.type === "DEACTIVATE") {
+      return {
+        ...state,
+        status: "inactive",
+      };
+    } else {
+      return state;
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, defaultState);
+
+  useEffect(() => {
+    const wrapper = document.getElementById("subtitleSlot");
+    wrapper.firstChild.classList = ["current"];
+    wrapper.childNodes[state.next].classList = ["next"];
+
+    dispatch({
+      type: "INITIALIZE",
+      payload: {
+        current: wrapper.firstChild,
+        next: wrapper.childNodes[state.next],
+      },
+    });
+  }, []);
+
   return (
     <>
-    
       <Container>
         {/* title */}
         <TitleWrap
@@ -128,9 +166,14 @@ export const Landing = ({ currentBuild, showElements }) => {
           variants={titleVarients}
         >
           <Title currentBuild={currentBuild}>Rey Sanchez</Title>
-          <SubtitleWrap>
-            <Subtitle>{messages[state.index]}</Subtitle>
-          </SubtitleWrap>
+
+          <SlotWrap id={"subtitleSlot"}>
+            {messages.map((msg) => (
+              <span key={msg}>
+                <h4>{msg}</h4>
+              </span>
+            ))}
+          </SlotWrap>
         </TitleWrap>
 
         {/* refresh buttom */}
@@ -224,6 +267,94 @@ const SubtitleWrap = styled.div`
   /* background-color: blue; */
   overflow-x: hidden;
   margin-top: 1rem;
+`;
+
+const SlotWrap = styled.span`
+  margin: 0 auto;
+  margin-top: 1rem;
+
+  overflow-y: hidden;
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  width: 100%;
+  height: calc(2rem + 20px);
+  padding: 0x 10px;
+  border-radius: 6px;
+  color: black;
+  box-sizing: content-box;
+  transition: all 0.7s;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10px,
+    black calc(100% - 10px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10px,
+    black calc(100% - 10px),
+    transparent 100%
+  );
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoint.xl}) {
+    height: calc(2rem + 20px);
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+    height: calc(1.2rem + 20px);
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+    height: calc(18px + 20px);
+    letter-spacing: 0.15rem;
+  }
+
+  span {
+    padding-top: 8px;
+
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    transition: transform 0.7s, opacity 0.25s 0.25s;
+
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: 900;
+    text-align: center;
+    -webkit-text-stroke: 1px white;
+    color: transparent;
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoint.xl}) {
+      font-size: 2rem;
+    }
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.md}) {
+      font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: ${(props) => props.theme.breakpoint.sm}) {
+      font-size: 18px;
+      letter-spacing: 0.15rem;
+    }
+
+    &.current {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    &.next {
+      transform: translate(-50%, 100%);
+    }
+  }
 `;
 
 const Subtitle = styled.h4`
@@ -322,7 +453,7 @@ const ThreeJsContainter = styled.section`
 
   opacity: 0;
 
-  -webkit-animation: fadein 2s ease-in 0s 1; 
+  -webkit-animation: fadein 2s ease-in 0s 1;
   animation: fadein 2s ease-in 0s 1;
   animation-fill-mode: forwards;
 
@@ -333,21 +464,20 @@ const ThreeJsContainter = styled.section`
     to {
       opacity: 0.4;
       /* opacity: 1; */
-
     }
   }
   mask-image: -webkit-gradient(
     linear,
     center top,
     center bottom,
-    from(rgba(0, 0, 0, .85)),
+    from(rgba(0, 0, 0, 0.85)),
     to(rgba(0, 0, 0, 0))
   );
   -webkit-mask-image: -webkit-gradient(
     linear,
     center top,
     center bottom,
-    from(rgba(0, 0, 0, .85)),
+    from(rgba(0, 0, 0, 0.85)),
     to(rgba(0, 0, 0, 0))
   );
 `;
