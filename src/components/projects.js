@@ -16,7 +16,7 @@ const projects = [
     subtitle: "HVAC Digital Media Manager",
     image: "./mockups/servicely2.png",
     codestack: ["next.js", "AWS", "Contentful", "UI design"],
-    link: "https://app.service.ly/",
+    link: "https://hub.service.ly/",
     side: "left",
     type: "work",
   },
