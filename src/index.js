@@ -5,6 +5,9 @@ import './index.css';
 import App from './App';
 import {BuildThemeProvider, BuildStyles} from './ThemeContext';
 import { ThemeProvider } from 'styled-components';
+import LogRocket from 'logrocket';
+
+LogRocket.init('yeuyxw/dev-portfolio');
 
 // const container = document.getElementById('root');
 
