@@ -7,7 +7,7 @@ import {BuildThemeProvider, BuildStyles} from './ThemeContext';
 import { ThemeProvider } from 'styled-components';
 import LogRocket from 'logrocket';
 
-LogRocket.init('yeuyxw/dev-portfolio');
+LogRocket.init('rey-dev-services/dev-portfolio-iyjv1');
 
 // const container = document.getElementById('root');
 
