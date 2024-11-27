@@ -60,7 +60,7 @@ const skills = [
       {
         name: "Next.js",
         icon: "./icons/Nextjs.svg",
-        progress: 6,
+        progress: 8,
       },
       {
         name: "Figma",
@@ -70,7 +70,7 @@ const skills = [
       {
         name: "React",
         icon: "./icons/React.svg",
-        progress: 7,
+        progress: 8,
       },
       {
         name: `HTML/\nCSS/JS`,
@@ -85,7 +85,7 @@ const skills = [
       {
         name: "AWS",
         icon: "./icons/AWS.svg",
-        progress: 5,
+        progress: 6,
       },
       {
         name: "Serverless",
@@ -95,12 +95,12 @@ const skills = [
       {
         name: "Firebase",
         icon: "./icons/Firebase.svg",
-        progress: 5,
+        progress: 6,
       },
       {
         name: "Node.js",
         icon: "./icons/Nodejs.svg",
-        progress: 6,
+        progress: 8,
       },
     ],
   },
