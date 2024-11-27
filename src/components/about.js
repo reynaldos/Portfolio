@@ -284,9 +284,7 @@ export const About = ({ currentBuild }) => {
               <PhotoWrap>
                 <Photo
                   pic={portraitID}
-                  src={`./me/v${portraitID}/${portrait}.${
-                    portraitID !== 1 ? "jpg" : "png"
-                  }`}
+                  src={`./me/v${portraitID}/${portrait}.webp`}
                 />
               </PhotoWrap>
 
