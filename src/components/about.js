@@ -60,12 +60,12 @@ const skills = [
       {
         name: "Next.js",
         icon: "./icons/Nextjs.svg",
-        progress: 8,
+        progress: 9,
       },
       {
         name: "Figma",
         icon: "./icons/Figma.svg",
-        progress: 8,
+        progress: 7,
       },
       {
         name: "React",
@@ -83,24 +83,25 @@ const skills = [
     title: "backend",
     tech: [
       {
-        name: "AWS",
-        icon: "./icons/AWS.svg",
-        progress: 6,
+        name: "Node.js",
+        icon: "./icons/Nodejs.svg",
+        progress: 8,
       },
       {
         name: "Serverless",
         icon: "./icons/Serverless.svg",
-        progress: 4,
+        progress: 3,
       },
       {
         name: "Firebase",
         icon: "./icons/Firebase.svg",
-        progress: 6,
+        progress: 5,
       },
+     
       {
-        name: "Node.js",
-        icon: "./icons/Nodejs.svg",
-        progress: 8,
+        name: "AWS",
+        icon: "./icons/AWS.svg",
+        progress: 3,
       },
     ],
   },
