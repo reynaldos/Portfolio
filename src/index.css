@@ -1,5 +1,9 @@
 
 
+html, body {
+  height: auto;
+}
+
 * {
   height: min-content;
   margin: 0;

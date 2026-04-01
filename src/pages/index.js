@@ -131,16 +131,14 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: 10;
   background-image: url('./assets/metal.jpg');
    box-shadow: inset 0 0 0 2000px  ${props => props.theme[props.currentBuild].main};
   /* background:linear-gradient(0deg,  ${props => props.theme[props.currentBuild].main},  ${props => props.theme[props.currentBuild].main}),  url('./assets/metal.jpg'); */
   background-size:contain;
 
-  overflow: hidden;
+  overflow: clip;
 
 `
 
