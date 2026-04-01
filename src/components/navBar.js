@@ -365,18 +365,17 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
 
 
             {/* colorway btn */}
-                <AccentBtnWrap
-                    initial={isLinktree ? 'onscreen' : 'offscreen'}
-                    animate = {(showElements || isLinktree) ? 'onscreen' : "offscreen"}
+{!isLinktree && <AccentBtnWrap
+                    initial={'offscreen'}
+                    animate={showElements ? 'onscreen' : 'offscreen'}
                     variants={barVariants}
-                    style={isLinktree ? {display: 'none'} : {}}
                     status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
-                        currentBuild={currentBuild} 
+                        currentBuild={currentBuild}
                         onClick={onClick}
                     />
-                </AccentBtnWrap>
+                </AccentBtnWrap>}
 
 
         </Container>
@@ -396,50 +395,69 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
                 {/* profile hex photo - only in linktree mode */}
                 {isLinktree && (
                     <ProfileSection onClick={togglePixel}>
-                        <HexPhotoWrap currentBuild={currentBuild}>
-                            <HexPhotoInner>
-                                <HexPhoto portraitid={portraitID} src={`./me/v${portraitID}/${portrait}.webp`} alt="Rey Sanchez" />
-                            </HexPhotoInner>
-                        </HexPhotoWrap>
-                        <ProfileName currentBuild={currentBuild}>Rey Sanchez</ProfileName>
-                        <ProfileSubtitle currentBuild={currentBuild}>software engineer</ProfileSubtitle>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                            transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+                            <HexGlow currentBuild={currentBuild}>
+                                <HexPhotoWrap currentBuild={currentBuild}>
+                                    <HexPhotoInner>
+                                        <HexPhoto portraitid={portraitID} src={`./me/v${portraitID}/${portrait}.webp`} alt="Rey Sanchez" />
+                                    </HexPhotoInner>
+                                </HexPhotoWrap>
+                            </HexGlow>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}>
+                            <ProfileName currentBuild={currentBuild}>Rey Sanchez</ProfileName>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}>
+                            <ProfileSubtitle currentBuild={currentBuild}>software engineer</ProfileSubtitle>
+                        </motion.div>
                     </ProfileSection>
                 )}
 
                 {isLinktree ? (
                     <>
-                        <NavBtn
-                            to="landing"
-                            smooth={true}
-                            duration={500}
-                            onClick={toggleHome}
-                            mobilenav={'true'}
-                            currentbuild={currentBuild}>
-                                <BtnText mobileNav={true} currentBuild={currentBuild}>
-                                    Website
-                                </BtnText>
-                        </NavBtn>
+                        {[
+                            { label: 'Portfolio', onClick: toggleHome },
+                            { label: 'Contact', onClick: handleLinktreeContact },
+                        ].map((item, i) => (
+                            <motion.div
+                                key={item.label}
+                                initial={{ opacity: 0, x: -40 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.6 + i * 0.15, duration: 0.4, ease: 'easeOut' }}
+                                style={{ width: '75%' }}>
+                                <LinkTreeBtn
+                                    as="div"
+                                    onClick={item.onClick}
+                                    currentbuild={currentBuild}>
+                                        <BtnText mobileNav={true} currentBuild={currentBuild}>
+                                            {item.label}
+                                        </BtnText>
+                                </LinkTreeBtn>
+                            </motion.div>
+                        ))}
 
-                        <NavBtn
-                            to="contact"
-                            smooth={true}
-                            duration={500}
-                            onClick={handleLinktreeContact}
-                            mobilenav={'true'}
-                            currentbuild={currentBuild}>
-                                <BtnText mobileNav={true} currentBuild={currentBuild}>
-                                    Contact
-                                </BtnText>
-                        </NavBtn>
-
-                        <NavBtnA
-                            mobilenav={'true'}
-                            href="./resume.pdf" target={'true'}
-                            currentbuild={currentBuild}>
-                                <BtnText mobileNav={'true'} currentBuild={currentBuild}>
-                                    Resume
-                                </BtnText>
-                        </NavBtnA>
+                        <motion.div
+                            initial={{ opacity: 0, x: -40 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.9, duration: 0.4, ease: 'easeOut' }}
+                            style={{ width: '75%' }}>
+                            <LinkTreeBtnA
+                                href="./resume.pdf" target="_blank" rel="noopener noreferrer"
+                                currentbuild={currentBuild}>
+                                    <BtnText mobileNav={'true'} currentBuild={currentBuild}>
+                                        Resume
+                                    </BtnText>
+                            </LinkTreeBtnA>
+                        </motion.div>
                     </>
                 ) : (
                     <>
@@ -479,7 +497,7 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
                 <AccentBtnWrap nav={'true'} status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
-                        currentBuild={currentBuild}
+                        currentBuild={currentBuild} 
                         onClick={onClick}
                     />
                 </AccentBtnWrap>
@@ -1023,6 +1041,56 @@ const IconWrap = styled.a`
 
 
 
+
+const HexGlow = styled.div`
+    animation: hexFloat 3s ease-in-out 1s infinite;
+    filter: drop-shadow(0px 0px 12px ${props => props.theme[props.currentBuild].accent}40);
+    -webkit-filter: drop-shadow(0px 0px 12px ${props => props.theme[props.currentBuild].accent}40);
+    transition: filter 0.8s ease;
+
+    @keyframes hexFloat {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+    }
+`
+
+const LinkTreeBtn = styled.div`
+    width: 100%;
+    padding: 1rem .8rem;
+    margin: .4rem 0;
+    background-color: ${props => props.theme[props.currentbuild].btn};
+    border: 1px solid ${props => props.theme[props.currentbuild].btn}80;
+    border-radius: 2px;
+    transform: skew(-4deg);
+    transition: transform .25s ease, box-shadow .25s ease,
+        background-color ${props => props.theme.transitionStyleTop};
+    text-decoration: none;
+    display: block;
+
+    &:hover, &:active {
+        transform: skew(-4deg) translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 20px ${props => props.theme[props.currentbuild].btn}50;
+    }
+`
+
+const LinkTreeBtnA = styled.a`
+    width: 100%;
+    padding: 1rem .8rem;
+    margin: .4rem 0;
+    background-color: ${props => props.theme[props.currentbuild].btn};
+    border: 1px solid ${props => props.theme[props.currentbuild].btn}80;
+    border-radius: 2px;
+    transform: skew(-4deg);
+    transition: transform .25s ease, box-shadow .25s ease,
+        background-color ${props => props.theme.transitionStyleTop};
+    text-decoration: none;
+    display: block;
+
+    &:hover, &:active {
+        transform: skew(-4deg) translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 20px ${props => props.theme[props.currentbuild].btn}50;
+    }
+`
 
 const ProfileSection = styled.div`
     display: flex;
