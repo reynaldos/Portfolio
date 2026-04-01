@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
-import {useBuildTheme,useBuildUpdate} from '../ThemeContext';
+import {useBuildTheme,useBuildUpdate, BuildStyles} from '../ThemeContext';
 import { NavBar } from '../components/navBar';
 import {SideRails} from '../components/siderails';
 import { Landing } from '../components/landing';
@@ -11,8 +11,9 @@ import { Footer} from '../components/footer';
 // import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
+const isLinktree = new URLSearchParams(window.location.search).get('linktree') === 'true';
 const loadTime = process.env.REACT_APP_LOADING_TIME;
-const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true' ? true: false;
+const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true'  && !isLinktree ? true: false;
 
 export const Home = () => {
     const currentBuild = useBuildTheme();
@@ -26,23 +27,24 @@ export const Home = () => {
 
     useEffect(()=>{
 
-      // if(isIOS && isSafari){
-      //   console.log('found')
-      //   // window.scrollTo(0,50);
-      //   setTimeout(() => {
-      //       // disableBodyScroll(targetElement);
-      //   }, 500);
-      // }else{
-        disableBodyScroll();
-      // }
+      if (isLinktree) {
+        // skip all loading logic for linktree
+        setFade(true);
+        setIsLoading(false);
+        const color = BuildStyles[currentBuild].mainNav;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        document.body.style.backgroundColor = color;
+        return;
+      }
 
+      disableBodyScroll();
 
       setTimeout(() => {
-       
+
         if (document.readyState === "complete") {
             console.log('page already loaded');
             finishLoading();
-              
+
         } else {
             console.log('page not loaded')
             window.addEventListener("load", finishLoading);
@@ -59,6 +61,9 @@ export const Home = () => {
         
         window.removeEventListener("load", finishLoading);
         enableBodyScroll();
+        const color = BuildStyles[currentBuild].mainNav;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        document.body.style.backgroundColor = color;
         setFade(true);
       
         setTimeout(() => {
@@ -89,10 +94,11 @@ export const Home = () => {
                 backgroundColor:`${props => props.theme[props.currentBuild].main}`,
                 zIndex: '12'
               }}>
-              <NavBar 
+              <NavBar
                 showElements={fade}
                 currentBuild={currentBuild}
-                onClick={colorChangeLogic} />
+                onClick={colorChangeLogic}
+                isLinktree={isLinktree} />
 
               <SideRails 
                 showElements={fade}
@@ -131,16 +137,14 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: 10;
   background-image: url('./assets/metal.jpg');
    box-shadow: inset 0 0 0 2000px  ${props => props.theme[props.currentBuild].main};
   /* background:linear-gradient(0deg,  ${props => props.theme[props.currentBuild].main},  ${props => props.theme[props.currentBuild].main}),  url('./assets/metal.jpg'); */
   background-size:contain;
 
-  overflow: hidden;
+  overflow: clip;
 
 `
 

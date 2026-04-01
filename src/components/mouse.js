@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 
+const isLinktree = new URLSearchParams(window.location.search).get('linktree') === 'true';
 const loadTime = process.env.REACT_APP_LOADING_TIME;
 
 export const MouseCursor = ()=>{
@@ -10,7 +11,7 @@ export const MouseCursor = ()=>{
         x: 0,
         y: 0
     });
-    
+
     useEffect(() => {
         const mouseMove = e => {
             setMousePosition({
@@ -19,9 +20,10 @@ export const MouseCursor = ()=>{
             })
         }
 
+        const delay = isLinktree ? 0 : loadTime;
         setTimeout(() => {
             window.addEventListener("mousemove", mouseMove);
-        }, loadTime);
+        }, delay);
        
         return () => {
             window.removeEventListener("mousemove", mouseMove);

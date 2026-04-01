@@ -16,15 +16,20 @@ export function BuildThemeProvider({children}){
     
     const [currentBuild, setCurrentBuild] = useState(1);
 
+    function updateThemeColor(build) {
+        const color = BuildStyles[build].mainNav;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        document.body.style.backgroundColor = color;
+    }
+
     function toggleBuildTheme(){
         let nextBuild = currentBuild + 1;
 
         if (nextBuild === 3){
-            setCurrentBuild(0);
-        } else {
-            setCurrentBuild(nextBuild);
-
+            nextBuild = 0;
         }
+        updateThemeColor(nextBuild);
+        setCurrentBuild(nextBuild);
     }
 
     return (
