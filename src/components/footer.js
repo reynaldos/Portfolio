@@ -14,8 +14,8 @@ export const Footer = ({currentBuild}) => {
         <Wrapper currentBuild={currentBuild}>
 
             {/* call to action */}
-            <MessageWrap currentBuild={currentBuild}>
-                <p>Available for full-time and freelance opportunities</p>
+            <MessageWrap currentBuild={currentBuild} id="contact">
+                <p>Available for freelance opportunities</p>
                 {/* <h3>Available for full-time and<br/>freelance opportunities</h3> */}
 
                 <p>Thanks for stopping by, I'm currently looking to join a team of creative designers and developers. If you think we might be a good fit for one another, give me a call or send me a message!</p>

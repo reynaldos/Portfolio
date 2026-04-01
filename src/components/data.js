@@ -3,6 +3,7 @@ export const Data = {
     nav: [
         { title: 'about' },
         { title: 'work' },
+        { title: 'contact' }
     ],
     socials:[
         {name: 'github', link: 'https://github.com/reynaldos'},

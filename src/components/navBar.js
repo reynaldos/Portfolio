@@ -234,6 +234,10 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
                         <NavBtnWrap>
                             {Data.nav.map((navItem,i)=>{
+
+                                if(navItem.title === 'contact') {
+                                    return null;
+                                }
                                 return <NavBtn 
                                     to={navItem.title} 
                                     smooth={true} 
@@ -314,7 +318,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
             {/* <Metal/> */}
 
             <TopWrap>
-                <NavBtn 
+                {/* <NavBtn 
                     to='/'
                     onClick={toggleHome}
                     mobilenav={'true'} 
@@ -322,7 +326,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                     <BtnText mobileNav={true} currentBuild={currentBuild}>
                         Home
                     </BtnText>
-                </NavBtn>
+                </NavBtn> */}
 
                 {Data.nav.map((navItem,i)=>{
                     return <NavBtn 
@@ -333,7 +337,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                             spy={true} 
                             exact={'true'} 
                             activeClass='active'
-                            offset={-74}
+                            offset={navItem.title !== 'contact' ? -74 : 0}
                             onClick={(e)=>toggleNav(false)}
                           
                             key={i} 
