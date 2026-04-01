@@ -10,7 +10,7 @@ import bumpersMobile from './bumpers_mobile.svg';
 import { LoadingWheel } from '../loadingWheel';
 
 
-export const Contact = () => {
+export const Contact = ({onSubmitCallback, hideBumpers}) => {
 
   const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID
   const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY
@@ -39,10 +39,9 @@ export const Contact = () => {
 
     try {
       await emailjs.sendForm(serviceID, templateID, form.current, publicKey);
-      // console.log(result.text);
       setEmailState('sent');
-
       form.current.reset();
+      if (onSubmitCallback) onSubmitCallback();
 
     } catch (error) {
       setEmailState('error');
@@ -58,10 +57,10 @@ export const Contact = () => {
         {isDesktop ?
         <>
           <BG src={bgDesktop}/>
-          <BG src={bumpersdesktop}/>
+          {!hideBumpers && <BG src={bumpersdesktop}/>}
         </> : <>
           <BG src={bgMobile}/>
-          <BG src={bumpersMobile}/>
+          {!hideBumpers && <BG src={bumpersMobile}/>}
         </>}
 
         <FormWrap ref={form} onSubmit={sendEmail}>

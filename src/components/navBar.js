@@ -9,6 +9,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import { Link as LinkS } from 'react-scroll';
 // import { animateScroll as scroll } from '/modules';
 import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
+import { Contact } from './contacts';
 
 
 const navTransitonTime = .8;
@@ -17,10 +18,10 @@ var scrollUpThreshold = 5;
 var scrollDownThreshold = 5;
 
 
-export const NavBar = ({currentBuild,onClick,showElements}) => {
+export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
 
     const [scrollDirection, setScrollDirction] = useState('down');
-    const [navStatus, setNavStatus] = useState('default');
+    const [navStatus, setNavStatus] = useState(isLinktree ? 'open' : 'default');
     const buttonRef = useRef(null);
     const [portrait, setPortrait] = useState(0);
     const [portraitID, setPortraitID] = useState(2);
@@ -58,6 +59,25 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
         }
     };
 
+    // lock body scroll on mount if linktree mode (menu is open)
+    useEffect(() => {
+        if (isLinktree) {
+            disableBodyScroll();
+        }
+    }, []); // eslint-disable-line
+
+    const handleLinktreeContact = () => {
+        setShowContactModal(true);
+    }
+
+    const closeContactModal = () => {
+        setContactModalClosing(true);
+        setTimeout(() => {
+            setShowContactModal(false);
+            setContactModalClosing(false);
+        }, 500);
+    }
+
     // auto-toggle every 30 seconds when nav is open
     useEffect(() => {
         if (navStatus !== 'open') return;
@@ -70,7 +90,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
      const checkResize = () => {
         // console.log('check')
         // console.log(navStatus)
-        if(navStatus === 'open' && window.innerWidth > 576){
+        if(navStatus === 'open' && window.innerWidth > 576 && !isLinktree){
             toggleNav(true);
         }
 
@@ -111,9 +131,18 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
     });
 
 
+    const [showContactModal, setShowContactModal] = useState(false);
+    const [contactModalClosing, setContactModalClosing] = useState(false);
+
     const toggleHome = () =>{
-        // document.location.reload();
         if (navStatus === 'open'){
+            if (isLinktree) {
+                // reload without linktree param so loader plays
+                const url = new URL(window.location);
+                url.searchParams.delete('linktree');
+                window.location.href = url.toString();
+                return;
+            }
             toggleNav();
             setTimeout(() => {
              scroll.scrollToTop();
@@ -121,7 +150,7 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
         }else{
             scroll.scrollToTop();
         }
-    
+
     }
 
        const resetBtn = (time) => {
@@ -262,24 +291,25 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                             rotate:360,
                             transition: { duration: .5 },
                         }}
-                        initial={'offscreen'}
-                        animate = {showElements ? 'onscreen' : "offscreen"}
+                        initial={isLinktree ? 'onscreen' : 'offscreen'}
+                        animate = {(showElements || isLinktree) ? 'onscreen' : "offscreen"}
                         variants={logoVariants}
                         onClick={toggleHome}
                         >               
                         <Logo  alt={'logo'} src={'./logo/logo.png'}/>
                     </LogoWrap>  
 
-                    <NavDesktop 
-                        initial={'offscreen'}
-                        animate = {showElements ? 'onscreen' : "offscreen"}
+                    <NavDesktop
+                        initial={isLinktree ? 'onscreen' : 'offscreen'}
+                        animate = {(showElements || isLinktree) ? 'onscreen' : "offscreen"}
                         variants={barVariants}
+                        style={isLinktree ? {display: 'none'} : {}}
                         currentbuild={currentBuild}>
 
                         <NavBtnWrap>
                             {Data.nav.map((navItem,i)=>{
 
-                                if(navItem.title === 'contact') {
+                                if(navItem.title === 'contact' || navItem.title === 'home') {
                                     return null;
                                 }
                                 return <NavBtn 
@@ -335,10 +365,11 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
 
 
             {/* colorway btn */}
-                <AccentBtnWrap 
-                    initial={'offscreen'}
-                    animate = {showElements ? 'onscreen' : "offscreen"}
+                <AccentBtnWrap
+                    initial={isLinktree ? 'onscreen' : 'offscreen'}
+                    animate = {(showElements || isLinktree) ? 'onscreen' : "offscreen"}
                     variants={barVariants}
+                    style={isLinktree ? {display: 'none'} : {}}
                     status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
@@ -353,72 +384,113 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
         {/* /////// nav menu mobile //////////*/}
 
 
-          <TopContainer 
+          <TopContainer
                 currentbuild={currentBuild}
                 animate={navStatus}
                 variants={topVariants}
-                transition={{ duration: navTransitonTime }}
+                transition={isLinktree && navStatus === 'open' ? { duration: 0 } : { duration: navTransitonTime }}
                 >
             {/* <Metal/> */}
 
-            <TopWrap>
-                {/* profile hex photo */}
-                <ProfileSection onClick={togglePixel}>
-                    <HexPhotoWrap currentBuild={currentBuild}>
-                        <HexPhotoInner>
-                            <HexPhoto portraitid={portraitID} src={`./me/v${portraitID}/${portrait}.webp`} alt="Rey Sanchez" />
-                        </HexPhotoInner>
-                    </HexPhotoWrap>
-                    <ProfileName currentBuild={currentBuild}>Rey Sanchez</ProfileName>
-                    <ProfileSubtitle currentBuild={currentBuild}>software engineer</ProfileSubtitle>
-                </ProfileSection>
+            <TopWrap style={{marginTop: !isLinktree ? '124px' : '0'}}>
+                {/* profile hex photo - only in linktree mode */}
+                {isLinktree && (
+                    <ProfileSection onClick={togglePixel}>
+                        <HexPhotoWrap currentBuild={currentBuild}>
+                            <HexPhotoInner>
+                                <HexPhoto portraitid={portraitID} src={`./me/v${portraitID}/${portrait}.webp`} alt="Rey Sanchez" />
+                            </HexPhotoInner>
+                        </HexPhotoWrap>
+                        <ProfileName currentBuild={currentBuild}>Rey Sanchez</ProfileName>
+                        <ProfileSubtitle currentBuild={currentBuild}>software engineer</ProfileSubtitle>
+                    </ProfileSection>
+                )}
 
-                {Data.nav.map((navItem,i)=>{
-                    return <NavBtn 
-                            to={navItem.title} 
-                            smooth={true} 
-                            duration={500} 
-                            delay={500}
-                            spy={true} 
-                            exact={'true'} 
-                            activeClass='active'
-                            offset={navItem.title !== 'contact' ? -74 : 0}
-                            onClick={(e)=>toggleNav(false)}
-                          
-                            key={i} 
-                            mobilenav={'true'} 
+                {isLinktree ? (
+                    <>
+                        <NavBtn
+                            to="landing"
+                            smooth={true}
+                            duration={500}
+                            onClick={toggleHome}
+                            mobilenav={'true'}
                             currentbuild={currentBuild}>
                                 <BtnText mobileNav={true} currentBuild={currentBuild}>
-                                    {navItem.title}
+                                    Website
                                 </BtnText>
-                            </NavBtn>
-                    })}
+                        </NavBtn>
 
-                <NavBtnA
-                    mobilenav={'true'} 
-                    href="./resume.pdf" target={'true'}
-                    currentbuild={currentBuild}>
-                        <BtnText mobileNav={'true'} currentBuild={currentBuild}>
-                            Resume
-                        </BtnText>
-                    </NavBtnA>
+                        <NavBtn
+                            to="contact"
+                            smooth={true}
+                            duration={500}
+                            onClick={handleLinktreeContact}
+                            mobilenav={'true'}
+                            currentbuild={currentBuild}>
+                                <BtnText mobileNav={true} currentBuild={currentBuild}>
+                                    Contact
+                                </BtnText>
+                        </NavBtn>
 
-                
+                        <NavBtnA
+                            mobilenav={'true'}
+                            href="./resume.pdf" target={'true'}
+                            currentbuild={currentBuild}>
+                                <BtnText mobileNav={'true'} currentBuild={currentBuild}>
+                                    Resume
+                                </BtnText>
+                        </NavBtnA>
+                    </>
+                ) : (
+                    <>
+                        {Data.nav.map((navItem,i)=>{
+                            return <NavBtn
+                                    to={navItem.title}
+                                    smooth={true}
+                                    duration={500}
+                                    delay={500}
+                                    spy={true}
+                                    exact={'true'}
+                                    activeClass='active'
+                                    offset={navItem.title !== 'contact' ? -74 : 0}
+                                    onClick={(e)=>toggleNav(false)}
+
+                                    key={i}
+                                    mobilenav={'true'}
+                                    currentbuild={currentBuild}>
+                                        <BtnText mobileNav={true} currentBuild={currentBuild}>
+                                            {navItem.title}
+                                        </BtnText>
+                                    </NavBtn>
+                            })}
+
+                        <NavBtnA
+                            mobilenav={'true'}
+                            href="./resume.pdf" target={'true'}
+                            currentbuild={currentBuild}>
+                                <BtnText mobileNav={'true'} currentBuild={currentBuild}>
+                                    Resume
+                                </BtnText>
+                        </NavBtnA>
+                    </>
+                )}
+
+
                 <AccentBtnWrap nav={'true'} status={navStatus}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
-                        currentBuild={currentBuild} 
+                        currentBuild={currentBuild}
                         onClick={onClick}
                     />
                 </AccentBtnWrap>
             </TopWrap>
         </TopContainer>
 
-        <BottomContainer 
+        <BottomContainer
             currentbuild={currentBuild}
             animate={navStatus}
             variants={bottonvVariants}
-            transition={{ duration: navTransitonTime }}
+            transition={isLinktree && navStatus === 'open' ? { duration: 0 } : { duration: navTransitonTime }}
             >
             
             {/* <Metal/> */}
@@ -445,6 +517,20 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
                 </SocialWrap>
             </BottomWrap>               
         </BottomContainer>
+
+        {/* contact modal for linktree mode */}
+        {showContactModal && (
+            <ContactModal closing={contactModalClosing}>
+                <ContactModalClose onClick={closeContactModal}>
+                    <h2>&times;</h2>
+                </ContactModalClose>
+                <Contact hideBumpers onSubmitCallback={() => {
+                    setTimeout(() => {
+                        closeContactModal();
+                    }, 2500);
+                }}/>
+            </ContactModal>
+        )}
 
     </>
   )
@@ -576,16 +662,16 @@ const NavBtn = styled(LinkS)`
 
      ${props => props.mobilenav === 'true'? `
 
-        width: 65%;
-        margin: .35rem auto;
-        padding: .7rem .8rem;
+        width: 75%;
+        margin: .5rem auto;
+        padding: 1rem .8rem;
 
         @media screen and (max-height: 600px){
-            padding: .4rem .8rem;
-              width: 55%;
+            padding: .5rem .8rem;
+              width: 65%;
               max-width: 250px;
 
-        }
+        } 
 
         &:hover{
             transform-origin:center;
@@ -617,16 +703,18 @@ const NavBtnA = styled.a`
 
      ${props => props.mobilenav === 'true'? `
 
-        width: 65%;
-        margin: .35rem auto;
-        padding: .7rem .8rem;
+    
+
+        width: 75%;
+        margin: .5rem auto;
+        padding: 1rem .8rem;
 
         @media screen and (max-height: 600px){
-            padding: .4rem .8rem;
+            padding: .5rem .8rem;
               width: 65%;
               max-width: 250px;
 
-        }
+        } 
 
         &:hover{
             transform-origin:center;
@@ -1002,6 +1090,45 @@ const ProfileSubtitle = styled.h2`
       color: ${props =>props.currentBuild === 0 ? props.theme[props.currentBuild].btn : props.theme[props.currentBuild].accent};
     transition: color ${props => props.theme.transitionStyleTop};
     margin-top: .5rem;
+`
+
+const ContactModal = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #221A2B;
+    animation: ${props => props.closing ? 'slideOut' : 'slideIn'} 0.5s ease forwards;
+
+    @keyframes slideIn {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+        from { transform: translateY(0); opacity: 1; }
+        to { transform: translateY(100%); opacity: 0; }
+    }
+`
+
+const ContactModalClose = styled.button`
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    z-index: 101;
+    background: none;
+    border: none;
+    padding: .5rem;
+
+    h2 {
+        color: #BCD167;
+        font-size: 1.5rem;
+    }
 `
 
 // const Metal = styled.div`

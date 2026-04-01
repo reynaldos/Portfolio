@@ -11,8 +11,9 @@ import { Footer} from '../components/footer';
 // import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { unlock as enableBodyScroll, lock as disableBodyScroll  } from 'tua-body-scroll-lock';
 
+const isLinktree = new URLSearchParams(window.location.search).get('linktree') === 'true';
 const loadTime = process.env.REACT_APP_LOADING_TIME;
-const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true' ? true: false;
+const showLoading = process.env.REACT_APP_SHOW_LOADING === 'true'  && !isLinktree ? true: false;
 
 export const Home = () => {
     const currentBuild = useBuildTheme();
@@ -26,23 +27,24 @@ export const Home = () => {
 
     useEffect(()=>{
 
-      // if(isIOS && isSafari){
-      //   console.log('found')
-      //   // window.scrollTo(0,50);
-      //   setTimeout(() => {
-      //       // disableBodyScroll(targetElement);
-      //   }, 500);
-      // }else{
-        disableBodyScroll();
-      // }
+      if (isLinktree) {
+        // skip all loading logic for linktree
+        setFade(true);
+        setIsLoading(false);
+        const color = BuildStyles[currentBuild].mainNav;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        document.body.style.backgroundColor = color;
+        return;
+      }
 
+      disableBodyScroll();
 
       setTimeout(() => {
-       
+
         if (document.readyState === "complete") {
             console.log('page already loaded');
             finishLoading();
-              
+
         } else {
             console.log('page not loaded')
             window.addEventListener("load", finishLoading);
@@ -92,10 +94,11 @@ export const Home = () => {
                 backgroundColor:`${props => props.theme[props.currentBuild].main}`,
                 zIndex: '12'
               }}>
-              <NavBar 
+              <NavBar
                 showElements={fade}
                 currentBuild={currentBuild}
-                onClick={colorChangeLogic} />
+                onClick={colorChangeLogic}
+                isLinktree={isLinktree} />
 
               <SideRails 
                 showElements={fade}

@@ -1,7 +1,7 @@
 
 export const Data = {
     nav: [
-        // { title: 'home' },
+        { title: 'home' },
         { title: 'about' },
         { title: 'work' },
         { title: 'contact' }
