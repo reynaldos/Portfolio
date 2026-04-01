@@ -22,6 +22,50 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
     const [scrollDirection, setScrollDirction] = useState('down');
     const [navStatus, setNavStatus] = useState('default');
     const buttonRef = useRef(null);
+    const [portrait, setPortrait] = useState(0);
+    const [portraitID, setPortraitID] = useState(2);
+    const portraitIDRef = useRef(2);
+    const isAnimating = useRef(false);
+
+    function asyncCall(time) {
+        return new Promise((resolve) => setTimeout(() => resolve(), time));
+    }
+
+    const togglePixel = async () => {
+        if (!isAnimating.current) {
+            isAnimating.current = true;
+            for (let i = 0; i <= 3; i++) {
+                setPortrait(i);
+                await asyncCall(100);
+            }
+            for (let i = 4; i >= 1; i--) {
+                setPortrait(i);
+                await asyncCall(125);
+            }
+            for (let i = 2; i <= 4; i++) {
+                setPortrait(i);
+                await asyncCall(100);
+            }
+            const nextID = portraitIDRef.current === 1 ? 2 : 1;
+            portraitIDRef.current = nextID;
+            setPortraitID(nextID);
+            for (let i = 3; i >= 1; i--) {
+                setPortrait(i);
+                await asyncCall(i > 1 ? 125 : 50);
+            }
+            setPortrait(0);
+            isAnimating.current = false;
+        }
+    };
+
+    // auto-toggle every 30 seconds when nav is open
+    useEffect(() => {
+        if (navStatus !== 'open') return;
+        const interval = setInterval(() => {
+            togglePixel();
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [navStatus]); // eslint-disable-line
 
      const checkResize = () => {
         // console.log('check')
@@ -318,15 +362,16 @@ export const NavBar = ({currentBuild,onClick,showElements}) => {
             {/* <Metal/> */}
 
             <TopWrap>
-                {/* <NavBtn 
-                    to='/'
-                    onClick={toggleHome}
-                    mobilenav={'true'} 
-                    currentbuild={currentBuild}>
-                    <BtnText mobileNav={true} currentBuild={currentBuild}>
-                        Home
-                    </BtnText>
-                </NavBtn> */}
+                {/* profile hex photo */}
+                <ProfileSection onClick={togglePixel}>
+                    <HexPhotoWrap currentBuild={currentBuild}>
+                        <HexPhotoInner>
+                            <HexPhoto portraitid={portraitID} src={`./me/v${portraitID}/${portrait}.webp`} alt="Rey Sanchez" />
+                        </HexPhotoInner>
+                    </HexPhotoWrap>
+                    <ProfileName currentBuild={currentBuild}>Rey Sanchez</ProfileName>
+                    <ProfileSubtitle currentBuild={currentBuild}>software engineer</ProfileSubtitle>
+                </ProfileSection>
 
                 {Data.nav.map((navItem,i)=>{
                     return <NavBtn 
@@ -531,28 +576,24 @@ const NavBtn = styled(LinkS)`
 
      ${props => props.mobilenav === 'true'? `
 
-        &:nth-child(1){
-            margin-top:calc(48px + 3rem);
-        }
-
-        width: 75%;
-        margin: .5rem auto;
-        padding: 1rem .8rem;
+        width: 65%;
+        margin: .35rem auto;
+        padding: .7rem .8rem;
 
         @media screen and (max-height: 600px){
-            padding: .5rem .8rem;
-              width: 65%;
+            padding: .4rem .8rem;
+              width: 55%;
               max-width: 250px;
 
-        } 
+        }
 
         &:hover{
             transform-origin:center;
             transform: skew(-15deg) scale(1.05);
         }
-       
+
     `:`
-        
+
     `}
 
 `
@@ -561,7 +602,7 @@ const NavBtnA = styled.a`
     height: min-content;
     padding: .3rem .8rem;
     background-color: ${props => props.theme[props.currentbuild].btn};
-    transition: 
+    transition:
         transform .25s ease,
         background-color ${props => props.theme.transitionStyleTop};
     border-radius: 1.5px;
@@ -576,28 +617,24 @@ const NavBtnA = styled.a`
 
      ${props => props.mobilenav === 'true'? `
 
-        &:nth-child(1){
-            margin-top:calc(48px + 3rem);
-        }
-
-        width: 75%;
-        margin: .5rem auto;
-        padding: 1rem .8rem;
+        width: 65%;
+        margin: .35rem auto;
+        padding: .7rem .8rem;
 
         @media screen and (max-height: 600px){
-            padding: .5rem .8rem;
+            padding: .4rem .8rem;
               width: 65%;
               max-width: 250px;
 
-        } 
+        }
 
         &:hover{
             transform-origin:center;
             transform: skew(-15deg) scale(1.05);
         }
-       
+
     `:`
-        
+
     `}
 
 
@@ -789,7 +826,7 @@ const HamburgerLine = styled.span`
 const TopContainer = styled(motion.nav)`
     position: fixed;
     width: 120vw;
-    height: 70%;
+    height: 82%;
     top: 0;
     right: 0;
     z-index: 49;
@@ -819,9 +856,9 @@ const BottomContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     position: fixed;
-    top: 69.9%;
+    top: 81.9%;
     width: 120vw;
-    height: 30.1%;
+    height: 18.1%;
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
@@ -898,6 +935,74 @@ const IconWrap = styled.a`
 
 
 
+
+const ProfileSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25));
+    -webkit-filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25));
+    margin-top: calc(48px);
+    margin-bottom: 1rem;
+
+    @media screen and (max-height: 600px){
+        margin-top: calc(48px);
+        margin-bottom: .5rem;
+    }
+`
+
+const HexPhotoWrap = styled.div`
+    width: 106px;
+    height: 122px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background-color: ${props =>props.currentBuild === 3 ? props.theme[props.currentBuild].mainNav : props.currentBuild === 0 ? props.theme[props.currentBuild].mainNav : props.theme[props.currentBuild].btn};
+    transition: background-color ${props => props.theme.transitionStyleTop};
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+
+    @media screen and (max-height: 600px){
+        width: 83px;
+        height: 96px;
+    }
+`
+
+const HexPhotoInner = styled.div`
+    width: 100px;
+    height: 116px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    overflow: hidden;
+
+    @media screen and (max-height: 600px){
+        width: 77px;
+        height: 90px;
+    }
+`
+
+const HexPhoto = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: ${props => props.portraitid === 1 ? 'center 20%' : 'center 15%'};
+    transform: ${props => props.portraitid === 2 ? 'scale(3.3) translate(3%, 3%)' : 'scale(1.6) translateY(5%)'};
+`
+
+const ProfileName = styled.h2`
+    color: ${props =>props.currentBuild === 0 ? props.theme[props.currentBuild].btn : props.theme[props.currentBuild].accent};
+    transition: color ${props => props.theme.transitionStyleTop};
+    font-size: 1.2rem;
+    margin-top: .5rem;
+`
+
+const ProfileSubtitle = styled.h2`
+    font-size: .5rem;
+    text-transform: uppercase;
+      color: ${props =>props.currentBuild === 0 ? props.theme[props.currentBuild].btn : props.theme[props.currentBuild].accent};
+    transition: color ${props => props.theme.transitionStyleTop};
+    margin-top: .5rem;
+`
 
 // const Metal = styled.div`
 //     position: absolute;
