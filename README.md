@@ -7,10 +7,19 @@
 </h1>
 
 <p align="center">
-  A portfolio of work built with <a href="https://reactjs.org" target="_blank">React</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>. (<a href="https://reysanchez.dev" target="_blank">reysanchez.dev</a>)
+  A portfolio of work built with <a href="https://react.dev" target="_blank">React 18</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>. (<a href="https://reysanchez.dev" target="_blank">reysanchez.dev</a>)
 </p>
 
 ![App Screenshot](https://www.reysanchez.dev/assets/share.png)
+
+## Tech Stack
+
+- **React** 18.2
+- **Styled Components** 5.3
+- **Framer Motion** 7.6
+- **Three.js** / React Three Fiber
+- **Swiper** 12
+- **Node** >= 18
 
 ## Installation
 
