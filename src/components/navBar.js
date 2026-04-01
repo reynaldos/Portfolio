@@ -385,12 +385,12 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
 
           <TopContainer
                 currentbuild={currentBuild}
+                isLinktree={isLinktree}
                 animate={navStatus}
                 variants={topVariants}
                 transition={isLinktree && navStatus === 'open' ? { duration: 0 } : { duration: navTransitonTime }}
                 >
-            {/* <Metal/> */}
-
+           {isLinktree && <Metal/>}
             <TopWrap style={{marginTop: !isLinktree ? '124px' : '0'}}>
                 {/* profile hex photo - only in linktree mode */}
                 {isLinktree && (
@@ -398,6 +398,7 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
                             animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                            whileTap={{ scale: 0.9 }}
                             transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
                             <HexGlow currentBuild={currentBuild}>
                                 <HexPhotoWrap currentBuild={currentBuild}>
@@ -494,10 +495,10 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
                 )}
 
 
-                <AccentBtnWrap nav={'true'} status={navStatus}>
+                <AccentBtnWrap nav={'true'} status={isLinktree ? 'default' : navStatus} linktree={isLinktree ? 'true' : undefined}>
                     <AccentButton
                         text={`Build-0${currentBuild}`}
-                        currentBuild={currentBuild} 
+                        currentBuild={currentBuild}
                         onClick={onClick}
                     />
                 </AccentBtnWrap>
@@ -505,13 +506,14 @@ export const NavBar = ({currentBuild,onClick,showElements,isLinktree}) => {
         </TopContainer>
 
         <BottomContainer
+            isLinktree={isLinktree}
             currentbuild={currentBuild}
             animate={navStatus}
             variants={bottonvVariants}
             transition={isLinktree && navStatus === 'open' ? { duration: 0 } : { duration: navTransitonTime }}
             >
             
-            {/* <Metal/> */}
+         {isLinktree && <Metal/>}
 
             <BottomWrap>
                 <EmailWrap
@@ -783,7 +785,7 @@ const AccentBtnWrap = styled(motion.div)`
      `:``}
 
     ${props => props.nav === 'true'? `
-        
+
         position: absolute;
         top: auto;
         bottom: 0;
@@ -792,6 +794,15 @@ const AccentBtnWrap = styled(motion.div)`
         position:fixed;
         top: calc(1rem + 64px);
     `}
+
+    ${props => props.linktree === 'true' ? `
+        animation: accentPulse 2.5s ease-in-out 1.5s infinite;
+
+        @keyframes accentPulse {
+            0%, 100% { filter: drop-shadow(0px 0px 0px transparent); }
+            50% { filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.3)); }
+        }
+    ` : ''}
 `
 
 
@@ -932,7 +943,7 @@ const HamburgerLine = styled.span`
 const TopContainer = styled(motion.nav)`
     position: fixed;
     width: 120vw;
-    height: 82%;
+    height: ${props => (props.isLinktree ? '75%' : '82%')};
     top: 0;
     right: 0;
     z-index: 49;
@@ -962,9 +973,9 @@ const BottomContainer = styled(motion.nav)`
     clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     -webkit-clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
     position: fixed;
-    top: 81.9%;
+    top: ${props => (props.isLinktree ? '74.5%' : '81.9%')};
     width: 120vw;
-    height: 18.1%;
+    height: ${props => (props.isLinktree ? '25.5%' : '18.1%')};
     z-index: 50;
     /* outline: 2px solid black; */
     transition: background-color ${props => props.theme.transitionStyleBottom};
@@ -1199,16 +1210,16 @@ const ContactModalClose = styled.button`
     }
 `
 
-// const Metal = styled.div`
-//     position: absolute;
-//     width: 120vw;
-//     height: 100vh;
-//     /* left: 8%; */
-//     background-image: url('./assets/metal.jpg');
-//     background-repeat: repeat-x;
-//     background-position: center; 
-//     background-size: auto 100vh ;
-//     /* z-index: 49; */
-//     opacity: .1;
-//     background-color: transparent;
-// `
+const Metal = styled.div`
+    position: absolute;
+    width: 120vw;
+    height: 100vh;
+    /* left: 8%; */
+    background-image: url('./assets/metal.jpg');
+    background-repeat: repeat-x;
+    background-position: center; 
+    background-size: auto 100vh ;
+    /* z-index: 49; */
+    opacity: .1;
+    background-color: transparent;
+`
