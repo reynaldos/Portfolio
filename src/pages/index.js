@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
-import {useBuildTheme,useBuildUpdate} from '../ThemeContext';
+import {useBuildTheme,useBuildUpdate, BuildStyles} from '../ThemeContext';
 import { NavBar } from '../components/navBar';
 import {SideRails} from '../components/siderails';
 import { Landing } from '../components/landing';
@@ -59,6 +59,9 @@ export const Home = () => {
         
         window.removeEventListener("load", finishLoading);
         enableBodyScroll();
+        const color = BuildStyles[currentBuild].mainNav;
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        document.body.style.backgroundColor = color;
         setFade(true);
       
         setTimeout(() => {
