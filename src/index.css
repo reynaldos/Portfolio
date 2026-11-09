@@ -3,6 +3,7 @@
 html, body {
   height: auto;
   background-color: #000000;
+  overscroll-behavior: none;
 }
 
 * {
@@ -13,7 +14,6 @@ html, body {
   /* font-weight: normal; */
   /* outline: .5px rgb(255, 0, 0) solid; */
   /* box-sizing: ; */
-  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
